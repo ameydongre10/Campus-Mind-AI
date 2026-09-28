@@ -22,7 +22,7 @@ Built entirely with **Vanilla Web Technologies** (HTML, CSS, JS) without heavy f
 ---
 
 
-Website: https://ameydongre10.github.io/ERP-PROJECT/
+Website:
 
 ## ✨ Key Features
 
