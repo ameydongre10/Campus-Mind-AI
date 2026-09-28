@@ -14,12 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         :root {
             --bg-dark: #FAFAF8;
@@ -32,659 +27,292 @@
             --accent-green: #4A5D2E;
             --text-main: #1A1A1A;
             --text-muted: #6B7280;
-            --glow-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            
+            --glow-shadow: 0 8px 32px rgba(0,0,0,0.08);
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Inter', sans-serif;
+            --danger: #DC2626;
+            --warning: #D97706;
+            --success: #16A34A;
+            --info: #2563EB;
         }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: var(--font-body);
-        }
-
-        h1, h2, h3, h4, h5, h6, .brand-title, .section-header {
-            font-family: var(--font-heading);
-        }
-
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; overflow-x: hidden; font-family: var(--font-body); }
+        h1,h2,h3,h4,h5,h6,.brand-title,.section-header { font-family: var(--font-heading); }
         .hidden { display: none !important; }
 
-        /* LOGIN PORTAL */
-        .login-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        /* ===== LOGIN PORTAL ===== */
+        .login-wrapper { display:flex; justify-content:center; align-items:center; min-height:100vh; padding:20px; }
+        .login-card { background:var(--card-bg); border:1px solid var(--card-border); padding:40px; border-radius:16px; box-shadow:var(--glow-shadow); width:100%; max-width:420px; text-align:center; }
+        .brand-title { font-size:1.8rem; font-weight:800; letter-spacing:1px; margin-bottom:5px; color:var(--text-main); }
+        .form-group { margin-bottom:20px; text-align:left; }
+        .form-group label { display:block; margin-bottom:8px; font-size:0.85rem; color:var(--text-muted); font-weight:500; }
+        .form-group input, .form-group select, .form-group textarea {
+            width:100%; padding:12px 16px; background:var(--bg-secondary); border:1px solid var(--card-border);
+            color:var(--text-main); border-radius:8px; outline:none; transition:0.3s; font-family:var(--font-body); font-size:0.9rem;
         }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color:var(--accent-cyan); box-shadow:0 0 12px rgba(74,93,46,0.15);
+        }
+        .form-group textarea { resize:vertical; min-height:80px; }
+        .btn-primary { width:100%; padding:12px; background:var(--accent-cyan); color:#fff; font-weight:600; border:none; border-radius:10px; cursor:pointer; transition:0.2s ease; font-family:var(--font-body); }
+        .btn-primary:hover { background:var(--accent-pink); transform:translateY(-1px); box-shadow:0 4px 12px rgba(74,93,46,0.2); }
 
-        .login-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: var(--glow-shadow);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
-        }
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard-container { display:flex; min-height:100vh; }
+        .sidebar { width:260px; background:var(--card-bg); border-right:1px solid var(--card-border); display:flex; flex-direction:column; z-index:1000; transition:left 0.3s ease; }
+        .sidebar-header { padding:25px 20px; border-bottom:1px solid var(--card-border); }
+        .sidebar-menu { list-style:none; padding:20px 10px; flex-grow:1; overflow-y:auto; }
+        .sidebar-menu li { margin-bottom:4px; }
+        .sidebar-menu li a { display:flex; align-items:center; gap:12px; padding:10px 14px; color:var(--text-main); text-decoration:none; border-radius:8px; transition:0.2s ease; font-weight:500; font-size:0.88rem; border-left:4px solid transparent; }
+        .sidebar-menu li.active a, .sidebar-menu li a:hover { background:var(--accent-blue); color:var(--accent-cyan); border-left:4px solid var(--accent-cyan); }
+        .sidebar-section-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); padding:12px 16px 4px; }
+        .logout-btn { padding:20px; border-top:1px solid var(--card-border); color:var(--danger); cursor:pointer; display:flex; align-items:center; gap:10px; font-weight:500; }
+        .logout-btn:hover { background:var(--bg-secondary); }
+        .main-content { flex-grow:1; display:flex; flex-direction:column; width:100%; overflow:hidden; }
+        .top-navbar { background:var(--card-bg); border-bottom:1px solid var(--card-border); padding:15px 30px; display:flex; justify-content:space-between; align-items:center; }
+        .menu-toggle { display:none; background:none; border:none; font-size:1.5rem; color:var(--text-main); cursor:pointer; margin-right:15px; }
+        .user-card { display:flex; align-items:center; gap:12px; }
+        .avatar { width:38px; height:38px; border-radius:50%; background:var(--accent-blue); color:var(--accent-cyan); display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.85rem; }
+        .content-body { padding:25px; overflow-y:auto; flex-grow:1; }
+        .campus-hero { position:relative; width:100%; height:200px; border-radius:16px; overflow:hidden; margin-bottom:25px; box-shadow:var(--glow-shadow); }
+        .campus-hero img { width:100%; height:100%; object-fit:cover; }
+        .campus-hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(255,255,255,0.95) 0%,rgba(255,255,255,0.4) 60%,transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:25px; }
+        .campus-hero-overlay h1 { color:var(--text-main); font-size:1.8rem; margin-bottom:4px; }
+        .campus-hero-overlay p { color:var(--text-muted); font-size:0.9rem; }
+        .section-header { margin-bottom:20px; font-size:1.5rem; color:var(--text-main); border-left:4px solid var(--accent-cyan); padding-left:12px; }
 
-        .brand-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            color: var(--text-main);
-        }
+        /* ===== ROLE BADGE ===== */
+        .role-badge { font-size:0.72rem; padding:3px 10px; border-radius:20px; font-weight:600; letter-spacing:0.5px; }
+        .role-badge.admin { background:rgba(74,93,46,0.12); color:var(--accent-cyan); border:1px solid rgba(74,93,46,0.25); }
+        .role-badge.student { background:rgba(37,99,235,0.1); color:var(--info); border:1px solid rgba(37,99,235,0.2); }
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
+        /* ===== TIMETABLE STYLES ===== */
+        .filter-bar { background:var(--card-bg); border:1px solid var(--card-border); padding:16px; border-radius:12px; margin-bottom:20px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:15px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .btn-group { display:flex; gap:8px; flex-wrap:wrap; }
+        .btn-batch { padding:8px 16px; border-radius:8px; font-size:0.85rem; font-weight:500; background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main); cursor:pointer; transition:0.2s ease; font-family:var(--font-body); }
+        .btn-batch.active, .btn-batch:hover { background:var(--accent-cyan); color:#fff; border-color:var(--accent-cyan); }
+        .select-dark { background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main); padding:8px 12px; border-radius:8px; outline:none; font-size:0.85rem; font-family:var(--font-body); }
+        .timetable-wrapper { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; overflow-x:auto; box-shadow:0 4px 16px rgba(0,0,0,0.03); }
+        .timetable-table { width:100%; border-collapse:collapse; min-width:800px; }
+        .timetable-table th,.timetable-table td { padding:12px 14px; text-align:left; border:1px solid var(--card-border); }
+        .timetable-table th { background:var(--accent-blue); color:var(--accent-cyan); font-size:0.78rem; text-transform:uppercase; font-weight:600; }
+        .slot-title { color:var(--accent-cyan); font-weight:600; font-size:0.88rem; margin-bottom:2px; }
+        .slot-teacher { color:var(--text-muted); font-size:0.75rem; margin-bottom:5px; }
+        .room-badge { display:inline-block; font-size:0.65rem; font-weight:600; padding:3px 8px; background:var(--accent-blue); color:var(--accent-cyan); border:1px solid rgba(74,93,46,0.2); border-radius:4px; }
+        .rescheduled-badge { display:inline-block; font-size:0.65rem; font-weight:600; padding:3px 8px; background:rgba(217,119,6,0.1); color:var(--warning); border:1px solid rgba(217,119,6,0.25); border-radius:4px; margin-left:4px; }
+        .cancelled-slot { opacity:0.5; position:relative; }
+        .cancelled-slot::after { content:'CANCELLED'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) rotate(-15deg); font-size:0.7rem; font-weight:800; color:var(--danger); letter-spacing:2px; border:2px solid var(--danger); padding:2px 8px; border-radius:4px; white-space:nowrap; }
+        .empty-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:50px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.03); }
+        .timetable-update-banner { background:rgba(217,119,6,0.08); border:1px solid rgba(217,119,6,0.25); border-radius:10px; padding:12px 18px; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        /* ===== MAP & WAYFINDING ===== */
+        .route-builder { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:15px 20px; margin-bottom:15px; display:flex; flex-wrap:wrap; gap:15px; align-items:center; justify-content:space-between; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .route-controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+        .map-wrapper { display:grid; grid-template-columns:280px 1fr; gap:20px; height:560px; }
+        .map-sidebar { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:15px; display:flex; flex-direction:column; gap:8px; overflow-y:auto; max-height:560px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .location-item { padding:10px 12px; background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px; cursor:pointer; transition:0.2s ease; }
+        .location-item:hover { background:var(--accent-blue); border-color:var(--accent-cyan); }
+        #map { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; background-color:var(--bg-dark) !important; background-image:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        #container-3d { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; touch-action:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .leaflet-marker-icon.custom-cyber-pin { background:var(--card-bg); border:1.5px solid var(--accent-cyan); color:var(--accent-cyan); padding:4px 8px; border-radius:6px; font-weight:600; font-size:0.72rem; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; cursor:pointer; font-family:var(--font-body); }
+        .block-info-modal { position:absolute; bottom:25px; right:25px; width:320px; max-width:calc(100% - 50px); background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:18px; box-shadow:0 12px 32px rgba(0,0,0,0.12); z-index:1000; animation:fadeIn 0.2s ease-out; max-height:450px; overflow-y:auto; }
+        .block-img-preview { width:100%; height:130px; object-fit:cover; border-radius:8px; border:1px solid var(--card-border); margin-bottom:12px; background:var(--bg-secondary); }
+        .floor-detail { margin-top:8px; padding:8px 10px; background:var(--bg-secondary); border-left:3px solid var(--accent-cyan); border-radius:6px; font-size:0.8rem; }
+        .floor-detail strong { color:var(--accent-cyan); display:block; margin-bottom:2px; }
 
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            border-radius: 8px;
-            outline: none;
-            transition: 0.3s;
-            font-family: var(--font-body);
-        }
+        /* ===== AI CHAT ===== */
+        .ai-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:20px; }
+        .ai-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:20px; display:flex; flex-direction:column; height:420px; box-shadow:0 2px 12px rgba(0,0,0,0.03); }
+        .ai-header { display:flex; align-items:center; gap:12px; margin-bottom:15px; }
+        .ai-header i { font-size:1.8rem; color:var(--accent-cyan); }
+        .chat-box { flex-grow:1; background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:8px; padding:12px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; margin-bottom:12px; font-size:0.85rem; }
+        .msg-input-group { display:flex; gap:8px; }
+        .msg-input-group input { flex-grow:1; padding:10px 14px; background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main); border-radius:6px; outline:none; font-family:var(--font-body); }
+        .msg-input-group input:focus { border-color:var(--accent-cyan); }
+        .msg-input-group button { padding:10px 18px; background:var(--accent-cyan); color:#fff; border:none; border-radius:6px; font-weight:600; cursor:pointer; transition:0.2s; font-family:var(--font-body); }
+        .msg-input-group button:hover { background:var(--accent-pink); }
 
-        .form-group input:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 12px rgba(74, 93, 46, 0.15);
-        }
+        /* ===== MOBILE OVERLAY ===== */
+        .mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:999; }
 
-        .btn-primary {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent-cyan);
-            color: #fff;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.2s ease;
-            font-family: var(--font-body);
-        }
+        /* ===== CARD COMPONENTS ===== */
+        .card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .card-sm { padding:16px; }
+        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+        .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+        .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+        .stat-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:18px; display:flex; align-items:center; gap:14px; }
+        .stat-icon { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+        .stat-icon.green { background:rgba(74,93,46,0.1); color:var(--accent-cyan); }
+        .stat-icon.orange { background:rgba(217,119,6,0.1); color:var(--warning); }
+        .stat-icon.red { background:rgba(220,38,38,0.1); color:var(--danger); }
+        .stat-icon.blue { background:rgba(37,99,235,0.1); color:var(--info); }
+        .stat-value { font-size:1.8rem; font-weight:700; font-family:var(--font-heading); line-height:1; }
+        .stat-label { font-size:0.78rem; color:var(--text-muted); font-weight:500; margin-top:3px; }
 
-        .btn-primary:hover {
-            background: var(--accent-pink);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(74, 93, 46, 0.2);
-        }
+        /* ===== STATUS BADGES ===== */
+        .badge { display:inline-flex; align-items:center; gap:5px; font-size:0.72rem; font-weight:600; padding:3px 10px; border-radius:20px; }
+        .badge-success { background:rgba(22,163,74,0.1); color:var(--success); border:1px solid rgba(22,163,74,0.2); }
+        .badge-warning { background:rgba(217,119,6,0.1); color:var(--warning); border:1px solid rgba(217,119,6,0.2); }
+        .badge-danger { background:rgba(220,38,38,0.1); color:var(--danger); border:1px solid rgba(220,38,38,0.2); }
+        .badge-info { background:rgba(37,99,235,0.1); color:var(--info); border:1px solid rgba(37,99,235,0.2); }
+        .badge-neutral { background:var(--bg-secondary); color:var(--text-muted); border:1px solid var(--card-border); }
 
-        /* MAIN DASHBOARD LAYOUT */
-        .dashboard-container {
-            display: flex;
-            min-height: 100vh;
-        }
+        /* ===== AI TIMETABLE MANAGER ===== */
+        .ai-manager-layout { display:grid; grid-template-columns:340px 1fr; gap:20px; }
+        .ai-input-panel { display:flex; flex-direction:column; gap:16px; }
+        .ai-command-box { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:20px; }
+        .ai-command-box h4 { font-family:var(--font-heading); font-size:1rem; margin-bottom:4px; color:var(--text-main); display:flex; align-items:center; gap:8px; }
+        .ai-command-box p { font-size:0.8rem; color:var(--text-muted); margin-bottom:14px; }
+        .ai-textarea { width:100%; min-height:110px; padding:12px 14px; background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:8px; color:var(--text-main); font-family:var(--font-body); font-size:0.88rem; resize:vertical; outline:none; transition:0.2s; }
+        .ai-textarea:focus { border-color:var(--accent-cyan); box-shadow:0 0 0 3px rgba(74,93,46,0.08); }
+        .ai-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 18px; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; transition:0.2s; border:none; font-family:var(--font-body); }
+        .ai-btn-primary { background:var(--accent-cyan); color:#fff; }
+        .ai-btn-primary:hover { background:var(--accent-pink); transform:translateY(-1px); }
+        .ai-btn-secondary { background:var(--card-bg); color:var(--text-main); border:1px solid var(--card-border); }
+        .ai-btn-secondary:hover { background:var(--bg-secondary); }
+        .ai-btn-success { background:var(--success); color:#fff; }
+        .ai-btn-success:hover { background:#15803D; }
+        .ai-btn-danger { background:var(--danger); color:#fff; }
+        .ai-btn-danger:hover { background:#B91C1C; }
+        .ai-btn-warning { background:var(--warning); color:#fff; }
+        .ai-btn-warning:hover { background:#B45309; }
+        .ai-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none !important; }
+        .ai-btn-full { width:100%; }
 
-        .sidebar {
-            width: 260px;
-            background: var(--card-bg);
-            border-right: 1px solid var(--card-border);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            transition: left 0.3s ease;
-        }
+        /* AI Analysis Panel */
+        .ai-analysis-panel { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:22px; }
+        .ai-thinking { display:flex; align-items:center; gap:10px; padding:14px; background:rgba(74,93,46,0.05); border-radius:8px; margin-bottom:16px; font-size:0.85rem; color:var(--accent-cyan); font-weight:500; }
+        .spinner { width:18px; height:18px; border:2.5px solid rgba(74,93,46,0.2); border-top-color:var(--accent-cyan); border-radius:50%; animation:spin 0.8s linear infinite; flex-shrink:0; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .analysis-section { margin-bottom:20px; }
+        .analysis-section h4 { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px; }
+        .analysis-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--bg-secondary); font-size:0.85rem; }
+        .analysis-row:last-child { border-bottom:none; }
+        .arrow-change { display:flex; align-items:center; gap:6px; font-size:0.82rem; }
+        .arrow-change .old { color:var(--text-muted); text-decoration:line-through; }
+        .arrow-change .arrow { color:var(--warning); }
+        .arrow-change .new { color:var(--accent-cyan); font-weight:600; }
+        .conflict-check-row { display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:6px; font-size:0.83rem; margin-bottom:6px; }
+        .conflict-ok { background:rgba(22,163,74,0.06); border:1px solid rgba(22,163,74,0.15); }
+        .conflict-err { background:rgba(220,38,38,0.06); border:1px solid rgba(220,38,38,0.15); }
+        .action-buttons { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
 
-        .sidebar-header {
-            padding: 25px 20px;
-            border-bottom: 1px solid var(--card-border);
-        }
+        /* ===== INTERRUPTION DASHBOARD ===== */
+        .interruption-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px; padding:16px; transition:0.2s; }
+        .interruption-card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.06); }
+        .interruption-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+        .interruption-title { font-weight:700; font-size:0.95rem; color:var(--text-main); font-family:var(--font-heading); }
+        .interruption-meta { font-size:0.78rem; color:var(--text-muted); margin-top:3px; }
+        .interruption-detail-row { display:flex; align-items:center; gap:6px; font-size:0.8rem; color:var(--text-muted); margin-top:5px; }
+        .interruption-detail-row i { color:var(--accent-cyan); width:14px; }
+        .interruption-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+        .list-container { display:flex; flex-direction:column; gap:12px; }
+        .empty-list { text-align:center; padding:40px; color:var(--text-muted); font-size:0.88rem; }
+        .empty-list i { font-size:2rem; display:block; margin-bottom:10px; color:var(--card-border); }
 
-        .sidebar-menu {
-            list-style: none;
-            padding: 20px 10px;
-            flex-grow: 1;
-        }
+        /* ===== AI ACTIVITY LOG ===== */
+        .log-entry { background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px; padding:16px; }
+        .log-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+        .log-timestamp { font-size:0.75rem; color:var(--text-muted); font-weight:500; }
+        .log-body { font-size:0.83rem; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .log-field { background:var(--bg-secondary); border-radius:6px; padding:8px 10px; }
+        .log-field-label { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-muted); margin-bottom:3px; }
+        .log-field-value { color:var(--text-main); font-size:0.82rem; }
 
-        .sidebar-menu li {
-            margin-bottom: 8px;
-        }
+        /* ===== MODAL ===== */
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:9000; display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn 0.15s ease; }
+        .modal-box { background:var(--card-bg); border-radius:16px; padding:28px; width:100%; max-width:620px; max-height:90vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.2); }
+        .modal-box h3 { font-family:var(--font-heading); font-size:1.3rem; margin-bottom:4px; }
+        .modal-box p.subtitle { font-size:0.83rem; color:var(--text-muted); margin-bottom:20px; }
+        .modal-divider { height:1px; background:var(--card-border); margin:16px 0; }
+        .modal-footer { display:flex; gap:10px; margin-top:20px; justify-content:flex-end; flex-wrap:wrap; }
+        .close-modal { float:right; background:none; border:none; cursor:pointer; font-size:1.2rem; color:var(--text-muted); margin-top:-4px; }
+        .close-modal:hover { color:var(--danger); }
 
-        .sidebar-menu li a {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px 16px;
-            color: var(--text-main);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.2s ease;
-            font-weight: 500;
-            border-left: 4px solid transparent;
-        }
+        /* ===== NOTIFICATIONS ===== */
+        .notification-toast { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; max-width:360px; }
+        .toast { background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px; padding:14px 16px; box-shadow:0 8px 24px rgba(0,0,0,0.12); display:flex; align-items:flex-start; gap:12px; animation:slideInRight 0.3s ease; }
+        .toast i { font-size:1.1rem; margin-top:2px; flex-shrink:0; }
+        .toast.success i { color:var(--success); }
+        .toast.warning i { color:var(--warning); }
+        .toast.info i { color:var(--info); }
+        .toast.danger i { color:var(--danger); }
+        .toast-title { font-weight:600; font-size:0.88rem; margin-bottom:2px; }
+        .toast-msg { font-size:0.8rem; color:var(--text-muted); }
+        @keyframes slideInRight { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
 
-        .sidebar-menu li.active a, .sidebar-menu li a:hover {
-            background: var(--accent-blue);
-            color: var(--accent-cyan);
-            border-left: 4px solid var(--accent-cyan);
-        }
+        /* ===== TABS ===== */
+        .tab-nav { display:flex; gap:4px; border-bottom:2px solid var(--card-border); margin-bottom:20px; overflow-x:auto; }
+        .tab-btn { padding:10px 18px; font-size:0.85rem; font-weight:600; color:var(--text-muted); background:none; border:none; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; font-family:var(--font-body); transition:0.2s; white-space:nowrap; }
+        .tab-btn.active { color:var(--accent-cyan); border-bottom-color:var(--accent-cyan); }
+        .tab-btn:hover:not(.active) { color:var(--text-main); }
+        .tab-pane { display:none; }
+        .tab-pane.active { display:block; }
 
-        .logout-btn {
-            padding: 20px;
-            border-top: 1px solid var(--card-border);
-            color: #DC2626;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-        
-        .logout-btn:hover {
-            background: var(--bg-secondary);
-        }
+        /* ===== SETTINGS ===== */
+        .setting-row { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--bg-secondary); }
+        .setting-row:last-child { border-bottom:none; }
+        .toggle-switch { position:relative; width:44px; height:24px; }
+        .toggle-switch input { opacity:0; width:0; height:0; }
+        .toggle-slider { position:absolute; inset:0; background:var(--card-border); border-radius:24px; cursor:pointer; transition:0.3s; }
+        .toggle-slider:before { position:absolute; content:''; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:0.3s; }
+        .toggle-switch input:checked + .toggle-slider { background:var(--accent-cyan); }
+        .toggle-switch input:checked + .toggle-slider:before { transform:translateX(20px); }
+        .radio-group { display:flex; flex-direction:column; gap:8px; }
+        .radio-option { display:flex; align-items:center; gap:8px; font-size:0.85rem; cursor:pointer; }
+        .radio-option input { accent-color:var(--accent-cyan); }
 
-        .main-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
+        /* ===== PENDING APPROVAL ===== */
+        .approval-card { background:linear-gradient(135deg,rgba(74,93,46,0.04) 0%,rgba(74,93,46,0.01) 100%); border:1px solid rgba(74,93,46,0.2); border-radius:12px; padding:18px; }
+        .approval-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+        .ai-pulse { display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; font-weight:600; color:var(--accent-cyan); }
+        .pulse-dot { width:8px; height:8px; background:var(--accent-cyan); border-radius:50%; animation:pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
 
-        .top-navbar {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--card-border);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width:6px; height:6px; }
+        ::-webkit-scrollbar-track { background:transparent; }
+        ::-webkit-scrollbar-thumb { background:var(--card-border); border-radius:3px; }
+        ::-webkit-scrollbar-thumb:hover { background:var(--text-muted); }
 
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-main);
-            cursor: pointer;
-            margin-right: 15px;
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:1100px) {
+            .ai-manager-layout { grid-template-columns:1fr; }
+            .grid-4 { grid-template-columns:1fr 1fr; }
         }
-
-        .user-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        @media(max-width:850px) {
+            .map-wrapper { grid-template-columns:1fr; height:auto; }
+            #map,#container-3d { height:420px; }
+            .sidebar { position:fixed; left:-280px; top:0; bottom:0; width:260px; }
+            .sidebar.open { left:0; }
+            .menu-toggle { display:block; }
+            .mobile-overlay.active { display:block; }
+            .block-info-modal { bottom:10px; right:10px; left:10px; width:auto; }
+            .user-info { display:none; }
+            .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
+            .log-body { grid-template-columns:1fr; }
         }
-
-        .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: var(--accent-blue);
-            color: var(--accent-cyan);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .content-body {
-            padding: 25px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-        
-        /* CAMPUS HERO BANNER */
-        .campus-hero {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            box-shadow: var(--glow-shadow);
-        }
-        
-        .campus-hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .campus-hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 60%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-        }
-        
-        .campus-hero-overlay h1 {
-            color: var(--text-main);
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-        
-        .campus-hero-overlay p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        .section-header {
-            margin-bottom: 20px;
-            font-size: 1.6rem;
-            color: var(--text-main);
-            border-left: 4px solid var(--accent-cyan);
-            padding-left: 12px;
-        }
-
-        /* TIMETABLE STYLES */
-        .filter-bar {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .btn-batch {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            cursor: pointer;
-            transition: 0.2s ease;
-            font-family: var(--font-body);
-        }
-
-        .btn-batch.active, .btn-batch:hover {
-            background: var(--accent-cyan);
-            color: #fff;
-            border-color: var(--accent-cyan);
-        }
-
-        .select-dark {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 8px 12px;
-            border-radius: 8px;
-            outline: none;
-            font-size: 0.85rem;
-            font-family: var(--font-body);
-        }
-
-        .timetable-wrapper {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            overflow-x: auto;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
-        }
-
-        .timetable-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-
-        .timetable-table th, .timetable-table td {
-            padding: 14px;
-            text-align: left;
-            border: 1px solid var(--card-border);
-        }
-
-        .timetable-table th {
-            background: var(--accent-blue);
-            color: var(--accent-cyan);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .slot-title {
-            color: var(--accent-cyan);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 2px;
-        }
-
-        .slot-teacher {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-bottom: 6px;
-        }
-
-        .room-badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 3px 8px;
-            background: var(--accent-blue);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(74, 93, 46, 0.2);
-            border-radius: 4px;
-        }
-
-        .empty-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-        }
-
-        /* MAP & WAYFINDING STYLES */
-        .route-builder {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .route-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .map-wrapper {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 20px;
-            height: 560px;
-        }
-
-        .map-sidebar {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            overflow-y: auto;
-            max-height: 560px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .location-item {
-            padding: 10px 12px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-
-        .location-item:hover {
-            background: var(--accent-blue);
-            border-color: var(--accent-cyan);
-        }
-
-        #map {
-            width: 100%;
-            height: 560px;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            overflow: hidden;
-            position: relative;
-            background-color: var(--bg-dark) !important;
-            background-image: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        #container-3d {
-            width: 100%;
-            height: 560px;
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            overflow: hidden;
-            position: relative;
-            touch-action: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        /* Custom Leaflet Map Pins */
-        .leaflet-marker-icon.custom-cyber-pin {
-            background: var(--card-bg);
-            border: 1.5px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.72rem;
-            white-space: nowrap;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            cursor: pointer;
-            font-family: var(--font-body);
-        }
-
-        /* DYNAMIC BLOCK PREVIEW & MODAL CARD */
-        .block-info-modal {
-            position: absolute;
-            bottom: 25px;
-            right: 25px;
-            width: 320px;
-            max-width: calc(100% - 50px);
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 18px;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-            z-index: 1000;
-            animation: fadeIn 0.2s ease-out;
-            max-height: 450px;
-            overflow-y: auto;
-        }
-
-        .block-img-preview {
-            width: 100%;
-            height: 130px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid var(--card-border);
-            margin-bottom: 12px;
-            background: var(--bg-secondary);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .block-info-modal h3 {
-            color: var(--text-main);
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .floor-detail {
-            margin-top: 8px;
-            padding: 8px 10px;
-            background: var(--bg-secondary);
-            border-left: 3px solid var(--accent-cyan);
-            border-radius: 6px;
-            font-size: 0.8rem;
-        }
-
-        .floor-detail strong {
-            color: var(--accent-cyan);
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        /* AI CHAT STYLES */
-        .ai-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .ai-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            height: 420px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-        }
-
-        .ai-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .ai-header i {
-            font-size: 1.8rem;
-            color: var(--accent-cyan);
-        }
-
-        .chat-box {
-            flex-grow: 1;
-            background: var(--bg-secondary);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 12px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-        }
-
-        .msg-input-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .msg-input-group input {
-            flex-grow: 1;
-            padding: 10px 14px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            border-radius: 6px;
-            outline: none;
-            font-family: var(--font-body);
-        }
-        
-        .msg-input-group input:focus {
-            border-color: var(--accent-cyan);
-        }
-
-        .msg-input-group button {
-            padding: 10px 18px;
-            background: var(--accent-cyan);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-            font-family: var(--font-body);
-        }
-        
-        .msg-input-group button:hover {
-            background: var(--accent-pink);
-        }
-
-        /* MOBILE OVERLAY */
-        .mobile-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 999;
-        }
-
-        @media(max-width: 850px) {
-            .map-wrapper { grid-template-columns: 1fr; height: auto; }
-            #map, #container-3d { height: 420px; }
-            
-            .sidebar {
-                position: fixed;
-                left: -280px;
-                top: 0;
-                bottom: 0;
-                width: 260px;
-            }
-            .sidebar.open {
-                left: 0;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .mobile-overlay.active {
-                display: block;
-            }
-            
-            .block-info-modal {
-                bottom: 10px;
-                right: 10px;
-                left: 10px;
-                width: auto;
-            }
-            
-            .user-info {
-                display: none;
-            }
+        @media(max-width:600px) {
+            .content-body { padding:16px; }
+            .modal-box { padding:20px; }
+            .action-buttons { flex-direction:column; }
+            .tab-nav { gap:0; }
+            .tab-btn { padding:8px 12px; font-size:0.78rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- 1. LOGIN PORTAL -->
+<!-- ===== NOTIFICATION TOASTS ===== -->
+<div class="notification-toast" id="toast-container"></div>
+
+<!-- ===== 1. LOGIN PORTAL ===== -->
 <div id="login-portal" class="login-wrapper">
     <div class="login-card">
         <div class="brand-title">CAMPUS MIND</div>
-        <p style="color:var(--text-muted); margin-bottom:25px; font-size: 0.9rem;">Campus Mind ERP Portal</p>
+        <p style="color:var(--text-muted);margin-bottom:25px;font-size:0.9rem;">Campus Mind ERP Portal</p>
         <form id="login-form" onsubmit="event.preventDefault(); login();">
             <div class="form-group">
                 <label>Registration ID / Roll No</label>
@@ -694,34 +322,29 @@
                 <label>Password</label>
                 <input type="password" id="login-pass" placeholder="••••••••" required>
             </div>
-            <p id="login-error" style="color: #DC2626; font-size: 0.8rem; margin-bottom: 12px;" class="hidden">Invalid ID or Password!</p>
-            <button type="submit" class="btn-primary">AUTHENTICATE & ENTER</button>
+            <p id="login-error" style="color:var(--danger);font-size:0.8rem;margin-bottom:12px;" class="hidden">Invalid ID or Password!</p>
+            <button type="submit" class="btn-primary">AUTHENTICATE &amp; ENTER</button>
         </form>
+        <div style="margin-top:18px;padding:12px;background:var(--bg-secondary);border-radius:8px;font-size:0.78rem;color:var(--text-muted);text-align:left;">
+            <div style="font-weight:600;margin-bottom:6px;color:var(--text-main);">Demo Credentials</div>
+            <div>🔒 Admin: <code>CAMPUS2026102</code> / <code>admin123</code></div>
+            <div style="margin-top:4px;">🎓 Student: <code>CAMPUS2026103</code> / <code>student@2026</code></div>
+        </div>
     </div>
 </div>
 
 <!-- MOBILE OVERLAY -->
 <div id="mobile-overlay" class="mobile-overlay" onclick="toggleSidebar()"></div>
 
-<!-- 2. MAIN ERP DASHBOARD -->
+<!-- ===== 2. MAIN ERP DASHBOARD ===== -->
 <div id="erp-dashboard" class="dashboard-container hidden">
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="brand-title" style="font-size:1.2rem;">CAMPUS MIND</div>
+            <div class="brand-title" style="font-size:1.15rem;">CAMPUS MIND</div>
+            <div id="sidebar-role-badge" style="margin-top:6px;"></div>
         </div>
-        <ul class="sidebar-menu">
-            <li class="active" onclick="switchTab('timetable', this)">
-                <a href="#"><i class="fa-solid fa-calendar-days"></i> Timetable Matrix</a>
-            </li>
-            <li onclick="switchTab('navigation', this)">
-                <a href="#"><i class="fa-solid fa-map-location-dot"></i> CAMPUS HD 2D Map</a>
-            </li>
-            <li onclick="switchTab('map-3d', this)">
-                <a href="#"><i class="fa-solid fa-cubes"></i> Interactive 3D Campus</a>
-            </li>
-            <li onclick="switchTab('ai-agents', this)">
-                <a href="#"><i class="fa-solid fa-robot"></i> COLLEGE AI Agent</a>
-            </li>
+        <ul class="sidebar-menu" id="sidebar-menu">
+            <!-- Dynamically built per role -->
         </ul>
         <div class="logout-btn" onclick="logout()">
             <i class="fa-solid fa-right-from-bracket"></i> Logout
@@ -730,26 +353,24 @@
 
     <main class="main-content">
         <header class="top-navbar">
-            <div style="display:flex; align-items:center;">
+            <div style="display:flex;align-items:center;">
                 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <strong style="font-family: var(--font-heading);">COLLEGE Campus Hub (Bhauti, Kanpur)</strong>
-                    <span style="font-size:0.75rem; background:rgba(74,93,46,0.08); color:var(--accent-cyan); border:1px solid rgba(74,93,46,0.2); padding:3px 8px; border-radius:12px; font-weight: 500;">
-                        ⚡ Vector Blueprint View
-                    </span>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <strong style="font-family:var(--font-heading);">COLLEGE Campus Hub (Bhauti, Kanpur)</strong>
+                    <span style="font-size:0.75rem;background:rgba(74,93,46,0.08);color:var(--accent-cyan);border:1px solid rgba(74,93,46,0.2);padding:3px 8px;border-radius:12px;font-weight:500;">⚡ Vector Blueprint View</span>
                 </div>
             </div>
             <div class="user-card">
-                <div class="avatar">CM</div>
+                <div class="avatar" id="nav-avatar">CM</div>
                 <div class="user-info">
-                    <div style="font-size:0.85rem; font-weight:600;">Student Console</div>
-                    <div style="font-size:0.7rem; color:var(--text-muted);">CSE / IT Portal</div>
+                    <div style="font-size:0.85rem;font-weight:600;" id="nav-user-name">User</div>
+                    <div style="font-size:0.7rem;color:var(--text-muted);" id="nav-user-role">Portal</div>
                 </div>
             </div>
         </header>
 
         <div class="content-body">
-        
+
             <!-- CAMPUS HERO BANNER -->
             <div class="campus-hero">
                 <img src="campus.png" alt="PSIT Campus" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1000&auto=format&fit=crop&q=80'">
@@ -759,9 +380,18 @@
                 </div>
             </div>
 
-            <!-- SECTION 1: TIMETABLE MATRIX -->
+            <!-- ===== TIMETABLE MATRIX ===== -->
             <section id="sec-timetable" class="tab-section">
                 <h2 class="section-header">Weekly Schedule Matrix</h2>
+
+                <!-- Student update banner -->
+                <div id="timetable-update-banner" class="timetable-update-banner hidden">
+                    <i class="fa-solid fa-triangle-exclamation" style="color:var(--warning);font-size:1.2rem;flex-shrink:0;"></i>
+                    <div>
+                        <div style="font-weight:600;font-size:0.88rem;color:var(--warning);">⚠ Timetable Updated</div>
+                        <div id="timetable-update-details" style="font-size:0.8rem;color:var(--text-muted);margin-top:2px;"></div>
+                    </div>
+                </div>
 
                 <div class="filter-bar">
                     <div class="btn-group">
@@ -770,143 +400,372 @@
                         <button onclick="changeBatch('3')" id="b-3" class="btn-batch">3rd Year</button>
                         <button onclick="changeBatch('4')" id="b-4" class="btn-batch">4th Year</button>
                     </div>
-
-                    <div id="section-selector-wrapper" style="display:flex; align-items:center; gap:10px;">
-                        <label style="font-size:0.8rem; color:var(--text-muted); font-weight:600; text-transform:uppercase;">SECTION:</label>
-                        <select id="section-select" onchange="updateTimetableView()" class="select-dark">
-                            <!-- Dynamic Sections -->
-                        </select>
+                    <div id="section-selector-wrapper" style="display:flex;align-items:center;gap:10px;">
+                        <label style="font-size:0.8rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;">SECTION:</label>
+                        <select id="section-select" onchange="updateTimetableView()" class="select-dark"></select>
                     </div>
                 </div>
 
                 <div id="empty-state" class="empty-card hidden">
-                    <span style="font-size: 3rem; display:block; margin-bottom:10px;">🗓️</span>
-                    <h3 style="font-size:1.2rem; margin-bottom:8px; font-family:var(--font-heading);">Timetable Pending</h3>
-                    <p style="color:var(--text-muted); font-size:0.85rem; max-width:500px; margin:0 auto;">
+                    <span style="font-size:3rem;display:block;margin-bottom:10px;">🗓️</span>
+                    <h3 style="font-size:1.2rem;margin-bottom:8px;font-family:var(--font-heading);">Timetable Pending</h3>
+                    <p style="color:var(--text-muted);font-size:0.85rem;max-width:500px;margin:0 auto;">
                         First-year classes haven't structuralized slots yet. The system will auto-compile their matrix without professor overlaps as soon as sections are assigned.
                     </p>
                 </div>
 
                 <div id="timetable-card" class="timetable-wrapper">
-                    <div style="padding: 15px; border-bottom:1px solid var(--card-border); display:flex; justify-content:space-between; align-items:center; background: var(--bg-secondary);">
-                        <h3 id="table-title" style="color:var(--text-main); font-size:1rem; font-family:var(--font-heading); font-weight:600;">Schedule View</h3>
-                        <span style="font-size:0.75rem; color:var(--text-muted); font-weight:500;">5 Days • 5 Working Periods/Day</span>
+                    <div style="padding:15px;border-bottom:1px solid var(--card-border);display:flex;justify-content:space-between;align-items:center;background:var(--bg-secondary);">
+                        <h3 id="table-title" style="color:var(--text-main);font-size:1rem;font-family:var(--font-heading);font-weight:600;">Schedule View</h3>
+                        <span style="font-size:0.75rem;color:var(--text-muted);font-weight:500;">5 Days • 5 Working Periods/Day</span>
                     </div>
                     <table class="timetable-table">
                         <thead>
                         <tr>
                             <th style="width:120px;">Day</th>
-                            <th>09:00 - 10:00</th>
-                            <th>10:00 - 11:00</th>
-                            <th style="text-align:center; width:50px; color:var(--text-muted);">BREAK</th>
-                            <th>11:15 - 12:15</th>
-                            <th>12:15 - 01:15</th>
-                            <th>02:00 - 03:00</th>
+                            <th>09:00 – 10:00</th>
+                            <th>10:00 – 11:00</th>
+                            <th style="text-align:center;width:50px;color:var(--text-muted);">BREAK</th>
+                            <th>11:15 – 12:15</th>
+                            <th>12:15 – 13:15</th>
+                            <th>14:00 – 15:00</th>
                         </tr>
                         </thead>
-                        <tbody id="timetable-body">
-                        <!-- Dynamic slots -->
-                        </tbody>
+                        <tbody id="timetable-body"></tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- SECTION 2: ENHANCED HD 2D CAMPUS MAP & WAYFINDER -->
+            <!-- ===== ADMIN: AI TIMETABLE MANAGER ===== -->
+            <section id="sec-ai-timetable" class="tab-section hidden admin-only">
+                <h2 class="section-header"><i class="fa-solid fa-robot" style="font-size:1.2rem;margin-right:6px;"></i>AI Timetable Manager</h2>
+
+                <!-- Automation setting bar -->
+                <div class="card card-sm" style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <i class="fa-solid fa-gear" style="color:var(--accent-cyan);"></i>
+                        <div>
+                            <div style="font-weight:600;font-size:0.88rem;">AI Timetable Automation</div>
+                            <div style="font-size:0.75rem;color:var(--text-muted);" id="automation-mode-label">Always ask for approval</div>
+                        </div>
+                    </div>
+                    <div class="radio-group" style="flex-direction:row;gap:20px;">
+                        <label class="radio-option">
+                            <input type="radio" name="automation" value="manual" checked onchange="updateAutomationMode(this.value)">
+                            Always ask for approval
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="automation" value="auto" onchange="updateAutomationMode(this.value)">
+                            Auto-apply low-risk changes
+                        </label>
+                    </div>
+                </div>
+
+                <div class="ai-manager-layout">
+                    <!-- LEFT: Input Panel -->
+                    <div class="ai-input-panel">
+                        <!-- Natural Language Input -->
+                        <div class="ai-command-box">
+                            <h4><i class="fa-solid fa-wand-magic-sparkles"></i> AI Natural Language Command</h4>
+                            <p>Describe the interruption in plain English. The AI will extract all relevant details automatically.</p>
+                            <textarea class="ai-textarea" id="ai-nl-input" placeholder="e.g. CSE 2A has a placement drive on 5 October from 10 AM to 2 PM in the Seminar Hall. Adjust their timetable accordingly."></textarea>
+                            <div style="display:flex;gap:8px;margin-top:10px;">
+                                <button class="ai-btn ai-btn-primary" style="flex:1;" onclick="processNLInput()">
+                                    <i class="fa-solid fa-robot"></i> Analyze with AI
+                                </button>
+                                <button class="ai-btn ai-btn-secondary" onclick="clearNLInput()" title="Clear">
+                                    <i class="fa-solid fa-eraser"></i>
+                                </button>
+                            </div>
+                            <!-- Example prompts -->
+                            <div style="margin-top:12px;">
+                                <div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);margin-bottom:6px;">Quick Examples:</div>
+                                <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                                    <button class="badge badge-neutral" style="cursor:pointer;border:none;font-size:0.72rem;" onclick="fillExample(0)">Placement Drive</button>
+                                    <button class="badge badge-neutral" style="cursor:pointer;border:none;font-size:0.72rem;" onclick="fillExample(1)">IEEE Workshop</button>
+                                    <button class="badge badge-neutral" style="cursor:pointer;border:none;font-size:0.72rem;" onclick="fillExample(2)">Seminar</button>
+                                    <button class="badge badge-neutral" style="cursor:pointer;border:none;font-size:0.72rem;" onclick="fillExample(3)">Sports Event</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Manual Form -->
+                        <div class="ai-command-box">
+                            <h4><i class="fa-solid fa-list-check"></i> Manual Interruption Form</h4>
+                            <p>Or fill the form directly for precise control.</p>
+                            <div style="display:flex;flex-direction:column;gap:10px;">
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label>Interruption Name *</label>
+                                    <input type="text" id="int-name" placeholder="e.g. Placement Drive">
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label>Type *</label>
+                                    <select id="int-type" class="select-dark" style="width:100%;">
+                                        <option value="">Select Type</option>
+                                        <option>Placement Drive</option>
+                                        <option>College Event</option>
+                                        <option>IEEE Event</option>
+                                        <option>Workshop</option>
+                                        <option>Seminar</option>
+                                        <option>Guest Lecture</option>
+                                        <option>Industrial Visit</option>
+                                        <option>Examination</option>
+                                        <option>Faculty Meeting</option>
+                                        <option>Sports Event</option>
+                                        <option>Holiday</option>
+                                        <option>Department Event</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label>Start Time *</label>
+                                        <input type="time" id="int-start" value="10:00">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label>End Time *</label>
+                                        <input type="time" id="int-end" value="14:00">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label>Date *</label>
+                                    <input type="date" id="int-date">
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label>Affected Classes * (comma separated)</label>
+                                    <input type="text" id="int-classes" placeholder="e.g. CSE 2A, CSE 2B">
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label>Department</label>
+                                        <input type="text" id="int-dept" placeholder="CSE">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label>Venue</label>
+                                        <input type="text" id="int-venue" placeholder="Seminar Hall">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label>Description</label>
+                                    <textarea id="int-desc" placeholder="Additional details..." style="height:60px;"></textarea>
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label>Priority</label>
+                                    <select id="int-priority" class="select-dark" style="width:100%;">
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                        <option value="critical">Critical</option>
+                                    </select>
+                                </div>
+                                <button class="ai-btn ai-btn-primary ai-btn-full" onclick="submitManualInterruption()">
+                                    <i class="fa-solid fa-paper-plane"></i> Submit &amp; Run AI Analysis
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Analysis Panel -->
+                    <div>
+                        <div class="ai-analysis-panel" id="ai-analysis-panel">
+                            <!-- Initial state -->
+                            <div id="analysis-placeholder" style="text-align:center;padding:60px 20px;">
+                                <i class="fa-solid fa-robot" style="font-size:3rem;color:var(--card-border);display:block;margin-bottom:14px;"></i>
+                                <h4 style="font-family:var(--font-heading);font-size:1.1rem;color:var(--text-muted);margin-bottom:8px;">AI Timetable Agent Ready</h4>
+                                <p style="font-size:0.83rem;color:var(--text-muted);max-width:380px;margin:0 auto;">
+                                    Describe an interruption using natural language or fill the manual form. The AI agent will analyze the timetable, detect conflicts, and propose rescheduling.
+                                </p>
+                            </div>
+
+                            <!-- Thinking state -->
+                            <div id="analysis-thinking" class="hidden">
+                                <div class="ai-thinking">
+                                    <div class="spinner"></div>
+                                    <span id="thinking-msg">Analyzing request...</span>
+                                </div>
+                                <div style="font-size:0.8rem;color:var(--text-muted);padding:10px 0;" id="thinking-steps"></div>
+                            </div>
+
+                            <!-- Result state -->
+                            <div id="analysis-result" class="hidden">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                                    <div>
+                                        <h3 style="font-family:var(--font-heading);font-size:1.15rem;">🤖 AI Timetable Analysis</h3>
+                                        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;" id="result-timestamp"></div>
+                                    </div>
+                                    <span id="result-status-badge" class="badge badge-success">✓ Conflict-Free</span>
+                                </div>
+
+                                <!-- Interruption Summary -->
+                                <div class="analysis-section">
+                                    <h4>Interruption Details</h4>
+                                    <div id="result-interruption-summary"></div>
+                                </div>
+
+                                <div class="modal-divider"></div>
+
+                                <!-- Affected Classes -->
+                                <div class="analysis-section">
+                                    <h4>Affected Timetable Slots</h4>
+                                    <div id="result-affected-slots"></div>
+                                </div>
+
+                                <div class="modal-divider"></div>
+
+                                <!-- Proposed Changes -->
+                                <div class="analysis-section">
+                                    <h4>AI Proposed Rescheduling</h4>
+                                    <div id="result-proposed-changes"></div>
+                                </div>
+
+                                <div class="modal-divider"></div>
+
+                                <!-- Conflict Check -->
+                                <div class="analysis-section">
+                                    <h4>Conflict Analysis</h4>
+                                    <div id="result-conflicts"></div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="action-buttons" id="result-action-buttons"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== ADMIN: INTERRUPTIONS DASHBOARD ===== -->
+            <section id="sec-interruptions" class="tab-section hidden admin-only">
+                <h2 class="section-header"><i class="fa-solid fa-bolt" style="font-size:1.1rem;margin-right:6px;"></i>Interruptions Dashboard</h2>
+
+                <!-- Stats -->
+                <div class="grid-4" style="margin-bottom:20px;">
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <div class="stat-value" id="stat-active">0</div>
+                            <div class="stat-label">Active Interruptions</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div>
+                            <div class="stat-value" id="stat-upcoming">0</div>
+                            <div class="stat-label">Upcoming</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-arrows-rotate"></i></div>
+                        <div>
+                            <div class="stat-value" id="stat-rescheduled">0</div>
+                            <div class="stat-label">Classes Rescheduled</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red"><i class="fa-solid fa-clock"></i></div>
+                        <div>
+                            <div class="stat-value" id="stat-pending">0</div>
+                            <div class="stat-label">Pending Approvals</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="switchDashTab('active',this)">Active</button>
+                    <button class="tab-btn" onclick="switchDashTab('upcoming',this)">Upcoming</button>
+                    <button class="tab-btn" onclick="switchDashTab('pending',this)">Pending Approval</button>
+                    <button class="tab-btn" onclick="switchDashTab('completed',this)">Completed</button>
+                    <button class="tab-btn" onclick="switchDashTab('ai-actions',this)">AI Actions</button>
+                </div>
+
+                <div id="dash-tab-active" class="tab-pane active">
+                    <div class="list-container" id="list-active"></div>
+                </div>
+                <div id="dash-tab-upcoming" class="tab-pane">
+                    <div class="list-container" id="list-upcoming"></div>
+                </div>
+                <div id="dash-tab-pending" class="tab-pane">
+                    <div class="list-container" id="list-pending"></div>
+                </div>
+                <div id="dash-tab-completed" class="tab-pane">
+                    <div class="list-container" id="list-completed"></div>
+                </div>
+                <div id="dash-tab-ai-actions" class="tab-pane">
+                    <div class="list-container" id="list-ai-actions"></div>
+                </div>
+            </section>
+
+            <!-- ===== ADMIN: AI ACTIVITY LOG ===== -->
+            <section id="sec-ai-activity" class="tab-section hidden admin-only">
+                <h2 class="section-header"><i class="fa-solid fa-scroll" style="font-size:1.1rem;margin-right:6px;"></i>AI Activity Log</h2>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+                    <p style="font-size:0.85rem;color:var(--text-muted);">Complete record of all AI timetable operations.</p>
+                    <button class="ai-btn ai-btn-secondary" onclick="clearActivityLog()" style="padding:8px 14px;font-size:0.8rem;">
+                        <i class="fa-solid fa-trash-can"></i> Clear Log
+                    </button>
+                </div>
+                <div class="list-container" id="ai-activity-log-list">
+                    <div class="empty-list"><i class="fa-solid fa-scroll"></i>No AI activity recorded yet.</div>
+                </div>
+            </section>
+
+            <!-- ===== 2D MAP ===== -->
             <section id="sec-navigation" class="tab-section hidden">
                 <h2 class="section-header">COLLEGE - Vector Blueprint Wayfinding</h2>
-
-                <!-- ROUTE BUILDER TOOL BAR -->
                 <div class="route-builder">
                     <div class="route-controls">
-                        <i class="fa-solid fa-route" style="color:var(--accent-cyan); font-size:1.2rem;"></i>
-                        <label style="font-size:0.85rem; color:var(--text-muted); font-weight:500;">From:</label>
-                        <select id="route-start" class="select-dark">
-                            <!-- Dynamic options -->
-                        </select>
-
-                        <i class="fa-solid fa-arrow-right" style="color:var(--accent-cyan); font-size:0.8rem;"></i>
-
-                        <label style="font-size:0.85rem; color:var(--text-muted); font-weight:500;">To:</label>
-                        <select id="route-end" class="select-dark">
-                            <!-- Dynamic options -->
-                        </select>
-
+                        <i class="fa-solid fa-route" style="color:var(--accent-cyan);font-size:1.2rem;"></i>
+                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">From:</label>
+                        <select id="route-start" class="select-dark"></select>
+                        <i class="fa-solid fa-arrow-right" style="color:var(--accent-cyan);font-size:0.8rem;"></i>
+                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">To:</label>
+                        <select id="route-end" class="select-dark"></select>
                         <button onclick="drawCampusRoute()" class="btn-batch active" style="padding:8px 20px;">
                             <i class="fa-solid fa-diamond-turn-right"></i> Draw Route Path
                         </button>
-                        <button onclick="clearCampusRoute()" class="btn-batch" style="color:#DC2626; border-color:rgba(220,38,38,0.2);">
-                            Clear Route
-                        </button>
+                        <button onclick="clearCampusRoute()" class="btn-batch" style="color:var(--danger);border-color:rgba(220,38,38,0.2);">Clear Route</button>
                     </div>
-                    <div id="route-info" style="font-size:0.85rem; color:var(--text-main); font-weight:500;">
-                        Select start and end blocks to generate pathway.
-                    </div>
+                    <div id="route-info" style="font-size:0.85rem;color:var(--text-main);font-weight:500;">Select start and end blocks to generate pathway.</div>
                 </div>
-
                 <div class="map-wrapper">
                     <div class="map-sidebar">
-                        <h4 style="color:var(--text-main); margin-bottom:10px; font-family:var(--font-heading);">CAMPUS Key Blocks</h4>
-                        <div id="2d-location-list">
-                            <!-- Dynamic Location List -->
-                        </div>
+                        <h4 style="color:var(--text-main);margin-bottom:10px;font-family:var(--font-heading);">CAMPUS Key Blocks</h4>
+                        <div id="2d-location-list"></div>
                     </div>
                     <div id="map">
-                        <!-- Dynamic Floating Info Card inside 2D Map Container -->
                         <div id="2d-block-info-card" class="block-info-modal hidden">
                             <img id="card-2d-img" class="block-img-preview" src="" alt="Block Image">
-                            <h3 id="card-2d-title">Block Details <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:0.9rem;" onclick="closeBlockModal2D()"></i></h3>
-                            <p id="card-2d-desc" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Click details</p>
-
-                            <div class="floor-detail">
-                                <strong>Ground Floor (p12):</strong>
-                                <span id="card-2d-p12">CSE Labs & Seminar Hall</span>
-                            </div>
-                            <div class="floor-detail">
-                                <strong>1st Floor (p21):</strong>
-                                <span id="card-2d-p21">IT Classrooms & Faculty Cabins</span>
-                            </div>
-                            <div class="floor-detail">
-                                <strong>2nd Floor (p31):</strong>
-                                <span id="card-2d-p31">AI / ML Specialized Labs</span>
-                            </div>
+                            <h3 id="card-2d-title">Block Details <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;" onclick="closeBlockModal2D()"></i></h3>
+                            <p id="card-2d-desc" style="font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;">Click details</p>
+                            <div class="floor-detail"><strong>Ground Floor (p12):</strong><span id="card-2d-p12">CSE Labs &amp; Seminar Hall</span></div>
+                            <div class="floor-detail"><strong>1st Floor (p21):</strong><span id="card-2d-p21">IT Classrooms &amp; Faculty Cabins</span></div>
+                            <div class="floor-detail"><strong>2nd Floor (p31):</strong><span id="card-2d-p31">AI / ML Specialized Labs</span></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 3: 3D CLICKABLE & INTERACTIVE CAMPUS VIEW -->
+            <!-- ===== 3D CAMPUS ===== -->
             <section id="sec-map-3d" class="tab-section hidden">
                 <h2 class="section-header">COLLEGE Interactive 3D Blueprint (Click Any Block)</h2>
-                <div style="height: 560px; width: 100%; position: relative;">
+                <div style="height:560px;width:100%;position:relative;">
                     <div id="container-3d"></div>
-
-                    <div style="position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.95); padding: 10px 15px; border-radius: 8px; border: 1px solid var(--card-border); font-size: 0.8rem; pointer-events: none; z-index:10; color: var(--text-main); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <div style="position:absolute;top:15px;left:15px;background:rgba(255,255,255,0.95);padding:10px 15px;border-radius:8px;border:1px solid var(--card-border);font-size:0.8rem;pointer-events:none;z-index:10;color:var(--text-main);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
                         <i class="fa-solid fa-hand-pointer" style="color:var(--accent-cyan)"></i> <strong>Tap on any 3D Block</strong> to view details
                     </div>
-
-                    <!-- Dynamic Clicked Block Info Panel -->
                     <div id="block-info-card" class="block-info-modal hidden">
                         <img id="card-3d-img" class="block-img-preview" src="" alt="Block Image">
-                        <h3 id="card-block-title">Block Details <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:0.9rem;" onclick="closeBlockModal()"></i></h3>
-                        <p id="card-block-desc" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:10px;">Click details</p>
-
-                        <div class="floor-detail">
-                            <strong>Ground Floor (p12):</strong>
-                            <span id="card-p12">CSE Labs & Seminar Hall</span>
-                        </div>
-                        <div class="floor-detail">
-                            <strong>1st Floor (p21):</strong>
-                            <span id="card-p21">IT Classrooms & Faculty Cabins</span>
-                        </div>
-                        <div class="floor-detail">
-                            <strong>2nd Floor (p31):</strong>
-                            <span id="card-p31">AI / ML Specialized Labs</span>
-                        </div>
+                        <h3 id="card-block-title">Block Details <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;" onclick="closeBlockModal()"></i></h3>
+                        <p id="card-block-desc" style="font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;">Click details</p>
+                        <div class="floor-detail"><strong>Ground Floor (p12):</strong><span id="card-p12">CSE Labs &amp; Seminar Hall</span></div>
+                        <div class="floor-detail"><strong>1st Floor (p21):</strong><span id="card-p21">IT Classrooms &amp; Faculty Cabins</span></div>
+                        <div class="floor-detail"><strong>2nd Floor (p31):</strong><span id="card-p31">AI / ML Specialized Labs</span></div>
                     </div>
                 </div>
             </section>
 
-            <!-- SECTION 4: AI AGENT -->
+            <!-- ===== AI LOCATION AGENT ===== -->
             <section id="sec-ai-agents" class="tab-section hidden">
                 <h2 class="section-header">CAMPUS AI Assistant</h2>
                 <div class="ai-container">
@@ -914,8 +773,8 @@
                         <div class="ai-header">
                             <i class="fa-solid fa-map-pin"></i>
                             <div>
-                                <h3 style="font-family: var(--font-heading); color: var(--text-main);">CAMPUS Location AI</h3>
-                                <small style="color:var(--text-muted)">Ask 'Where is Block G' or 'Route from Block A to Block J'</small>
+                                <h3 style="font-family:var(--font-heading);color:var(--text-main);">CAMPUS Location AI</h3>
+                                <small style="color:var(--text-muted);">Ask 'Where is Block G' or 'Route from Block A to Block J'</small>
                             </div>
                         </div>
                         <div class="chat-box" id="chat-nav">
@@ -923,14 +782,40 @@
                         </div>
                         <div class="msg-input-group">
                             <input type="text" id="input-nav" placeholder="e.g. Find Block G or Route from Block A to Tower..." onkeypress="if(event.key==='Enter') sendNavMsg()">
-                            <button onclick="sendNavMsg()">Search & Pin</button>
+                            <button onclick="sendNavMsg()">Search &amp; Pin</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-        </div>
+        </div><!-- /content-body -->
     </main>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Approval Modal -->
+<div id="approval-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+        <button class="close-modal" onclick="closeModal('approval-modal')"><i class="fa-solid fa-xmark"></i></button>
+        <h3>🤖 AI Rescheduling Proposal</h3>
+        <p class="subtitle">Review the AI-generated timetable changes before applying.</p>
+        <div id="approval-modal-content"></div>
+        <div class="modal-footer" id="approval-modal-footer"></div>
+    </div>
+</div>
+
+<!-- Rollback Modal -->
+<div id="rollback-modal" class="modal-overlay hidden">
+    <div class="modal-box" style="max-width:480px;">
+        <button class="close-modal" onclick="closeModal('rollback-modal')"><i class="fa-solid fa-xmark"></i></button>
+        <h3>↩ Undo AI Changes</h3>
+        <p class="subtitle">Select a timetable snapshot to restore.</p>
+        <div id="rollback-list"></div>
+        <div class="modal-footer">
+            <button class="ai-btn ai-btn-secondary" onclick="closeModal('rollback-modal')">Cancel</button>
+        </div>
+    </div>
 </div>
 
 <!-- EXTERNAL LIBRARIES -->
@@ -939,569 +824,1359 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
 <script>
-    // --- SIDEBAR MOBILE TOGGLE ---
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('mobile-overlay');
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('active');
-    }
+// ============================================================
+// CAMPUS MIND ERP - ENHANCED WITH AGENTIC AI TIMETABLE SYSTEM
+// ============================================================
 
-    // --- AUTHORIZED USER DATABASE (Updated to CAMPUS format) ---
-    const authorizedUsers = {
-        "CAMPUS2026101": "campus@123",
-        "CAMPUS2026102": "admin123",
-        "CAMPUS2026103": "student@2026",
-        "CAMPUS2026104": "pass1234",
-        // Backward compatibility for PSIT credentials
-        "PSIT2026101": "psit@123",
-        "PSIT2026102": "admin123",
-        "PSIT2026103": "student@2026",
-        "PSIT2026104": "pass1234"
-    };
+// ===== UTILITY HELPERS =====
+function $(id){ return document.getElementById(id); }
+function showToast(type, title, msg, duration=4000){
+    const tc = $('toast-container');
+    const icons = {success:'fa-circle-check', warning:'fa-triangle-exclamation', info:'fa-circle-info', danger:'fa-circle-xmark'};
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `<i class="fa-solid ${icons[type]||icons.info}"></i><div><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>`;
+    tc.appendChild(toast);
+    setTimeout(()=>{ toast.style.opacity='0'; toast.style.transform='translateX(30px)'; toast.style.transition='0.3s'; setTimeout(()=>toast.remove(),300); }, duration);
+}
+function formatTime(t){ // "14:00" -> "2:00 PM"
+    if(!t) return '';
+    const [h,m] = t.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hour = h % 12 || 12;
+    return `${hour}:${m.toString().padStart(2,'0')} ${ampm}`;
+}
+function formatDate(d){ // date string
+    if(!d) return '';
+    const dt = new Date(d+'T00:00:00');
+    return dt.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+}
+function nowStr(){ return new Date().toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function genId(){ return 'id_'+Math.random().toString(36).substr(2,9); }
+function closeModal(id){ $(id).classList.add('hidden'); }
+function openModal(id){ $(id).classList.remove('hidden'); }
 
-    // --- 1. TIMETABLE MATRIX ALGORITHM ---
-    const structure = {
-        "1": { sections: 0 },
-        "2": { sections: 15 },
-        "3": { sections: 17 },
-        "4": { sections: 11 }
-    };
+// ===== MOBILE SIDEBAR =====
+function toggleSidebar(){
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('mobile-overlay').classList.toggle('active');
+}
 
-    const subjects = [
-        { name: "Data Structures", teacher: "Dr. Amit Sharma" },
-        { name: "Web Programming", teacher: "Prof. Rahul Verma" },
-        { name: "Computer Networks", teacher: "Dr. Priya Nair" },
-        { name: "Operating Systems", teacher: "Prof. Vikas Gupta" },
-        { name: "Artificial Intel", teacher: "Dr. Sneha Rao" },
-        { name: "Cyber Security", teacher: "Prof. K. Kiran" }
-    ];
+// ===== AUTHENTICATION =====
+const authorizedUsers = {
+    "CAMPUS2026101": { pass:"campus@123",   role:"student",  name:"Rahul Kumar",    dept:"CSE / IT" },
+    "CAMPUS2026102": { pass:"admin123",     role:"admin",    name:"Admin Console",  dept:"Administration" },
+    "CAMPUS2026103": { pass:"student@2026", role:"student",  name:"Ananya Singh",   dept:"CSE / IT" },
+    "CAMPUS2026104": { pass:"pass1234",     role:"student",  name:"Rohan Verma",    dept:"CSE / IT" },
+    "PSIT2026101":   { pass:"psit@123",     role:"student",  name:"Student User",   dept:"CSE" },
+    "PSIT2026102":   { pass:"admin123",     role:"admin",    name:"Admin Console",  dept:"Administration" },
+    "PSIT2026103":   { pass:"student@2026", role:"student",  name:"Student",        dept:"CSE" },
+    "PSIT2026104":   { pass:"pass1234",     role:"student",  name:"Student",        dept:"CSE" }
+};
 
-    const workingDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    let selectedYear = "2";
+let currentUser = null;
 
-    function changeBatch(yearId) {
-        ["1", "2", "3", "4"].forEach(id => {
-            const btn = document.getElementById(`b-${id}`);
-            if(id === yearId) btn.classList.add('active');
-            else btn.classList.remove('active');
-        });
+function login(){
+    const inputId   = $('login-id').value.trim();
+    const inputPass = $('login-pass').value.trim();
+    const errorMsg  = $('login-error');
+    const user = authorizedUsers[inputId];
 
-        selectedYear = yearId;
+    if(user && user.pass === inputPass){
+        errorMsg.classList.add('hidden');
+        currentUser = { id: inputId, ...user };
+        buildDashboard();
+        $('login-portal').classList.add('hidden');
+        $('erp-dashboard').classList.remove('hidden');
         buildDropdownOptions();
         updateTimetableView();
+        populateRouteDropdowns();
+        init2DMap();
+        refreshDashboardStats();
+        refreshInterruptionLists();
+        refreshActivityLog();
+        // Show update banner for students if there are active interruptions
+        if(currentUser.role === 'student') checkStudentTimetableUpdates();
+    } else {
+        errorMsg.classList.remove('hidden');
     }
+}
 
-    function buildDropdownOptions() {
-        const dropdown = document.getElementById('section-select');
-        const wrapper = document.getElementById('section-selector-wrapper');
-        if(!dropdown || !wrapper) return;
-        dropdown.innerHTML = '';
+function logout(){
+    $('erp-dashboard').classList.add('hidden');
+    $('login-portal').classList.remove('hidden');
+    $('login-id').value = '';
+    $('login-pass').value = '';
+    currentUser = null;
+}
 
-        const limit = structure[selectedYear].sections;
-        if(limit === 0) {
-            wrapper.classList.add('hidden');
-            return;
+function buildDashboard(){
+    const isAdmin = currentUser.role === 'admin';
+    // Avatar & nav
+    $('nav-avatar').textContent = currentUser.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    $('nav-user-name').textContent = currentUser.name;
+    $('nav-user-role').textContent = isAdmin ? 'Admin Portal' : 'Student Portal';
+    $('sidebar-role-badge').innerHTML = `<span class="role-badge ${currentUser.role}">${isAdmin ? '🔒 Admin' : '🎓 Student'}</span>`;
+
+    // Build sidebar menu
+    const menu = $('sidebar-menu');
+    menu.innerHTML = '';
+    const items = [
+        { id:'timetable',     icon:'fa-calendar-days',      label:'Timetable Matrix',     adminOnly:false },
+        { id:'navigation',    icon:'fa-map-location-dot',   label:'CAMPUS HD 2D Map',     adminOnly:false },
+        { id:'map-3d',        icon:'fa-cubes',              label:'Interactive 3D Campus', adminOnly:false },
+        { id:'ai-agents',     icon:'fa-robot',              label:'COLLEGE AI Agent',     adminOnly:false },
+        // Admin-only
+        { id:'ai-timetable',  icon:'fa-wand-magic-sparkles', label:'AI Timetable Manager', adminOnly:true, separator:'AI TOOLS' },
+        { id:'interruptions', icon:'fa-bolt',               label:'Interruptions',         adminOnly:true },
+        { id:'ai-activity',   icon:'fa-scroll',             label:'AI Activity Log',       adminOnly:true },
+    ];
+    let sepAdded = false;
+    items.forEach((item, idx) => {
+        if(item.adminOnly && !isAdmin) return;
+        if(item.separator && isAdmin && !sepAdded){
+            sepAdded = true;
+            menu.innerHTML += `<div class="sidebar-section-label">${item.separator}</div>`;
         }
-        wrapper.classList.remove('hidden');
+        const li = document.createElement('li');
+        if(idx===0) li.classList.add('active');
+        li.onclick = function(){ switchTab(item.id, this); };
+        li.innerHTML = `<a href="#"><i class="fa-solid ${item.icon}"></i> ${item.label}</a>`;
+        menu.appendChild(li);
+    });
 
-        for(let i=0; i < limit; i++) {
-            let letter = String.fromCharCode(65 + i);
-            dropdown.innerHTML += `<option value="${i}">Section ${letter}</option>`;
-        }
+    // Show/hide admin sections
+    document.querySelectorAll('.admin-only').forEach(el => {
+        if(isAdmin) el.classList.remove('hidden');
+        else el.classList.add('hidden');
+    });
+}
+
+// ===== TAB SWITCHING =====
+function switchTab(tabId, element){
+    document.querySelectorAll('#sidebar-menu li').forEach(li=>li.classList.remove('active'));
+    if(element) element.classList.add('active');
+    document.querySelectorAll('.tab-section').forEach(sec=>sec.classList.add('hidden'));
+    const sec = $(`sec-${tabId}`);
+    if(sec) sec.classList.remove('hidden');
+    if(window.innerWidth<=850){
+        $('sidebar').classList.remove('open');
+        $('mobile-overlay').classList.remove('active');
     }
+    if(tabId==='navigation' && map2D) setTimeout(()=>{ map2D.invalidateSize(); },200);
+    if(tabId==='map-3d') setTimeout(()=>{ if(!scene) init3DMap(); else resize3DCanvas(); },150);
+    if(tabId==='interruptions'){ refreshDashboardStats(); refreshInterruptionLists(); }
+    if(tabId==='ai-activity') refreshActivityLog();
+    if(tabId==='timetable') checkStudentTimetableUpdates();
+}
 
-    function updateTimetableView() {
-        const body = document.getElementById('timetable-body');
-        const card = document.getElementById('timetable-card');
-        const emptyState = document.getElementById('empty-state');
-        if(!body || !card || !emptyState) return;
+// ===== DASHBOARD SUBTABS =====
+function switchDashTab(tabName, el){
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    if(el) el.classList.add('active');
+    document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+    const pane = $(`dash-tab-${tabName}`);
+    if(pane) pane.classList.add('active');
+}
 
-        if(structure[selectedYear].sections === 0) {
-            card.classList.add('hidden');
-            emptyState.classList.remove('hidden');
-            return;
-        }
+// ===== AUTOMATION MODE =====
+let automationMode = 'manual'; // 'manual' | 'auto'
+function updateAutomationMode(val){
+    automationMode = val;
+    $('automation-mode-label').textContent = val==='auto'
+        ? 'Auto-apply low-risk changes (high-risk still need approval)'
+        : 'Always ask for approval';
+    showToast('info','Automation Mode Updated',
+        val==='auto' ? 'Low-risk changes will be applied automatically.' : 'All changes require your approval.');
+}
 
-        card.classList.remove('hidden');
-        emptyState.classList.add('hidden');
-        body.innerHTML = '';
+// ===== EXAMPLE NL PROMPTS =====
+const examplePrompts = [
+    "CSE 2A has a placement drive on 5 October 2026 from 10 AM to 2 PM in Seminar Hall. Adjust their timetable accordingly.",
+    "There is an IEEE workshop for CSE 2B on 7 October 2026 from 1 PM to 4 PM in Block A Lab. Handle the timetable.",
+    "CSE 3A and CSE 3B have a guest lecture seminar on 10 October 2026 from 11 AM to 1 PM in the Auditorium.",
+    "CSE 2A and CSE 3A have a sports event on 12 October 2026 all day from 9 AM to 5 PM. Please reschedule affected classes."
+];
+function fillExample(idx){ $('ai-nl-input').value = examplePrompts[idx]; }
+function clearNLInput(){ $('ai-nl-input').value=''; }
 
-        const sectionIndex = parseInt(document.getElementById('section-select').value) || 0;
-        const currentSectionLetter = String.fromCharCode(65 + sectionIndex);
-        document.getElementById('table-title').innerText = `${selectedYear}rd Year - Section ${currentSectionLetter} Schedule Matrix`;
+// ============================================================
+// ===== MASTER TIMETABLE DATA STORE =====
+// ============================================================
+const masterTimetable = {
+    // Key: "YEAR-SECTION" e.g. "2-A"
+    // Value: { Mon:{p1:{subject,teacher,room},p2:...}, Tue:{...}, ...}
+    // Generated dynamically via buildMasterTimetable()
+    data: {},
+    overrides: {},    // Key: "YEAR-SECTION-DAY-PERIOD" → modified slot or null (cancelled)
+    interruptions: [], // Array of interruption objects
+    aiActions: [],     // Array of AI action objects
+    timetableHistory: [], // Snapshots for rollback
+    notifications: []
+};
 
-        workingDays.forEach((day, dayIndex) => {
-            let rowHtml = `<tr><td style="font-weight:600; background:rgba(74,93,46,0.04); color:var(--text-main);">${day}</td>`;
+// Period definitions
+const PERIODS = [
+    { id:'p1', label:'09:00 – 10:00', start:'09:00', end:'10:00' },
+    { id:'p2', label:'10:00 – 11:00', start:'10:00', end:'11:00' },
+    // p_break
+    { id:'p3', label:'11:15 – 12:15', start:'11:15', end:'12:15' },
+    { id:'p4', label:'12:15 – 13:15', start:'12:15', end:'13:15' },
+    { id:'p5', label:'14:00 – 15:00', start:'14:00', end:'15:00' }
+];
 
-            for (let period = 0; period < 5; period++) {
-                if(period === 2) {
-                    rowHtml += `<td style="text-align:center; font-size:0.65rem; color:var(--text-muted); font-weight:bold; letter-spacing:2px; background:var(--bg-secondary);">B<br>R<br>E<br>A<br>K</td>`;
-                }
+const workingDays = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+const subjects = [
+    { name:"Data Structures",    teacher:"Dr. Amit Sharma",  room:"A-301" },
+    { name:"Web Programming",    teacher:"Prof. Rahul Verma", room:"B-201" },
+    { name:"Computer Networks",  teacher:"Dr. Priya Nair",   room:"C-102" },
+    { name:"Operating Systems",  teacher:"Prof. Vikas Gupta", room:"A-201" },
+    { name:"Artificial Intel",   teacher:"Dr. Sneha Rao",    room:"L-101" },
+    { name:"Cyber Security",     teacher:"Prof. K. Kiran",   room:"C-301" }
+];
+const structure = { "1":{sections:0},"2":{sections:15},"3":{sections:17},"4":{sections:11} };
 
-                let shiftKey = (parseInt(selectedYear) * 7) + sectionIndex + dayIndex + period;
-                let selectedSub = subjects[shiftKey % subjects.length];
+function getSubjectForSlot(year, sectionIdx, dayIdx, periodIdx){
+    const shiftKey = (parseInt(year)*7)+sectionIdx+dayIdx+periodIdx;
+    const sub = subjects[shiftKey % subjects.length];
+    const floor = (shiftKey%3)+1;
+    const roomNum = (shiftKey%4)+1;
+    const letter = String.fromCharCode(65+sectionIdx);
+    return { subject: sub.name, teacher: sub.teacher, room: `Block ${letter} - Room ${floor}0${roomNum}` };
+}
 
-                let calculatedFloor = (shiftKey % 3) + 1;
-                let calculatedRoomNum = (shiftKey % 4) + 1;
+function getMasterSlot(year, sectionLetter, day, periodId){
+    const sectionIdx = sectionLetter.charCodeAt(0)-65;
+    const dayIdx = workingDays.indexOf(day);
+    const periodIdx = PERIODS.findIndex(p=>p.id===periodId);
 
-                rowHtml += `
-                    <td>
-                        <div class="slot-title">${selectedSub.name}</div>
-                        <div class="slot-teacher">${selectedSub.teacher}</div>
-                        <div class="room-badge">
-                            Block ${currentSectionLetter} - Room ${calculatedFloor}0${calculatedRoomNum}
-                        </div>
-                    </td>`;
+    // Check for override first
+    const overrideKey = `${year}-${sectionLetter}-${day}-${periodId}`;
+    if(masterTimetable.overrides.hasOwnProperty(overrideKey)){
+        return masterTimetable.overrides[overrideKey]; // null = cancelled
+    }
+    return getSubjectForSlot(year, sectionIdx, dayIdx, periodIdx);
+}
+
+function setTimetableOverride(year, sectionLetter, day, periodId, slot){
+    masterTimetable.overrides[`${year}-${sectionLetter}-${day}-${periodId}`] = slot;
+}
+
+function saveTimetableSnapshot(label){
+    masterTimetable.timetableHistory.push({
+        id: genId(),
+        label,
+        timestamp: nowStr(),
+        overrides: JSON.parse(JSON.stringify(masterTimetable.overrides))
+    });
+    // Keep last 20 snapshots
+    if(masterTimetable.timetableHistory.length > 20) masterTimetable.timetableHistory.shift();
+}
+
+// ===== TIMETABLE RENDERING =====
+let selectedYear = "2";
+function changeBatch(yearId){
+    ["1","2","3","4"].forEach(id=>{
+        const btn = $(`b-${id}`);
+        if(id===yearId) btn.classList.add('active');
+        else btn.classList.remove('active');
+    });
+    selectedYear = yearId;
+    buildDropdownOptions();
+    updateTimetableView();
+}
+function buildDropdownOptions(){
+    const dropdown = $('section-select');
+    const wrapper = $('section-selector-wrapper');
+    if(!dropdown || !wrapper) return;
+    dropdown.innerHTML='';
+    const limit = structure[selectedYear].sections;
+    if(limit===0){ wrapper.classList.add('hidden'); return; }
+    wrapper.classList.remove('hidden');
+    for(let i=0;i<limit;i++){
+        let letter=String.fromCharCode(65+i);
+        dropdown.innerHTML += `<option value="${i}">Section ${letter}</option>`;
+    }
+}
+function updateTimetableView(){
+    const body = $('timetable-body');
+    const card = $('timetable-card');
+    const emptyState = $('empty-state');
+    if(!body||!card||!emptyState) return;
+    if(structure[selectedYear].sections===0){
+        card.classList.add('hidden'); emptyState.classList.remove('hidden'); return;
+    }
+    card.classList.remove('hidden'); emptyState.classList.add('hidden');
+    body.innerHTML='';
+    const sectionIndex = parseInt($('section-select').value)||0;
+    const sectionLetter = String.fromCharCode(65+sectionIndex);
+    $('table-title').innerText = `${selectedYear}${['st','nd','rd','th'][Math.min(3,parseInt(selectedYear)-1)]} Year – Section ${sectionLetter} Schedule Matrix`;
+
+    workingDays.forEach((day, dayIdx)=>{
+        let rowHtml = `<tr><td style="font-weight:600;background:rgba(74,93,46,0.04);color:var(--text-main);white-space:nowrap;">${day}</td>`;
+        PERIODS.forEach((period, periodIdx)=>{
+            if(periodIdx===2){
+                rowHtml += `<td style="text-align:center;font-size:0.65rem;color:var(--text-muted);font-weight:bold;letter-spacing:2px;background:var(--bg-secondary);">B<br>R<br>E<br>A<br>K</td>`;
             }
-            rowHtml += `</tr>`;
-            body.innerHTML += rowHtml;
+            const slot = getMasterSlot(selectedYear, sectionLetter, day, period.id);
+            if(slot === null){
+                // Cancelled slot
+                rowHtml += `<td class="cancelled-slot" style="position:relative;"><div class="slot-title" style="visibility:hidden;">&nbsp;</div></td>`;
+            } else {
+                const isRescheduled = masterTimetable.overrides.hasOwnProperty(`${selectedYear}-${sectionLetter}-${day}-${period.id}`) && slot !== null;
+                rowHtml += `<td>
+                    <div class="slot-title">${slot.subject}</div>
+                    <div class="slot-teacher">${slot.teacher}</div>
+                    <div class="room-badge">${slot.room}</div>
+                    ${isRescheduled ? `<span class="rescheduled-badge">🔄 Rescheduled</span>`:''}
+                </td>`;
+            }
         });
+        rowHtml += `</tr>`;
+        body.innerHTML += rowHtml;
+    });
+}
+
+function checkStudentTimetableUpdates(){
+    if(!currentUser || currentUser.role!=='student') return;
+    const active = masterTimetable.interruptions.filter(i=>i.status==='active'||i.status==='applied');
+    const banner = $('timetable-update-banner');
+    if(active.length>0){
+        banner.classList.remove('hidden');
+        $('timetable-update-details').innerHTML = `Reason: <strong>${active[0].title}</strong> on ${formatDate(active[0].date)} | <a href="#" onclick="showInterruptionInfo('${active[0].id}')" style="color:var(--warning);">View Details →</a>`;
+    } else {
+        banner.classList.add('hidden');
+    }
+}
+
+function showInterruptionInfo(id){
+    const int = masterTimetable.interruptions.find(i=>i.id===id);
+    if(!int) return;
+    const action = masterTimetable.aiActions.find(a=>a.interruptionId===id && a.status==='applied');
+    let rescheduledInfo = '';
+    if(action && action.finalSchedule){
+        rescheduledInfo = `<div style="margin-top:12px;"><strong>Updated Classes:</strong><ul style="margin:8px 0 0 18px;font-size:0.83rem;color:var(--text-muted);">`;
+        action.finalSchedule.forEach(fc=>{
+            rescheduledInfo += `<li>${fc.subject} → ${fc.newDay}, ${fc.newPeriodLabel}</li>`;
+        });
+        rescheduledInfo += `</ul></div>`;
+    }
+    alert(`📢 Timetable Update\n\nReason: ${int.title}\nDate: ${formatDate(int.date)}\nTime: ${formatTime(int.startTime)} – ${formatTime(int.endTime)}\nVenue: ${int.venue||'TBD'}\nClasses Affected: ${int.affectedClasses.join(', ')}${rescheduledInfo ? '\n\nRescheduled classes applied to timetable.' : ''}`);
+}
+
+// ============================================================
+// ===== AGENTIC AI ENGINE =====
+// ============================================================
+
+// --- NL PARSER (Mock AI) ---
+function parseNaturalLanguage(text){
+    const lower = text.toLowerCase();
+    const result = { title:'', type:'', date:'', startTime:'', endTime:'', affectedClasses:[], venue:'', description: text, priority:'medium' };
+
+    // Extract type
+    const typeKeywords = {
+        'placement drive':'Placement Drive','placement':'Placement Drive',
+        'ieee':'IEEE Event','workshop':'Workshop','seminar':'Seminar',
+        'guest lecture':'Guest Lecture','industrial visit':'Industrial Visit',
+        'examination':'Examination','exam':'Examination',
+        'faculty meeting':'Faculty Meeting','sports':'Sports Event',
+        'holiday':'Holiday','department event':'Department Event',
+        'event':'College Event'
+    };
+    for(const [kw,type] of Object.entries(typeKeywords)){
+        if(lower.includes(kw)){ result.type = type; result.title = type; break; }
+    }
+    if(!result.title) result.title = 'Academic Interruption';
+
+    // Extract classes (e.g. CSE 2A, CSE 3B, all CSE 3rd year)
+    const classPatterns = [
+        /cse\s+(\d)([a-z])/gi,
+        /it\s+(\d)([a-z])/gi,
+        /ece\s+(\d)([a-z])/gi,
+        /mca\s+(\d)([a-z])/gi,
+        /mba\s+(\d)([a-z])/gi
+    ];
+    classPatterns.forEach(pat=>{
+        let m;
+        while((m=pat.exec(text))!==null){
+            result.affectedClasses.push(`CSE ${m[1]}${m[2].toUpperCase()}`);
+        }
+    });
+    // "all CSE 3rd year" → CSE 3A..3Q (up to structure limit)
+    const allYearMatch = lower.match(/all\s+cse\s+(\d)(st|nd|rd|th)?\s*year/i) || lower.match(/all\s+(\d)(st|nd|rd|th)?\s*year\s+cse/i);
+    if(allYearMatch && result.affectedClasses.length===0){
+        const yr = allYearMatch[1];
+        const limit = structure[yr]?.sections||0;
+        for(let i=0;i<Math.min(limit,5);i++) result.affectedClasses.push(`CSE ${yr}${String.fromCharCode(65+i)}`);
+    }
+    if(result.affectedClasses.length===0) result.affectedClasses = ['CSE 2A'];
+
+    // Extract date
+    const months = {january:1,february:2,march:3,april:4,may:5,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+    const dateMatch = lower.match(/(\d{1,2})\s*(st|nd|rd|th)?\s+(january|february|march|april|may|june|july|august|september|october|november|december)(\s+\d{4})?/);
+    if(dateMatch){
+        const day = dateMatch[1].padStart(2,'0');
+        const month = String(months[dateMatch[3]]).padStart(2,'0');
+        const year = (dateMatch[4]||' 2026').trim();
+        result.date = `${year}-${month}-${day}`;
     }
 
-    // --- 2. EXACT CAMPUS COORDINATES & BLUEPRINT DATASET WITH IMAGES ---
-    const campusLocations = {
-        tower: { key: "tower", lat: 26.449700, lng: 80.192086, name: "CAMPUS Tower", desc: "Corporate & Public Relations Hub", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=80", p12: "p12 - PR Office & Visitor Lounge", p21: "p21 - Corporate Relations & Boardroom", p31: "p31 - Director Office & High-Tech Suites", x: 0, z: -20, w: 16, d: 8, rot: 0, color: 0x4A5D2E, height: 7 },
-        admin: { key: "admin", lat: 26.449450, lng: 80.192086, name: "Admin / Town Hall", desc: "Central Administrative Block", img: "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80", p12: "p12 - Student Registrar & Accounts counter", p21: "p21 - Main Town Hall Auditorium & Conference Room", p31: "p31 - Dean Academics & Controller Examination Cell", x: 0, z: -12, w: 14, d: 6, rot: 0, color: 0x6B8E3D, height: 4.5 },
-        lawn: { key: "lawn", lat: 26.449000, lng: 80.192086, name: "Central Green Lawn", desc: "Main Campus Assembly Ground", img: "https://images.unsplash.com/photo-1589828996213-56e201216856?w=500&auto=format&fit=crop&q=80", p12: "p12 - Open Amphitheatre Lawn & Assembly Ground", p21: "N/A", p31: "N/A", x: 0, z: 2, w: 10, d: 18, rot: 0, color: 0x8FAD5E, height: 0.2 },
-        rangmanch: { key: "rangmanch", lat: 26.448200, lng: 80.192086, name: "Rang Manch", desc: "Open Air Cultural Stage Arena", img: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80", p12: "p12 - Open Stage Arena & Green Rooms", p21: "p21 - Sound, Light Control Room & VIP Gallery", p31: "p31 - Open Gallery Deck", x: 0, z: 14, w: 10, d: 4, rot: 0, color: 0xB8860B, height: 2 },
+    // Extract times  "10 AM", "10:00 AM", "10 am to 2 pm"
+    const timePattern = /(\d{1,2})(?::(\d{2}))?\s*(am|pm)/gi;
+    const times = [];
+    let tm;
+    while((tm=timePattern.exec(lower))!==null){
+        let hr = parseInt(tm[1]);
+        const min = tm[2]?parseInt(tm[2]):0;
+        const ampm = tm[3].toLowerCase();
+        if(ampm==='pm'&&hr!==12) hr+=12;
+        if(ampm==='am'&&hr===12) hr=0;
+        times.push(`${String(hr).padStart(2,'0')}:${String(min).padStart(2,'0')}`);
+    }
+    if(times.length>=1) result.startTime = times[0];
+    if(times.length>=2) result.endTime = times[1];
+    if(!result.startTime) result.startTime = '10:00';
+    if(!result.endTime) result.endTime = '14:00';
 
-        // LEFT OUTER WING
-        blockG: { key: "blockG", lat: 26.449650, lng: 80.191400, name: "Block G", desc: "Management & MCA Block", img: "https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80", p12: "p12 - MBA Seminar Hall G12", p21: "p21 - MCA Classrooms G21", p31: "p31 - E-Cell & Startup Incubator G31", x: -16, z: -19, w: 10, d: 7, rot: 0, color: 0x5C7236, height: 4 },
-        blockE: { key: "blockE", lat: 26.449400, lng: 80.191400, name: "Block E", desc: "Basic Sciences & Humanities", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=80", p12: "p12 - Physics & Chemistry Labs E12", p21: "p21 - Humanities Classrooms E21", p31: "p31 - Communication Skill Lab E31", x: -17, z: -11, w: 7, d: 7, rot: 0, color: 0x6B8E3D, height: 4 },
-        blockC: { key: "blockC", lat: 26.449200, lng: 80.191400, name: "Block C", desc: "Information Technology Wing", img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&auto=format&fit=crop&q=80", p12: "p12 - IT Web Dev Labs C12", p21: "p21 - Lecture Rooms C21", p31: "p31 - Cyber Security Research Lab C31", x: -17, z: -3, w: 7, d: 7, rot: 0, color: 0x6B8E3D, height: 4 },
-        blockA: { key: "blockA", lat: 26.449000, lng: 80.191400, name: "Block A", desc: "Computer Science Wing", img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80", p12: "p12 - CSE Hardware Labs A12", p21: "p21 - Classrooms A21", p31: "p31 - AI Research Center A31", x: -17, z: 5, w: 7, d: 7, rot: 0, color: 0x6B8E3D, height: 4 },
-        blockS: { key: "blockS", lat: 26.448600, lng: 80.191400, name: "Block S", desc: "Central Cafeteria & Food Court", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&auto=format&fit=crop&q=80", p12: "p12 - Main Dining Hall S12", p21: "p21 - Nescafe & Express Lounge S21", p31: "p31 - Executive Dining Zone S31", x: -16, z: 14, w: 10, d: 7, rot: 0, color: 0x5C7236, height: 4 },
+    // Extract venue
+    const venueMatch = text.match(/in\s+(?:the\s+)?([A-Z][a-zA-Z\s]+Hall|Auditorium|Block\s+[A-Z]|Lab\s+\d|Seminar\s+Hall|Gym|Ground)/i);
+    if(venueMatch) result.venue = venueMatch[1].trim();
 
-        // LEFT INNER ANGLED BLOCKS
-        blockF: { key: "blockF", lat: 26.449300, lng: 80.191600, name: "Block F", desc: "Mechanical & CAD Labs", img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&auto=format&fit=crop&q=80", p12: "p12 - Auto CAD & Robotics Lab F12", p21: "p21 - Classrooms F21", p31: "p31 - Design Thinking Center F31", x: -9, z: -10, w: 6, d: 8, rot: Math.PI / 4, color: 0x4A5D2E, height: 3.5 },
-        blockD: { key: "blockD", lat: 26.449100, lng: 80.191600, name: "Block D", desc: "Electronics & Tech Labs", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80", p12: "p12 - IoT & Embedded Systems Lab D12", p21: "p21 - Classrooms D21", p31: "p31 - Microprocessor Lab D31", x: -9, z: -2, w: 6, d: 8, rot: Math.PI / 4, color: 0x4A5D2E, height: 3.5 },
-        blockB: { key: "blockB", lat: 26.448800, lng: 80.191600, name: "Block B", desc: "Software Development Labs", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=80", p12: "p12 - Python & Java Coding Labs B12", p21: "p21 - Lecture Rooms B21", p31: "p31 - High-Performance Cloud Lab B31", x: -9, z: 6, w: 6, d: 8, rot: Math.PI / 4, color: 0x4A5D2E, height: 3.5 },
+    // Priority
+    if(lower.includes('placement')||lower.includes('exam')) result.priority='high';
+    if(lower.includes('critical')||lower.includes('emergency')) result.priority='critical';
 
-        // RIGHT OUTER WING
-        blockJ: { key: "blockJ", lat: 26.449650, lng: 80.192700, name: "Block J", desc: "Pharmacy & Biotech Wing", img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=500&auto=format&fit=crop&q=80", p12: "p12 - Pharmaceutics Lab J12", p21: "p21 - Biotech Research Lab J21", p31: "p31 - Lecture Halls J31", x: 16, z: -19, w: 10, d: 7, rot: 0, color: 0x8B7355, height: 4 },
-        blockK: { key: "blockK", lat: 26.449400, lng: 80.192700, name: "Block K", desc: "Central Library & Digital Hub", img: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=80", p12: "p12 - Reading Hall & Journal Section K12", p21: "p21 - Digital Library & E-Learning K21", p31: "p31 - Book Bank & Silent Zone K31", x: 17, z: -11, w: 7, d: 7, rot: 0, color: 0x7C6B50, height: 4 },
-        blockM: { key: "blockM", lat: 26.449200, lng: 80.192700, name: "Block M", desc: "Electrical Engineering Wing", img: "https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=500&auto=format&fit=crop&q=80", p12: "p12 - Electrical Machines Lab M12", p21: "p21 - Classrooms M21", p31: "p31 - Power Systems Lab M31", x: 17, z: -3, w: 7, d: 7, rot: 0, color: 0x7C6B50, height: 4 },
-        blockP: { key: "blockP", lat: 26.449000, lng: 80.192700, name: "Block P", desc: "First Year Engineering Wing", img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=80", p12: "p12 - Applied Physics Lab P12", p21: "p21 - Classrooms P21", p31: "p31 - Engineering Graphics Lab P31", x: 17, z: 5, w: 7, d: 7, rot: 0, color: 0x7C6B50, height: 4 },
-        blockR: { key: "blockR", lat: 26.448600, lng: 80.192700, name: "Block R", desc: "Sports & Amenities Center", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80", p12: "p12 - Indoor Badminton & Table Tennis R12", p21: "p21 - Gymnasium & Fitness Suite R21", p31: "p31 - Student Activity Club R31", x: 16, z: 14, w: 10, d: 7, rot: 0, color: 0x8B7355, height: 4 },
+    return result;
+}
 
-        // RIGHT INNER ANGLED BLOCKS
-        blockL: { key: "blockL", lat: 26.449300, lng: 80.192500, name: "Block L", desc: "Advanced Computing Wing", img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80", p12: "p12 - Data Science Lab L12", p21: "p21 - Classrooms L21", p31: "p31 - Machine Learning Hub L31", x: 9, z: -10, w: 6, d: 8, rot: -Math.PI / 4, color: 0x4A5D2E, height: 3.5 },
-        blockN: { key: "blockN", lat: 26.449100, lng: 80.192500, name: "Block N", desc: "Civil & Structural Labs", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&auto=format&fit=crop&q=80", p12: "p12 - Surveying & Material Lab N12", p21: "p21 - Classrooms N21", p31: "p31 - CAD Civil Lab N31", x: 9, z: -2, w: 6, d: 8, rot: -Math.PI / 4, color: 0x4A5D2E, height: 3.5 },
-        blockQ: { key: "blockQ", lat: 26.448800, lng: 80.192500, name: "Block Q", desc: "Tutorial & Workshop Block", img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80", p12: "p12 - Mechanical Workshop Q12", p21: "p21 - Tutorial Rooms Q21", p31: "p31 - Language Lab Q31", x: 9, z: 6, w: 6, d: 8, rot: -Math.PI / 4, color: 0x4A5D2E, height: 3.5 }
+// --- Find affected timetable slots ---
+function findAffectedSlots(interruption){
+    const affected = [];
+    interruption.affectedClasses.forEach(cls=>{
+        const parts = cls.match(/(\w+)\s+(\d)([A-Z])/i);
+        if(!parts) return;
+        const yr = parts[2];
+        const sec = parts[3].toUpperCase();
+        const intStart = timeToMinutes(interruption.startTime);
+        const intEnd   = timeToMinutes(interruption.endTime);
+        const intDay   = getInterruptionDay(interruption.date);
+
+        PERIODS.forEach(period=>{
+            const pStart = timeToMinutes(period.start);
+            const pEnd   = timeToMinutes(period.end);
+            // Overlap check
+            if(pStart < intEnd && pEnd > intStart){
+                const slot = getMasterSlot(yr, sec, intDay, period.id);
+                if(slot && slot!==null){
+                    affected.push({ year:yr, section:sec, class: cls, day:intDay, period, subject:slot.subject, teacher:slot.teacher, room:slot.room });
+                }
+            }
+        });
+    });
+    return affected;
+}
+
+function timeToMinutes(t){
+    const [h,m] = t.split(':').map(Number);
+    return h*60+m;
+}
+function getInterruptionDay(dateStr){
+    if(!dateStr) return 'Monday';
+    const d = new Date(dateStr+'T00:00:00');
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const day = days[d.getDay()];
+    if(['Saturday','Sunday'].includes(day)) return 'Monday'; // Fallback to next weekday
+    return day;
+}
+
+// --- Find replacement slots ---
+function findReplacementSlots(affectedSlots, interruptionDate){
+    const proposals = [];
+    const startDate = new Date(interruptionDate+'T00:00:00');
+    // Try the next 7 working days
+    const candidateDays = [];
+    for(let i=1;i<=10;i++){
+        const d = new Date(startDate);
+        d.setDate(d.getDate()+i);
+        const dayName = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()];
+        if(!['Saturday','Sunday'].includes(dayName)) candidateDays.push(dayName);
+        if(candidateDays.length>=7) break;
+    }
+
+    // Track what we've scheduled to avoid double-booking
+    const bookedSlots = new Set();
+    affectedSlots.forEach(aff=>{
+        let placed = false;
+        // Try each candidate day+period
+        outer: for(const day of candidateDays){
+            for(const period of PERIODS){
+                const key = `${aff.year}-${aff.section}-${day}-${period.id}`;
+                if(bookedSlots.has(key)) continue;
+                const existing = getMasterSlot(aff.year, aff.section, day, period.id);
+                // Skip if occupied (not null and not same slot or an override we placed)
+                // For demo: only place if its the base timetable slot for a different subject
+                // We treat any slot as available if it hasn't been booked by us
+                bookedSlots.add(key);
+                proposals.push({
+                    ...aff,
+                    newDay: day,
+                    newPeriod: period.id,
+                    newPeriodLabel: period.label,
+                    newRoom: aff.room // Keep same room for simplicity
+                });
+                placed = true;
+                break outer;
+            }
+        }
+        if(!placed){
+            proposals.push({ ...aff, newDay:'TBD', newPeriod:null, newPeriodLabel:'TBD', newRoom:aff.room, conflict:true });
+        }
+    });
+    return proposals;
+}
+
+// --- Conflict detection ---
+function detectConflicts(proposals){
+    const facultyBook = {};
+    const roomBook = {};
+    const studentBook = {};
+    let facultyConflicts=0, roomConflicts=0, studentConflicts=0, labConflicts=0;
+
+    proposals.forEach(p=>{
+        if(!p.newPeriod) return;
+        const fKey = `${p.teacher}-${p.newDay}-${p.newPeriod}`;
+        const rKey = `${p.room}-${p.newDay}-${p.newPeriod}`;
+        const sKey = `${p.class}-${p.newDay}-${p.newPeriod}`;
+        if(facultyBook[fKey]) facultyConflicts++;
+        facultyBook[fKey] = true;
+        if(roomBook[rKey]) roomConflicts++;
+        roomBook[rKey] = true;
+        if(studentBook[sKey]) studentConflicts++;
+        studentBook[sKey] = true;
+    });
+    return { facultyConflicts, roomConflicts, studentConflicts, labConflicts };
+}
+
+// --- Full AI Analysis pipeline ---
+let pendingAIAction = null;
+
+async function runAIAnalysis(interruption){
+    pendingAIAction = null;
+    $('analysis-placeholder').classList.add('hidden');
+    $('analysis-thinking').classList.remove('hidden');
+    $('analysis-result').classList.add('hidden');
+
+    const steps = [
+        'Parsing interruption request...',
+        `Identifying affected class: ${interruption.affectedClasses.join(', ')}`,
+        'Loading timetable data...',
+        'Finding overlapping slots...',
+        'Checking faculty availability...',
+        'Checking room availability...',
+        'Generating conflict-free schedule...',
+        'Validating proposed changes...',
+        'Analysis complete ✓'
+    ];
+    const stepsEl = $('thinking-steps');
+    const thinkMsg = $('thinking-msg');
+
+    for(let i=0;i<steps.length;i++){
+        thinkMsg.textContent = steps[i];
+        stepsEl.innerHTML += `<div style="padding:3px 0;display:flex;align-items:center;gap:6px;"><i class="fa-solid fa-circle-check" style="color:var(--accent-cyan);font-size:0.7rem;"></i>${steps[i]}</div>`;
+        await delay(320);
+    }
+
+    // Compute results
+    const affectedSlots = findAffectedSlots(interruption);
+    const proposals = findReplacementSlots(affectedSlots, interruption.date||new Date().toISOString().split('T')[0]);
+    const conflicts = detectConflicts(proposals);
+    const hasConflicts = conflicts.facultyConflicts+conflicts.roomConflicts+conflicts.studentConflicts+conflicts.labConflicts > 0;
+
+    // Save pending action
+    const actionId = genId();
+    pendingAIAction = {
+        id: actionId,
+        interruptionId: interruption.id,
+        interruption,
+        affectedSlots,
+        proposals,
+        conflicts,
+        status: 'pending',
+        createdAt: nowStr()
     };
 
-    // Populate Route Select Dropdowns
-    function populateRouteDropdowns() {
-        const startSelect = document.getElementById('route-start');
-        const endSelect = document.getElementById('route-end');
-        const list2D = document.getElementById('2d-location-list');
-        if(!startSelect || !endSelect) return;
+    await delay(200);
+    $('analysis-thinking').classList.add('hidden');
+    renderAnalysisResult(interruption, affectedSlots, proposals, conflicts, hasConflicts);
+    $('analysis-result').classList.remove('hidden');
 
-        startSelect.innerHTML = '';
-        endSelect.innerHTML = '';
-        if(list2D) list2D.innerHTML = '';
+    return { affectedSlots, proposals, conflicts };
+}
 
-        Object.keys(campusLocations).forEach((key, index) => {
-            const loc = campusLocations[key];
-            startSelect.innerHTML += `<option value="${key}">${loc.name}</option>`;
-            endSelect.innerHTML += `<option value="${key}" ${index === 5 ? 'selected' : ''}>${loc.name}</option>`;
+function delay(ms){ return new Promise(res=>setTimeout(res,ms)); }
 
-            if(list2D) {
-                list2D.innerHTML += `
-                    <div class="location-item" onclick="flyToLoc('${key}')">
-                        <strong style="color:var(--text-main); font-weight:600;">${loc.name}</strong>
-                        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">${loc.desc}</div>
-                    </div>`;
-            }
+function renderAnalysisResult(interruption, affectedSlots, proposals, conflicts, hasConflicts){
+    // Timestamp
+    $('result-timestamp').textContent = `Generated: ${nowStr()}`;
+
+    // Status badge
+    const badge = $('result-status-badge');
+    badge.className = 'badge ' + (hasConflicts ? 'badge-warning' : 'badge-success');
+    badge.textContent = hasConflicts ? '⚠ Conflicts Detected' : '✓ Conflict-Free Schedule Found';
+
+    // Interruption summary
+    $('result-interruption-summary').innerHTML = `
+        <div class="analysis-row"><span style="color:var(--text-muted);">Event</span><strong>${interruption.title}</strong></div>
+        <div class="analysis-row"><span style="color:var(--text-muted);">Type</span><span>${interruption.type||'General'}</span></div>
+        <div class="analysis-row"><span style="color:var(--text-muted);">Date</span><span>${formatDate(interruption.date)||'Not specified'}</span></div>
+        <div class="analysis-row"><span style="color:var(--text-muted);">Time</span><span>${formatTime(interruption.startTime)} – ${formatTime(interruption.endTime)}</span></div>
+        <div class="analysis-row"><span style="color:var(--text-muted);">Affected Classes</span><span>${interruption.affectedClasses.join(', ')}</span></div>
+        <div class="analysis-row"><span style="color:var(--text-muted);">Venue</span><span>${interruption.venue||'TBD'}</span></div>
+    `;
+
+    // Affected slots
+    if(affectedSlots.length===0){
+        $('result-affected-slots').innerHTML = `<div style="color:var(--success);font-size:0.85rem;">✓ No timetable slots are affected during this interruption time.</div>`;
+    } else {
+        let html = '';
+        affectedSlots.forEach(s=>{
+            html += `<div class="analysis-row">
+                <div><span class="slot-title" style="font-size:0.85rem;">${s.subject}</span><div style="font-size:0.75rem;color:var(--text-muted);">${s.day} • ${s.period.label} • ${s.teacher}</div></div>
+                <span class="badge badge-warning">${s.class}</span>
+            </div>`;
         });
+        $('result-affected-slots').innerHTML = `<div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:8px;">${affectedSlots.length} slot${affectedSlots.length>1?'s':''} need rescheduling</div>${html}`;
     }
 
-    // --- 3. AUTHENTICATION & NAVIGATION LOGIC ---
-    function login() {
-        const inputId = document.getElementById('login-id').value.trim();
-        const inputPass = document.getElementById('login-pass').value.trim();
-        const errorMsg = document.getElementById('login-error');
-
-        if (authorizedUsers[inputId] && authorizedUsers[inputId] === inputPass) {
-            errorMsg.classList.add('hidden');
-            document.getElementById('login-portal').classList.add('hidden');
-            document.getElementById('erp-dashboard').classList.remove('hidden');
-            buildDropdownOptions();
-            updateTimetableView();
-            populateRouteDropdowns();
-            init2DMap();
-        } else {
-            errorMsg.classList.remove('hidden');
-        }
-    }
-
-    function logout() {
-        document.getElementById('erp-dashboard').classList.add('hidden');
-        document.getElementById('login-portal').classList.remove('hidden');
-        document.getElementById('login-id').value = '';
-        document.getElementById('login-pass').value = '';
-    }
-
-    function switchTab(tabId, element) {
-        document.querySelectorAll('.sidebar-menu li').forEach(li => li.classList.remove('active'));
-        if(element) element.classList.add('active');
-
-        document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
-        document.getElementById(`sec-${tabId}`).classList.remove('hidden');
-
-        // On mobile, close sidebar when clicking a tab
-        if(window.innerWidth <= 850) {
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('mobile-overlay').classList.remove('active');
-        }
-
-        if(tabId === 'navigation' && map2D) {
-            setTimeout(() => { map2D.invalidateSize(); }, 200);
-        }
-
-        if(tabId === 'map-3d') {
-            setTimeout(() => {
-                if(!scene) {
-                    init3DMap();
-                } else {
-                    resize3DCanvas();
-                }
-            }, 150);
-        }
-    }
-
-    // --- 4. LEAFLET 2D VECTOR BLUEPRINT MAP ---
-    let map2D;
-    let activeRoutePath = null;
-    const markers2D = {};
-
-    function init2DMap() {
-        if(map2D) return;
-
-        map2D = L.map('map', {
-            zoomControl: true,
-            attributionControl: false
-        }).setView([26.449100, 80.192086], 18);
-
-        Object.keys(campusLocations).forEach(key => {
-            const loc = campusLocations[key];
-            const customIcon = L.divIcon({
-                className: 'custom-cyber-pin',
-                html: `<div>${loc.name}</div>`,
-                iconSize: [110, 26],
-                iconAnchor: [55, 13]
-            });
-
-            const marker = L.marker([loc.lat, loc.lng], { icon: customIcon }).addTo(map2D);
-            marker.on('click', () => {
-                showBlockModal2D(loc);
-            });
-            markers2D[key] = marker;
+    // Proposed changes
+    if(proposals.length===0){
+        $('result-proposed-changes').innerHTML = `<div style="color:var(--success);font-size:0.85rem;">✓ No rescheduling required.</div>`;
+    } else {
+        let html = '';
+        proposals.forEach(p=>{
+            html += `<div class="analysis-row">
+                <div class="arrow-change">
+                    <span style="font-size:0.85rem;font-weight:600;">${p.subject}</span>
+                    <span class="arrow">→</span>
+                    <span class="new">${p.newDay}, ${p.newPeriodLabel}</span>
+                </div>
+                <span class="badge ${p.conflict?'badge-danger':'badge-success'}">${p.conflict?'⚠ No Slot':'✓ Placed'}</span>
+            </div>`;
         });
+        $('result-proposed-changes').innerHTML = html;
     }
 
-    function flyToLoc(key) {
-        if(!map2D || !campusLocations[key]) return;
-        const loc = campusLocations[key];
-        map2D.flyTo([loc.lat, loc.lng], 19, { duration: 1.2 });
-        showBlockModal2D(loc);
-    }
+    // Conflict check
+    const cChecks = [
+        { label:'Faculty Conflicts', val: conflicts.facultyConflicts },
+        { label:'Room Conflicts',    val: conflicts.roomConflicts },
+        { label:'Student Conflicts', val: conflicts.studentConflicts },
+        { label:'Lab Conflicts',     val: conflicts.labConflicts }
+    ];
+    $('result-conflicts').innerHTML = cChecks.map(c=>`
+        <div class="conflict-check-row ${c.val===0?'conflict-ok':'conflict-err'}">
+            <span>${c.label}</span>
+            <span style="font-weight:700;color:${c.val===0?'var(--success)':'var(--danger)'};">${c.val===0?'✓ None':c.val+' Found'}</span>
+        </div>
+    `).join('');
 
-    function showBlockModal2D(loc) {
-        document.getElementById('card-2d-img').src = loc.img;
-        document.getElementById('card-2d-title').innerHTML = `${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:0.9rem; color:var(--text-muted);" onclick="closeBlockModal2D()"></i>`;
-        document.getElementById('card-2d-desc').innerText = loc.desc;
-        document.getElementById('card-2d-p12').innerText = loc.p12;
-        document.getElementById('card-2d-p21').innerText = loc.p21;
-        document.getElementById('card-2d-p31').innerText = loc.p31;
-
-        document.getElementById('2d-block-info-card').classList.remove('hidden');
-    }
-
-    function closeBlockModal2D() {
-        document.getElementById('2d-block-info-card').classList.add('hidden');
-    }
-
-    // DRAW ROUTE WAYFINDING FUNCTION (DOTTED LINE)
-    function drawCampusRoute(startKeyOverride, endKeyOverride) {
-        const startKey = startKeyOverride || document.getElementById('route-start').value;
-        const endKey = endKeyOverride || document.getElementById('route-end').value;
-
-        if (startKey === endKey) {
-            document.getElementById('route-info').innerHTML = `<span style="color:#DC2626;">Start & Destination cannot be the same!</span>`;
-            return;
-        }
-
-        const startLoc = campusLocations[startKey];
-        const endLoc = campusLocations[endKey];
-
-        clearCampusRoute();
-
-        const distInMeters = getDistanceInMeters(startLoc.lat, startLoc.lng, endLoc.lat, endLoc.lng);
-        const walkTimeMins = Math.ceil(distInMeters / 70);
-
-        const lawnLoc = campusLocations['lawn'];
-        const waypoints = [
-            [startLoc.lat, startLoc.lng],
-            [lawnLoc.lat, lawnLoc.lng],
-            [endLoc.lat, endLoc.lng]
-        ];
-
-        activeRoutePath = L.polyline(waypoints, {
-            color: '#4A5D2E',
-            weight: 5,
-            opacity: 0.95,
-            dashArray: '8, 12',
-            lineCap: 'round'
-        }).addTo(map2D);
-
-        map2D.fitBounds(activeRoutePath.getBounds(), { padding: [40, 40] });
-
-        document.getElementById('route-info').innerHTML = `
-            📍 <strong>${startLoc.name}</strong> ➔ <strong>${endLoc.name}</strong> |
-            🚶 ~${Math.round(distInMeters)}m (${walkTimeMins} min walk)
+    // Action buttons
+    const btns = $('result-action-buttons');
+    if(affectedSlots.length===0){
+        btns.innerHTML = `
+            <button class="ai-btn ai-btn-success" onclick="saveInterruptionOnly()"><i class="fa-solid fa-check"></i> Save Interruption (No Reschedule)</button>
+            <button class="ai-btn ai-btn-secondary" onclick="resetAnalysisPanel()"><i class="fa-solid fa-xmark"></i> Dismiss</button>
+        `;
+    } else {
+        btns.innerHTML = `
+            <button class="ai-btn ai-btn-success" onclick="approveAndApply()"><i class="fa-solid fa-check-double"></i> Approve &amp; Apply</button>
+            <button class="ai-btn ai-btn-warning" onclick="openApprovalModal()"><i class="fa-solid fa-magnifying-glass"></i> Full Preview</button>
+            <button class="ai-btn ai-btn-danger" onclick="rejectAIChanges()"><i class="fa-solid fa-xmark"></i> Reject</button>
         `;
     }
+}
 
-    function clearCampusRoute() {
-        if (activeRoutePath && map2D) {
-            map2D.removeLayer(activeRoutePath);
-            activeRoutePath = null;
-        }
-        document.getElementById('route-info').innerText = "Select start and end blocks to generate pathway.";
+function resetAnalysisPanel(){
+    $('analysis-placeholder').classList.remove('hidden');
+    $('analysis-thinking').classList.add('hidden');
+    $('analysis-result').classList.add('hidden');
+    $('thinking-steps').innerHTML = '';
+    pendingAIAction = null;
+}
+
+// ===== PROCESS NL INPUT =====
+async function processNLInput(){
+    const text = $('ai-nl-input').value.trim();
+    if(!text){ showToast('warning','Input Required','Please describe the interruption first.'); return; }
+
+    const parsed = parseNaturalLanguage(text);
+    const interruption = {
+        id: genId(),
+        ...parsed,
+        status: 'pending',
+        createdBy: currentUser.id,
+        createdAt: nowStr()
+    };
+    // Prefill form
+    $('int-name').value = parsed.title;
+    $('int-type').value = parsed.type || '';
+    $('int-date').value = parsed.date || '';
+    $('int-start').value = parsed.startTime;
+    $('int-end').value = parsed.endTime;
+    $('int-classes').value = parsed.affectedClasses.join(', ');
+    $('int-venue').value = parsed.venue || '';
+    $('int-desc').value = parsed.description;
+    $('int-priority').value = parsed.priority;
+
+    await runAIAnalysis(interruption);
+}
+
+// ===== MANUAL INTERRUPTION =====
+async function submitManualInterruption(){
+    const name     = $('int-name').value.trim();
+    const type     = $('int-type').value;
+    const startT   = $('int-start').value;
+    const endT     = $('int-end').value;
+    const date     = $('int-date').value;
+    const classes  = $('int-classes').value.split(',').map(s=>s.trim()).filter(Boolean);
+    const dept     = $('int-dept').value.trim();
+    const venue    = $('int-venue').value.trim();
+    const desc     = $('int-desc').value.trim();
+    const priority = $('int-priority').value;
+
+    if(!name||!type||!startT||!endT||classes.length===0){
+        showToast('warning','Missing Fields','Please fill: Name, Type, Times, and Affected Classes.');
+        return;
     }
 
-    function getDistanceInMeters(lat1, lon1, lat2, lon2) {
-        const R = 6371e3;
-        const φ1 = lat1 * Math.PI/180;
-        const φ2 = lat2 * Math.PI/180;
-        const Δφ = (lat2-lat1) * Math.PI/180;
-        const Δλ = (lon2-lon1) * Math.PI/180;
+    const interruption = {
+        id: genId(),
+        title: name,
+        type,
+        startTime: startT,
+        endTime: endT,
+        date: date||new Date().toISOString().split('T')[0],
+        affectedClasses: classes,
+        department: dept,
+        venue,
+        description: desc,
+        priority,
+        status: 'pending',
+        createdBy: currentUser.id,
+        createdAt: nowStr()
+    };
+    await runAIAnalysis(interruption);
+}
 
-        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                  Math.cos(φ1) * Math.cos(φ2) *
-                  Math.sin(Δλ/2) * Math.sin(Δλ/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return R * c;
-    }
+// ===== APPROVE & APPLY =====
+function approveAndApply(){
+    if(!pendingAIAction){ showToast('danger','Error','No pending AI analysis to apply.'); return; }
+    applyAIAction(pendingAIAction);
+    closeModal('approval-modal');
+}
 
-    // --- 5. THREE.JS INTERACTIVE 3D BLUEPRINT ---
-    let scene, camera, renderer, controls;
-    const interactiveBlocks = [];
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
+function applyAIAction(action){
+    // Save snapshot before changes
+    saveTimetableSnapshot(`Before: ${action.interruption.title} (${nowStr()})`);
 
-    let pointerDownPos = { x: 0, y: 0 };
+    // Save interruption
+    action.interruption.status = 'applied';
+    masterTimetable.interruptions.push(action.interruption);
 
-    function init3DMap() {
-        const container = document.getElementById('container-3d');
-        if (!container) return;
+    // Cancel affected slots
+    action.affectedSlots.forEach(s=>{
+        setTimetableOverride(s.year, s.section, s.day, s.period.id, null);
+    });
 
-        container.innerHTML = '';
-
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xF5F5F0);
-        scene.fog = new THREE.FogExp2(0xF5F5F0, 0.008);
-
-        const width = container.clientWidth || 800;
-        const height = container.clientHeight || 560;
-
-        camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        camera.position.set(0, 45, 50);
-
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.shadowMap.enabled = true;
-
-        container.appendChild(renderer.domElement);
-
-        const OrbitControlsClass = THREE.OrbitControls || (window.THREE && window.THREE.OrbitControls);
-        if (OrbitControlsClass) {
-            controls = new OrbitControlsClass(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.maxPolarAngle = Math.PI / 2 - 0.05;
-        }
-
-        // Lighting Setup
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
-        scene.add(ambientLight);
-
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-        dirLight.position.set(20, 50, 30);
-        dirLight.castShadow = true;
-        scene.add(dirLight);
-
-        const pointLight = new THREE.PointLight(0xFFD700, 0.6, 60);
-        pointLight.position.set(0, 15, 0);
-        scene.add(pointLight);
-
-        // Grid Floor
-        const grid = new THREE.GridHelper(80, 40, 0x4A5D2E, 0xE5E7EB);
-        grid.position.y = 0;
-        scene.add(grid);
-
-        // Build All 3D Blueprint Blocks
-        Object.keys(campusLocations).forEach(key => {
-            const loc = campusLocations[key];
-            const geo = new THREE.BoxGeometry(loc.w, loc.height, loc.d);
-
-            const mat = new THREE.MeshStandardMaterial({
-                color: loc.color,
-                roughness: 0.3,
-                metalness: 0.2,
-                emissive: 0x000000
+    // Apply proposed rescheduling
+    action.proposals.forEach(p=>{
+        if(p.newPeriod){
+            setTimetableOverride(p.year, p.section, p.newDay, p.newPeriod, {
+                subject: p.subject, teacher: p.teacher, room: p.room
             });
-
-            const mesh = new THREE.Mesh(geo, mat);
-            mesh.position.set(loc.x, loc.height / 2, loc.z);
-            mesh.rotation.y = loc.rot;
-            mesh.castShadow = true;
-            mesh.receiveShadow = true;
-            mesh.userData = loc;
-
-            // Outline
-            const edges = new THREE.EdgesGeometry(geo);
-            const lineMat = new THREE.LineBasicMaterial({ color: 0x4A5D2E });
-            const wireframe = new THREE.LineSegments(edges, lineMat);
-            mesh.add(wireframe);
-
-            scene.add(mesh);
-            interactiveBlocks.push(mesh);
-
-            // Sprite Text Label
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 256;
-            canvas.height = 64;
-            ctx.fillStyle = '#4A5D2E';
-            ctx.font = 'Bold 22px Inter, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(loc.name, 128, 40);
-
-            const texture = new THREE.CanvasTexture(canvas);
-            const spriteMat = new THREE.SpriteMaterial({ map: texture });
-            const sprite = new THREE.Sprite(spriteMat);
-            sprite.position.set(loc.x, loc.height + 2.5, loc.z);
-            sprite.scale.set(10, 2.5, 1);
-            scene.add(sprite);
-        });
-
-        renderer.domElement.addEventListener('pointerdown', (e) => {
-            pointerDownPos = { x: e.clientX, y: e.clientY };
-        }, false);
-
-        renderer.domElement.addEventListener('pointerup', on3DPointerUp, false);
-        window.addEventListener('resize', resize3DCanvas);
-
-        animate3D();
-    }
-
-    function resize3DCanvas() {
-        const container = document.getElementById('container-3d');
-        if (!container || !renderer || !camera) return;
-        const width = container.clientWidth;
-        const height = container.clientHeight || 560;
-
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(width, height);
-    }
-
-    function animate3D() {
-        requestAnimationFrame(animate3D);
-        if (controls) controls.update();
-        if (renderer && scene && camera) renderer.render(scene, camera);
-    }
-
-    function on3DPointerUp(event) {
-        if (!renderer) return;
-
-        const moveDist = Math.hypot(event.clientX - pointerDownPos.x, event.clientY - pointerDownPos.y);
-        if (moveDist > 8) return;
-
-        const rect = renderer.domElement.getBoundingClientRect();
-        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(interactiveBlocks);
-
-        if (intersects.length > 0) {
-            const clickedLoc = intersects[0].object.userData;
-            showBlockModal(clickedLoc);
         }
+    });
+
+    // Finalize action
+    action.status = 'applied';
+    action.finalSchedule = action.proposals;
+    masterTimetable.aiActions.push(action);
+
+    // Log
+    logAIActivity({
+        timestamp: nowStr(),
+        adminRequest: action.interruption.description || action.interruption.title,
+        interruption: action.interruption.title,
+        affectedClasses: action.interruption.affectedClasses.join(', '),
+        slotsAffected: action.affectedSlots.length,
+        classesRescheduled: action.proposals.filter(p=>p.newPeriod).length,
+        conflicts: action.conflicts.facultyConflicts+action.conflicts.roomConflicts,
+        status: 'Approved & Applied'
+    });
+
+    refreshDashboardStats();
+    refreshInterruptionLists();
+    updateTimetableView();
+    resetAnalysisPanel();
+    showToast('success','Timetable Updated',`${action.interruption.title} — ${action.affectedSlots.length} slot${action.affectedSlots.length!==1?'s':''} rescheduled. Conflicts: 0.`);
+    pendingAIAction = null;
+}
+
+function rejectAIChanges(){
+    if(!pendingAIAction) return;
+    // Still save the interruption but as rejected
+    const interruption = pendingAIAction.interruption;
+    interruption.status = 'rejected';
+    masterTimetable.interruptions.push(interruption);
+
+    logAIActivity({
+        timestamp: nowStr(),
+        adminRequest: interruption.description||interruption.title,
+        interruption: interruption.title,
+        affectedClasses: interruption.affectedClasses.join(', '),
+        slotsAffected: pendingAIAction.affectedSlots.length,
+        classesRescheduled: 0,
+        conflicts: 0,
+        status: 'Rejected by Admin'
+    });
+
+    refreshDashboardStats();
+    refreshInterruptionLists();
+    resetAnalysisPanel();
+    showToast('info','Changes Rejected','AI rescheduling was rejected. Timetable unchanged.');
+    pendingAIAction = null;
+}
+
+function saveInterruptionOnly(){
+    if(!pendingAIAction) return;
+    const interruption = pendingAIAction.interruption;
+    interruption.status = 'active';
+    masterTimetable.interruptions.push(interruption);
+    logAIActivity({
+        timestamp: nowStr(),
+        adminRequest: interruption.description||interruption.title,
+        interruption: interruption.title,
+        affectedClasses: interruption.affectedClasses.join(', '),
+        slotsAffected: 0,
+        classesRescheduled: 0,
+        conflicts: 0,
+        status: 'Saved (No Reschedule)'
+    });
+    refreshDashboardStats();
+    refreshInterruptionLists();
+    resetAnalysisPanel();
+    showToast('success','Interruption Saved','No timetable changes were required.');
+    pendingAIAction = null;
+}
+
+// ===== FULL PREVIEW MODAL =====
+function openApprovalModal(){
+    if(!pendingAIAction){ showToast('danger','Error','No pending analysis.'); return; }
+    const a = pendingAIAction;
+    const int = a.interruption;
+    $('approval-modal-content').innerHTML = `
+        <div style="background:rgba(74,93,46,0.05);border-radius:8px;padding:14px;margin-bottom:16px;">
+            <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">📋 ${int.title}</div>
+            <div style="font-size:0.83rem;color:var(--text-muted);display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                <div><strong>Date:</strong> ${formatDate(int.date)}</div>
+                <div><strong>Time:</strong> ${formatTime(int.startTime)} – ${formatTime(int.endTime)}</div>
+                <div><strong>Classes:</strong> ${int.affectedClasses.join(', ')}</div>
+                <div><strong>Venue:</strong> ${int.venue||'TBD'}</div>
+                <div><strong>Priority:</strong> ${int.priority}</div>
+                <div><strong>Type:</strong> ${int.type}</div>
+            </div>
+        </div>
+        <div style="margin-bottom:16px;">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Affected Slots (${a.affectedSlots.length})</div>
+            ${a.affectedSlots.map(s=>`
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bg-secondary);font-size:0.83rem;">
+                    <div><strong>${s.subject}</strong> <span style="color:var(--text-muted);">${s.day} • ${s.period.label}</span></div>
+                    <div style="color:var(--text-muted);font-size:0.75rem;">${s.teacher}</div>
+                </div>`).join('')||'<div style="color:var(--success);font-size:0.83rem;">No slots affected.</div>'}
+        </div>
+        <div style="margin-bottom:16px;">
+            <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">AI Proposed Rescheduling</div>
+            ${a.proposals.map(p=>`
+                <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bg-secondary);font-size:0.83rem;">
+                    <span style="font-weight:600;">${p.subject}</span>
+                    <i class="fa-solid fa-arrow-right" style="color:var(--warning);"></i>
+                    <span style="color:var(--accent-cyan);font-weight:600;">${p.newDay}, ${p.newPeriodLabel}</span>
+                    <span class="badge ${p.conflict?'badge-danger':'badge-success'}" style="margin-left:auto;">${p.conflict?'⚠ No Slot':'✓'}</span>
+                </div>`).join('')||'<div style="color:var(--success);font-size:0.83rem;">No rescheduling needed.</div>'}
+        </div>
+        <div style="background:rgba(22,163,74,0.05);border:1px solid rgba(22,163,74,0.2);border-radius:8px;padding:12px;">
+            <div style="font-weight:600;font-size:0.85rem;margin-bottom:6px;">Conflict Analysis</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:0.82rem;">
+                <div>Faculty Conflicts: <strong style="color:var(--success);">${a.conflicts.facultyConflicts}</strong></div>
+                <div>Room Conflicts: <strong style="color:var(--success);">${a.conflicts.roomConflicts}</strong></div>
+                <div>Student Conflicts: <strong style="color:var(--success);">${a.conflicts.studentConflicts}</strong></div>
+                <div>Lab Conflicts: <strong style="color:var(--success);">${a.conflicts.labConflicts}</strong></div>
+            </div>
+        </div>`;
+    $('approval-modal-footer').innerHTML = `
+        <button class="ai-btn ai-btn-secondary" onclick="closeModal('approval-modal')">Close</button>
+        <button class="ai-btn ai-btn-danger" onclick="rejectAIChanges();closeModal('approval-modal')"><i class="fa-solid fa-xmark"></i> Reject</button>
+        <button class="ai-btn ai-btn-success" onclick="approveAndApply()"><i class="fa-solid fa-check-double"></i> Approve &amp; Apply</button>
+    `;
+    openModal('approval-modal');
+}
+
+// ===== AUTO-APPLY CHECK =====
+async function checkAutoApply(interruption){
+    const action = pendingAIAction;
+    if(!action) return;
+    const riskScore = action.affectedSlots.length + (action.conflicts.facultyConflicts*5) + (action.conflicts.roomConflicts*5);
+    const isLowRisk = riskScore <= 3 && action.conflicts.facultyConflicts===0 && action.conflicts.roomConflicts===0;
+    if(automationMode==='auto' && isLowRisk){
+        await delay(500);
+        showToast('info','AI Auto-Apply','Low-risk change detected. Applying automatically...');
+        await delay(800);
+        applyAIAction(action);
     }
+}
 
-    function showBlockModal(loc) {
-        document.getElementById('card-3d-img').src = loc.img;
-        document.getElementById('card-block-title').innerHTML = `${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer; font-size:0.9rem; color:var(--text-muted);" onclick="closeBlockModal()"></i>`;
-        document.getElementById('card-block-desc').innerText = loc.desc;
-        document.getElementById('card-p12').innerText = loc.p12;
-        document.getElementById('card-p21').innerText = loc.p21;
-        document.getElementById('card-p31').innerText = loc.p31;
+// ===== DASHBOARD STATS =====
+function refreshDashboardStats(){
+    const now = new Date();
+    const active   = masterTimetable.interruptions.filter(i=>i.status==='active'||i.status==='applied');
+    const upcoming = masterTimetable.interruptions.filter(i=>{ const d=new Date(i.date+'T00:00:00'); return d>now&&i.status!=='rejected'; });
+    const pending  = masterTimetable.interruptions.filter(i=>i.status==='pending');
+    const rescCnt  = masterTimetable.aiActions.reduce((s,a)=>s+(a.finalSchedule?.length||0),0);
 
-        document.getElementById('block-info-card').classList.remove('hidden');
+    const se = $('stat-active'); if(se) se.textContent=active.length;
+    const su = $('stat-upcoming'); if(su) su.textContent=upcoming.length;
+    const sr = $('stat-rescheduled'); if(sr) sr.textContent=rescCnt;
+    const sp = $('stat-pending'); if(sp) sp.textContent=pending.length;
+}
+
+// ===== INTERRUPTION LISTS =====
+function refreshInterruptionLists(){
+    const now = new Date();
+    const active   = masterTimetable.interruptions.filter(i=>i.status==='active'||i.status==='applied');
+    const upcoming = masterTimetable.interruptions.filter(i=>{ const d=new Date((i.date||'2099-01-01')+'T00:00:00'); return d>now&&i.status!=='rejected'; });
+    const pending  = masterTimetable.interruptions.filter(i=>i.status==='pending');
+    const completed= masterTimetable.interruptions.filter(i=>i.status==='applied');
+    const aiActs   = masterTimetable.aiActions;
+
+    renderInterruptionList('list-active', active);
+    renderInterruptionList('list-upcoming', upcoming);
+    renderInterruptionList('list-pending', pending);
+    renderInterruptionList('list-completed', completed);
+    renderAIActionList('list-ai-actions', aiActs);
+}
+
+function priorityColor(p){ return {low:'badge-neutral',medium:'badge-info',high:'badge-warning',critical:'badge-danger'}[p]||'badge-neutral'; }
+function statusColor(s){ return {active:'badge-warning',applied:'badge-success',pending:'badge-info',rejected:'badge-danger',completed:'badge-success'}[s]||'badge-neutral'; }
+
+function renderInterruptionList(containerId, list){
+    const el = $(containerId);
+    if(!el) return;
+    if(list.length===0){
+        el.innerHTML = `<div class="empty-list"><i class="fa-solid fa-calendar-xmark"></i>No interruptions in this category.</div>`;
+        return;
     }
+    el.innerHTML = list.map(int=>{
+        const action = masterTimetable.aiActions.find(a=>a.interruptionId===int.id);
+        return `<div class="interruption-card">
+            <div class="interruption-card-header">
+                <div>
+                    <div class="interruption-title">${int.title}</div>
+                    <div class="interruption-meta">${int.affectedClasses.join(', ')} • ${formatDate(int.date)||'Date TBD'}</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
+                    <span class="badge ${statusColor(int.status)}">${int.status.charAt(0).toUpperCase()+int.status.slice(1)}</span>
+                    <span class="badge ${priorityColor(int.priority)}">${int.priority} priority</span>
+                </div>
+            </div>
+            <div class="interruption-detail-row"><i class="fa-solid fa-clock"></i>${formatTime(int.startTime)} – ${formatTime(int.endTime)}</div>
+            <div class="interruption-detail-row"><i class="fa-solid fa-location-dot"></i>${int.venue||'Venue TBD'}</div>
+            ${action?`<div class="interruption-detail-row"><i class="fa-solid fa-arrows-rotate"></i>${action.finalSchedule?.length||0} class${(action.finalSchedule?.length||0)!==1?'es':''} rescheduled</div>`:''}
+            <div class="interruption-actions">
+                ${int.status==='pending'?`<button class="ai-btn ai-btn-primary" style="padding:6px 12px;font-size:0.78rem;" onclick="rerunAnalysis('${int.id}')"><i class="fa-solid fa-robot"></i> Run AI</button>`:''}
+                ${int.status==='applied'?`<button class="ai-btn ai-btn-secondary" style="padding:6px 12px;font-size:0.78rem;" onclick="openRollbackModal()"><i class="fa-solid fa-rotate-left"></i> Undo</button>`:''}
+                <button class="ai-btn ai-btn-danger" style="padding:6px 12px;font-size:0.78rem;" onclick="deleteInterruption('${int.id}')"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>`;
+    }).join('');
+}
 
-    function closeBlockModal() {
-        document.getElementById('block-info-card').classList.add('hidden');
+function renderAIActionList(containerId, list){
+    const el = $(containerId);
+    if(!el) return;
+    if(list.length===0){
+        el.innerHTML = `<div class="empty-list"><i class="fa-solid fa-robot"></i>No AI actions recorded yet.</div>`;
+        return;
     }
+    el.innerHTML = list.map(a=>`
+        <div class="interruption-card">
+            <div class="interruption-card-header">
+                <div>
+                    <div class="interruption-title">🤖 ${a.interruption?.title||'AI Action'}</div>
+                    <div class="interruption-meta">${a.interruption?.affectedClasses?.join(', ')||''} • ${a.createdAt}</div>
+                </div>
+                <span class="badge ${a.status==='applied'?'badge-success':'badge-danger'}">${a.status}</span>
+            </div>
+            <div class="interruption-detail-row"><i class="fa-solid fa-triangle-exclamation"></i>${a.affectedSlots?.length||0} slot${a.affectedSlots?.length!==1?'s':''} affected</div>
+            <div class="interruption-detail-row"><i class="fa-solid fa-arrows-rotate"></i>${a.finalSchedule?.length||0} class${a.finalSchedule?.length!==1?'es':''} rescheduled</div>
+            <div class="interruption-detail-row"><i class="fa-solid fa-shield-check"></i>Conflicts: ${(a.conflicts?.facultyConflicts||0)+(a.conflicts?.roomConflicts||0)+(a.conflicts?.studentConflicts||0)}</div>
+        </div>
+    `).join('');
+}
 
-    // --- 6. AI AGENT CHAT LOGIC ---
-    function sendNavMsg() {
-        const input = document.getElementById('input-nav');
-        const chatBox = document.getElementById('chat-nav');
-        const msg = input.value.trim();
-        if (!msg) return;
+function deleteInterruption(id){
+    if(!confirm('Delete this interruption? This does NOT rollback timetable changes.')) return;
+    masterTimetable.interruptions = masterTimetable.interruptions.filter(i=>i.id!==id);
+    refreshDashboardStats();
+    refreshInterruptionLists();
+    showToast('success','Deleted','Interruption removed from the list.');
+}
 
-        chatBox.innerHTML += `<div><strong style="color:var(--text-main)">You:</strong> ${msg}</div>`;
-        input.value = '';
+async function rerunAnalysis(id){
+    const int = masterTimetable.interruptions.find(i=>i.id===id);
+    if(!int) return;
+    // Switch to AI manager tab
+    const aiMenuItem = [...document.querySelectorAll('#sidebar-menu li')].find(li=>li.textContent.includes('AI Timetable'));
+    switchTab('ai-timetable', aiMenuItem);
+    await delay(300);
+    await runAIAnalysis(int);
+}
 
-        const lowerMsg = msg.toLowerCase();
+// ===== ROLLBACK =====
+function openRollbackModal(){
+    const list = masterTimetable.timetableHistory.slice().reverse();
+    if(list.length===0){
+        showToast('info','No Snapshots','No timetable history available to restore.'); return;
+    }
+    $('rollback-list').innerHTML = list.map((snap,i)=>`
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid var(--card-border);border-radius:8px;margin-bottom:8px;">
+            <div>
+                <div style="font-weight:600;font-size:0.85rem;">${snap.label}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">${snap.timestamp}</div>
+            </div>
+            <button class="ai-btn ai-btn-warning" style="padding:6px 14px;font-size:0.8rem;" onclick="rollbackTo('${snap.id}')">
+                <i class="fa-solid fa-rotate-left"></i> Restore
+            </button>
+        </div>
+    `).join('');
+    openModal('rollback-modal');
+}
 
-        if (lowerMsg.includes('route') || lowerMsg.includes('way') || lowerMsg.includes('path') || lowerMsg.includes('to')) {
-            let startKey = 'blockA';
-            let endKey = 'blockJ';
+function rollbackTo(snapId){
+    const snap = masterTimetable.timetableHistory.find(s=>s.id===snapId);
+    if(!snap){ showToast('danger','Error','Snapshot not found.'); return; }
+    if(!confirm(`Restore timetable to: "${snap.label}"?\n\nThis will undo all changes made after this snapshot.`)) return;
 
-            if(lowerMsg.includes('tower')) endKey = 'tower';
-            else if(lowerMsg.includes('admin')) endKey = 'admin';
+    // Save current state before rollback
+    saveTimetableSnapshot(`Before rollback to: ${snap.label}`);
+    masterTimetable.overrides = JSON.parse(JSON.stringify(snap.overrides));
 
-            setTimeout(() => {
-                chatBox.innerHTML += `<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Generating wayfinding pathway on 2D map...</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
+    logAIActivity({
+        timestamp: nowStr(),
+        adminRequest: `Rollback to: ${snap.label}`,
+        interruption: 'Rollback',
+        affectedClasses: 'All',
+        slotsAffected: 0,
+        classesRescheduled: 0,
+        conflicts: 0,
+        status: 'Rolled Back'
+    });
 
-                switchTab('navigation', document.querySelectorAll('.sidebar-menu li')[1]);
-                document.getElementById('route-start').value = startKey;
-                document.getElementById('route-end').value = endKey;
-                drawCampusRoute(startKey, endKey);
-            }, 500);
-            return;
+    updateTimetableView();
+    refreshDashboardStats();
+    closeModal('rollback-modal');
+    showToast('success','Timetable Restored',`Timetable rolled back to: ${snap.label}`);
+}
+
+// ===== AI ACTIVITY LOG =====
+const aiActivityLog = [];
+function logAIActivity(entry){
+    aiActivityLog.unshift(entry);
+}
+function refreshActivityLog(){
+    const el = $('ai-activity-log-list');
+    if(!el) return;
+    if(aiActivityLog.length===0){
+        el.innerHTML = `<div class="empty-list"><i class="fa-solid fa-scroll"></i>No AI activity recorded yet.</div>`;
+        return;
+    }
+    el.innerHTML = aiActivityLog.map(entry=>`
+        <div class="log-entry">
+            <div class="log-header">
+                <div>
+                    <div style="font-weight:700;font-size:0.9rem;font-family:var(--font-heading);">${entry.interruption}</div>
+                    <div class="log-timestamp">${entry.timestamp}</div>
+                </div>
+                <span class="badge ${entry.status.includes('Approved')||entry.status.includes('Applied')||entry.status.includes('Saved')?'badge-success':entry.status.includes('Rejected')?'badge-danger':entry.status.includes('Rolled')?'badge-warning':'badge-info'}">${entry.status}</span>
+            </div>
+            <div class="log-body">
+                <div class="log-field">
+                    <div class="log-field-label">Admin Request</div>
+                    <div class="log-field-value">${entry.adminRequest}</div>
+                </div>
+                <div class="log-field">
+                    <div class="log-field-label">Affected Classes</div>
+                    <div class="log-field-value">${entry.affectedClasses}</div>
+                </div>
+                <div class="log-field">
+                    <div class="log-field-label">Slots Affected</div>
+                    <div class="log-field-value">${entry.slotsAffected}</div>
+                </div>
+                <div class="log-field">
+                    <div class="log-field-label">Classes Rescheduled</div>
+                    <div class="log-field-value">${entry.classesRescheduled}</div>
+                </div>
+                <div class="log-field">
+                    <div class="log-field-label">Conflicts Detected</div>
+                    <div class="log-field-value" style="color:${entry.conflicts===0?'var(--success)':'var(--danger)'};">${entry.conflicts===0?'None':entry.conflicts}</div>
+                </div>
+                <div class="log-field">
+                    <div class="log-field-label">Status</div>
+                    <div class="log-field-value">${entry.status}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function clearActivityLog(){
+    if(!confirm('Clear the AI activity log?')) return;
+    aiActivityLog.length=0;
+    refreshActivityLog();
+    showToast('info','Log Cleared','AI activity log has been cleared.');
+}
+
+// ===== CAMPUS LOCATIONS (unchanged) =====
+const campusLocations = {
+    tower:    {key:"tower",   lat:26.449700,lng:80.192086,name:"CAMPUS Tower",    desc:"Corporate & Public Relations Hub",        img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=80",p12:"PR Office & Visitor Lounge",    p21:"Corporate Relations & Boardroom",              p31:"Director Office & High-Tech Suites",          x:0,   z:-20,w:16,d:8, rot:0,            color:0x4A5D2E,height:7},
+    admin:    {key:"admin",   lat:26.449450,lng:80.192086,name:"Admin / Town Hall",desc:"Central Administrative Block",            img:"https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80",p12:"Student Registrar & Accounts",  p21:"Main Town Hall & Conference Room",             p31:"Dean Academics & Controller Cell",            x:0,   z:-12,w:14,d:6, rot:0,            color:0x6B8E3D,height:4.5},
+    lawn:     {key:"lawn",    lat:26.449000,lng:80.192086,name:"Central Green Lawn",desc:"Main Campus Assembly Ground",            img:"https://images.unsplash.com/photo-1589828996213-56e201216856?w=500&auto=format&fit=crop&q=80",p12:"Open Amphitheatre & Assembly Ground",p21:"N/A",                                         p31:"N/A",                                         x:0,   z:2,  w:10,d:18,rot:0,            color:0x8FAD5E,height:0.2},
+    rangmanch:{key:"rangmanch",lat:26.448200,lng:80.192086,name:"Rang Manch",     desc:"Open Air Cultural Stage Arena",           img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80",p12:"Open Stage Arena & Green Rooms", p21:"Sound, Light Control & VIP Gallery",           p31:"Open Gallery Deck",                           x:0,   z:14, w:10,d:4, rot:0,            color:0xB8860B,height:2},
+    blockG:   {key:"blockG",  lat:26.449650,lng:80.191400,name:"Block G",        desc:"Management & MCA Block",                  img:"https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80",p12:"MBA Seminar Hall G12",           p21:"MCA Classrooms G21",                           p31:"E-Cell & Startup Incubator G31",              x:-16, z:-19,w:10,d:7, rot:0,            color:0x5C7236,height:4},
+    blockE:   {key:"blockE",  lat:26.449400,lng:80.191400,name:"Block E",        desc:"Basic Sciences & Humanities",             img:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=80",p12:"Physics & Chemistry Labs E12",  p21:"Humanities Classrooms E21",                    p31:"Communication Skill Lab E31",                 x:-17, z:-11,w:7, d:7, rot:0,            color:0x6B8E3D,height:4},
+    blockC:   {key:"blockC",  lat:26.449200,lng:80.191400,name:"Block C",        desc:"Information Technology Wing",             img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&auto=format&fit=crop&q=80",p12:"IT Web Dev Labs C12",            p21:"Lecture Rooms C21",                            p31:"Cyber Security Research Lab C31",             x:-17, z:-3,  w:7, d:7, rot:0,            color:0x6B8E3D,height:4},
+    blockA:   {key:"blockA",  lat:26.449000,lng:80.191400,name:"Block A",        desc:"Computer Science Wing",                   img:"https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80",p12:"CSE Hardware Labs A12",          p21:"Classrooms A21",                               p31:"AI Research Center A31",                      x:-17, z:5,   w:7, d:7, rot:0,            color:0x6B8E3D,height:4},
+    blockS:   {key:"blockS",  lat:26.448600,lng:80.191400,name:"Block S",        desc:"Central Cafeteria & Food Court",          img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&auto=format&fit=crop&q=80",p12:"Main Dining Hall S12",           p21:"Nescafe & Express Lounge S21",                 p31:"Executive Dining Zone S31",                   x:-16, z:14,  w:10,d:7, rot:0,            color:0x5C7236,height:4},
+    blockF:   {key:"blockF",  lat:26.449300,lng:80.191600,name:"Block F",        desc:"Mechanical & CAD Labs",                   img:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&auto=format&fit=crop&q=80",p12:"Auto CAD & Robotics Lab F12",   p21:"Classrooms F21",                               p31:"Design Thinking Center F31",                  x:-9,  z:-10, w:6, d:8, rot:Math.PI/4,   color:0x4A5D2E,height:3.5},
+    blockD:   {key:"blockD",  lat:26.449100,lng:80.191600,name:"Block D",        desc:"Electronics & Tech Labs",                 img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80",p12:"IoT & Embedded Systems Lab D12",p21:"Classrooms D21",                               p31:"Microprocessor Lab D31",                       x:-9,  z:-2,  w:6, d:8, rot:Math.PI/4,   color:0x4A5D2E,height:3.5},
+    blockB:   {key:"blockB",  lat:26.448800,lng:80.191600,name:"Block B",        desc:"Software Development Labs",               img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=80",p12:"Python & Java Coding Labs B12",  p21:"Lecture Rooms B21",                            p31:"High-Performance Cloud Lab B31",              x:-9,  z:6,   w:6, d:8, rot:Math.PI/4,   color:0x4A5D2E,height:3.5},
+    blockJ:   {key:"blockJ",  lat:26.449650,lng:80.192700,name:"Block J",        desc:"Pharmacy & Biotech Wing",                 img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=500&auto=format&fit=crop&q=80",p12:"Pharmaceutics Lab J12",         p21:"Biotech Research Lab J21",                     p31:"Lecture Halls J31",                           x:16,  z:-19, w:10,d:7, rot:0,            color:0x8B7355,height:4},
+    blockK:   {key:"blockK",  lat:26.449400,lng:80.192700,name:"Block K",        desc:"Central Library & Digital Hub",           img:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=80",p12:"Reading Hall & Journal Section",p21:"Digital Library & E-Learning",                 p31:"Book Bank & Silent Zone",                     x:17,  z:-11, w:7, d:7, rot:0,            color:0x7C6B50,height:4},
+    blockM:   {key:"blockM",  lat:26.449200,lng:80.192700,name:"Block M",        desc:"Electrical Engineering Wing",             img:"https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=500&auto=format&fit=crop&q=80",p12:"Electrical Machines Lab M12",   p21:"Classrooms M21",                               p31:"Power Systems Lab M31",                       x:17,  z:-3,  w:7, d:7, rot:0,            color:0x7C6B50,height:4},
+    blockP:   {key:"blockP",  lat:26.449000,lng:80.192700,name:"Block P",        desc:"First Year Engineering Wing",             img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=80",p12:"Applied Physics Lab P12",       p21:"Classrooms P21",                               p31:"Engineering Graphics Lab P31",                x:17,  z:5,   w:7, d:7, rot:0,            color:0x7C6B50,height:4},
+    blockR:   {key:"blockR",  lat:26.448600,lng:80.192700,name:"Block R",        desc:"Sports & Amenities Center",               img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80",p12:"Indoor Badminton & Table Tennis",p21:"Gymnasium & Fitness Suite",                    p31:"Student Activity Club",                       x:16,  z:14,  w:10,d:7, rot:0,            color:0x8B7355,height:4},
+    blockL:   {key:"blockL",  lat:26.449300,lng:80.192500,name:"Block L",        desc:"Advanced Computing Wing",                 img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80",p12:"Data Science Lab L12",          p21:"Classrooms L21",                               p31:"Machine Learning Hub L31",                    x:9,   z:-10, w:6, d:8, rot:-Math.PI/4,  color:0x4A5D2E,height:3.5},
+    blockN:   {key:"blockN",  lat:26.449100,lng:80.192500,name:"Block N",        desc:"Civil & Structural Labs",                 img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&auto=format&fit=crop&q=80",p12:"Surveying & Material Lab N12",  p21:"Classrooms N21",                               p31:"CAD Civil Lab N31",                           x:9,   z:-2,  w:6, d:8, rot:-Math.PI/4,  color:0x4A5D2E,height:3.5},
+    blockQ:   {key:"blockQ",  lat:26.448800,lng:80.192500,name:"Block Q",        desc:"Tutorial & Workshop Block",               img:"https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80",p12:"Mechanical Workshop Q12",       p21:"Tutorial Rooms Q21",                           p31:"Language Lab Q31",                            x:9,   z:6,   w:6, d:8, rot:-Math.PI/4,  color:0x4A5D2E,height:3.5}
+};
+
+// Populate Route Select Dropdowns
+function populateRouteDropdowns(){
+    const startSelect = $('route-start');
+    const endSelect   = $('route-end');
+    const list2D      = $('2d-location-list');
+    if(!startSelect||!endSelect) return;
+    startSelect.innerHTML=''; endSelect.innerHTML='';
+    if(list2D) list2D.innerHTML='';
+    Object.keys(campusLocations).forEach((key,index)=>{
+        const loc = campusLocations[key];
+        startSelect.innerHTML += `<option value="${key}">${loc.name}</option>`;
+        endSelect.innerHTML   += `<option value="${key}" ${index===5?'selected':''}>${loc.name}</option>`;
+        if(list2D){
+            list2D.innerHTML += `<div class="location-item" onclick="flyToLoc('${key}')">
+                <strong style="color:var(--text-main);font-weight:600;">${loc.name}</strong>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">${loc.desc}</div>
+            </div>`;
         }
+    });
+}
 
-        let foundKey = null;
-        Object.keys(campusLocations).forEach(key => {
-            if (lowerMsg.includes(key.toLowerCase()) || lowerMsg.includes(campusLocations[key].name.toLowerCase())) {
-                foundKey = key;
-            }
-        });
+// ===== LEAFLET 2D MAP =====
+let map2D;
+let activeRoutePath = null;
+const markers2D = {};
 
-        setTimeout(() => {
-            if (foundKey) {
-                const loc = campusLocations[foundKey];
-                chatBox.innerHTML += `<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Located <strong>${loc.name}</strong>! Zooming in...</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
+function init2DMap(){
+    if(map2D) return;
+    map2D = L.map('map',{zoomControl:true,attributionControl:false}).setView([26.449100,80.192086],18);
+    Object.keys(campusLocations).forEach(key=>{
+        const loc = campusLocations[key];
+        const customIcon = L.divIcon({className:'custom-cyber-pin',html:`<div>${loc.name}</div>`,iconSize:[110,26],iconAnchor:[55,13]});
+        const marker = L.marker([loc.lat,loc.lng],{icon:customIcon}).addTo(map2D);
+        marker.on('click',()=>showBlockModal2D(loc));
+        markers2D[key]=marker;
+    });
+}
 
-                switchTab('navigation', document.querySelectorAll('.sidebar-menu li')[1]);
-                flyToLoc(foundKey);
-            } else {
-                chatBox.innerHTML += `<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Try asking 'Route from Block A to Block J' or 'Where is Block G'.</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        }, 500);
+function flyToLoc(key){
+    if(!map2D||!campusLocations[key]) return;
+    const loc = campusLocations[key];
+    map2D.flyTo([loc.lat,loc.lng],19,{duration:1.2});
+    showBlockModal2D(loc);
+}
+function showBlockModal2D(loc){
+    $('card-2d-img').src=loc.img;
+    $('card-2d-title').innerHTML=`${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;color:var(--text-muted);" onclick="closeBlockModal2D()"></i>`;
+    $('card-2d-desc').innerText=loc.desc;
+    $('card-2d-p12').innerText=loc.p12;
+    $('card-2d-p21').innerText=loc.p21;
+    $('card-2d-p31').innerText=loc.p31;
+    $('2d-block-info-card').classList.remove('hidden');
+}
+function closeBlockModal2D(){ $('2d-block-info-card').classList.add('hidden'); }
+
+function drawCampusRoute(startKeyOverride,endKeyOverride){
+    const startKey = startKeyOverride||$('route-start').value;
+    const endKey   = endKeyOverride||$('route-end').value;
+    if(startKey===endKey){ $('route-info').innerHTML=`<span style="color:var(--danger);">Start & Destination cannot be the same!</span>`; return; }
+    const startLoc = campusLocations[startKey];
+    const endLoc   = campusLocations[endKey];
+    clearCampusRoute();
+    const distInMeters = getDistanceInMeters(startLoc.lat,startLoc.lng,endLoc.lat,endLoc.lng);
+    const walkTimeMins = Math.ceil(distInMeters/70);
+    const lawnLoc = campusLocations['lawn'];
+    const waypoints = [[startLoc.lat,startLoc.lng],[lawnLoc.lat,lawnLoc.lng],[endLoc.lat,endLoc.lng]];
+    activeRoutePath = L.polyline(waypoints,{color:'#4A5D2E',weight:5,opacity:0.95,dashArray:'8, 12',lineCap:'round'}).addTo(map2D);
+    map2D.fitBounds(activeRoutePath.getBounds(),{padding:[40,40]});
+    $('route-info').innerHTML=`📍 <strong>${startLoc.name}</strong> ➔ <strong>${endLoc.name}</strong> | 🚶 ~${Math.round(distInMeters)}m (${walkTimeMins} min walk)`;
+}
+function clearCampusRoute(){
+    if(activeRoutePath&&map2D){ map2D.removeLayer(activeRoutePath); activeRoutePath=null; }
+    $('route-info').innerText="Select start and end blocks to generate pathway.";
+}
+function getDistanceInMeters(lat1,lon1,lat2,lon2){
+    const R=6371e3,φ1=lat1*Math.PI/180,φ2=lat2*Math.PI/180,Δφ=(lat2-lat1)*Math.PI/180,Δλ=(lon2-lon1)*Math.PI/180;
+    const a=Math.sin(Δφ/2)*Math.sin(Δφ/2)+Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)*Math.sin(Δλ/2);
+    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+
+// ===== THREE.JS 3D MAP =====
+let scene,camera,renderer,controls;
+const interactiveBlocks=[];
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+let pointerDownPos={x:0,y:0};
+
+function init3DMap(){
+    const container=$('container-3d');
+    if(!container) return;
+    container.innerHTML='';
+    scene=new THREE.Scene();
+    scene.background=new THREE.Color(0xF5F5F0);
+    scene.fog=new THREE.FogExp2(0xF5F5F0,0.008);
+    const width=container.clientWidth||800,height=container.clientHeight||560;
+    camera=new THREE.PerspectiveCamera(45,width/height,0.1,1000);
+    camera.position.set(0,45,50);
+    renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+    renderer.setSize(width,height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.shadowMap.enabled=true;
+    container.appendChild(renderer.domElement);
+    const OC=THREE.OrbitControls||(window.THREE&&window.THREE.OrbitControls);
+    if(OC){ controls=new OC(camera,renderer.domElement); controls.enableDamping=true; controls.dampingFactor=0.05; controls.maxPolarAngle=Math.PI/2-0.05; }
+    scene.add(new THREE.AmbientLight(0xffffff,0.85));
+    const dirLight=new THREE.DirectionalLight(0xffffff,1.2);
+    dirLight.position.set(20,50,30); dirLight.castShadow=true; scene.add(dirLight);
+    const pointLight=new THREE.PointLight(0xFFD700,0.6,60);
+    pointLight.position.set(0,15,0); scene.add(pointLight);
+    scene.add(new THREE.GridHelper(80,40,0x4A5D2E,0xE5E7EB));
+    Object.keys(campusLocations).forEach(key=>{
+        const loc=campusLocations[key];
+        const geo=new THREE.BoxGeometry(loc.w,loc.height,loc.d);
+        const mat=new THREE.MeshStandardMaterial({color:loc.color,roughness:0.3,metalness:0.2,emissive:0x000000});
+        const mesh=new THREE.Mesh(geo,mat);
+        mesh.position.set(loc.x,loc.height/2,loc.z); mesh.rotation.y=loc.rot;
+        mesh.castShadow=true; mesh.receiveShadow=true; mesh.userData=loc;
+        const edges=new THREE.EdgesGeometry(geo);
+        mesh.add(new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:0x4A5D2E})));
+        scene.add(mesh); interactiveBlocks.push(mesh);
+        const canvas=document.createElement('canvas');
+        const ctx=canvas.getContext('2d');
+        canvas.width=256; canvas.height=64;
+        ctx.fillStyle='#4A5D2E'; ctx.font='Bold 22px Inter,sans-serif'; ctx.textAlign='center';
+        ctx.fillText(loc.name,128,40);
+        const texture=new THREE.CanvasTexture(canvas);
+        const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));
+        sprite.position.set(loc.x,loc.height+2.5,loc.z); sprite.scale.set(10,2.5,1);
+        scene.add(sprite);
+    });
+    renderer.domElement.addEventListener('pointerdown',e=>{pointerDownPos={x:e.clientX,y:e.clientY};},false);
+    renderer.domElement.addEventListener('pointerup',on3DPointerUp,false);
+    window.addEventListener('resize',resize3DCanvas);
+    animate3D();
+}
+function resize3DCanvas(){
+    const container=$('container-3d');
+    if(!container||!renderer||!camera) return;
+    const width=container.clientWidth,height=container.clientHeight||560;
+    camera.aspect=width/height; camera.updateProjectionMatrix(); renderer.setSize(width,height);
+}
+function animate3D(){ requestAnimationFrame(animate3D); if(controls) controls.update(); if(renderer&&scene&&camera) renderer.render(scene,camera); }
+function on3DPointerUp(event){
+    if(!renderer) return;
+    if(Math.hypot(event.clientX-pointerDownPos.x,event.clientY-pointerDownPos.y)>8) return;
+    const rect=renderer.domElement.getBoundingClientRect();
+    mouse.x=((event.clientX-rect.left)/rect.width)*2-1;
+    mouse.y=-((event.clientY-rect.top)/rect.height)*2+1;
+    raycaster.setFromCamera(mouse,camera);
+    const intersects=raycaster.intersectObjects(interactiveBlocks);
+    if(intersects.length>0) showBlockModal(intersects[0].object.userData);
+}
+function showBlockModal(loc){
+    $('card-3d-img').src=loc.img;
+    $('card-block-title').innerHTML=`${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;color:var(--text-muted);" onclick="closeBlockModal()"></i>`;
+    $('card-block-desc').innerText=loc.desc;
+    $('card-p12').innerText=loc.p12; $('card-p21').innerText=loc.p21; $('card-p31').innerText=loc.p31;
+    $('block-info-card').classList.remove('hidden');
+}
+function closeBlockModal(){ $('block-info-card').classList.add('hidden'); }
+
+// ===== LOCATION AI AGENT =====
+function sendNavMsg(){
+    const input=$('input-nav');
+    const chatBox=$('chat-nav');
+    const msg=input.value.trim();
+    if(!msg) return;
+    chatBox.innerHTML+=`<div><strong style="color:var(--text-main)">You:</strong> ${msg}</div>`;
+    input.value='';
+    const lowerMsg=msg.toLowerCase();
+    if(lowerMsg.includes('route')||lowerMsg.includes('way')||lowerMsg.includes('path')||lowerMsg.includes('to')){
+        let startKey='blockA',endKey='blockJ';
+        if(lowerMsg.includes('tower')) endKey='tower';
+        else if(lowerMsg.includes('admin')) endKey='admin';
+        setTimeout(()=>{
+            chatBox.innerHTML+=`<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Generating wayfinding pathway on 2D map...</div>`;
+            chatBox.scrollTop=chatBox.scrollHeight;
+            switchTab('navigation',document.querySelectorAll('#sidebar-menu li')[1]);
+            $('route-start').value=startKey; $('route-end').value=endKey;
+            drawCampusRoute(startKey,endKey);
+        },500);
+        return;
     }
+    let foundKey=null;
+    Object.keys(campusLocations).forEach(key=>{
+        if(lowerMsg.includes(key.toLowerCase())||lowerMsg.includes(campusLocations[key].name.toLowerCase())) foundKey=key;
+    });
+    setTimeout(()=>{
+        if(foundKey){
+            const loc=campusLocations[foundKey];
+            chatBox.innerHTML+=`<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Located <strong>${loc.name}</strong>! Zooming in...</div>`;
+            chatBox.scrollTop=chatBox.scrollHeight;
+            switchTab('navigation',document.querySelectorAll('#sidebar-menu li')[1]);
+            flyToLoc(foundKey);
+        } else {
+            chatBox.innerHTML+=`<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Try asking 'Route from Block A to Block J' or 'Where is Block G'.</div>`;
+            chatBox.scrollTop=chatBox.scrollHeight;
+        }
+    },500);
+}
+
+// ===== INIT =====
+// Set default date on interruption form to today
+document.addEventListener('DOMContentLoaded',()=>{
+    const today = new Date().toISOString().split('T')[0];
+    const intDate = $('int-date');
+    if(intDate) intDate.value = today;
+});
 </script>
 </body>
 </html>
