@@ -19,8 +19,10 @@
 **Campus Mind ERP** is a comprehensive, single-page application (SPA) designed to modernize college campus management. Redesigned with a clean, editorial SaaS aesthetic, this project combines standard academic tools (like dynamic timetables) with advanced spatial features, including a fully interactive 2D blueprint routing system and a 3D campus viewer.
 
 Built entirely with **Vanilla Web Technologies** (HTML, CSS, JS) without heavy frontend frameworks, ensuring blazing fast load times and an easily understandable single-file architecture.
-Website: https://ameydongre10.github.io/ERP-PROJECT/
 ---
+
+
+Website: https://ameydongre10.github.io/ERP-PROJECT/
 
 ## ✨ Key Features
 
