@@ -1,7 +1,7 @@
 <div align="center">
   <img src="campus.png" alt="Campus Mind ERP" width="100%" style="border-radius: 12px; margin-bottom: 20px;">
 
-  <h1>🎓 CAMPUS MIND ERP</h1>
+  <h1>🎓 CAMPUS MIND AI</h1>
   <p><strong>A Modern, Interactive Campus Management Dashboard & Wayfinding System</strong></p>
   
   <p>
