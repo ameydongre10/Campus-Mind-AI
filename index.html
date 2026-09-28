@@ -922,10 +922,10 @@ function buildDashboard(){
     const menu = $('sidebar-menu');
     menu.innerHTML = '';
     const items = [
-        { id:'timetable',     icon:'fa-calendar-days',      label:'Timetable Matrix',     adminOnly:false },
-        { id:'navigation',    icon:'fa-map-location-dot',   label:'CAMPUS HD 2D Map',     adminOnly:false },
-        { id:'map-3d',        icon:'fa-cubes',              label:'Interactive 3D Campus', adminOnly:false },
-        { id:'ai-agents',     icon:'fa-robot',              label:'COLLEGE AI Agent',     adminOnly:false },
+        { id:'timetable',     icon:'fa-calendar-days',      label:'Timetable Matrix',     adminOnly:false, studentOnly:false },
+        { id:'navigation',    icon:'fa-map-location-dot',   label:'CAMPUS HD 2D Map',     adminOnly:false, studentOnly:true  },
+        { id:'map-3d',        icon:'fa-cubes',              label:'Interactive 3D Campus', adminOnly:false, studentOnly:true  },
+        { id:'ai-agents',     icon:'fa-robot',              label:'COLLEGE AI Agent',     adminOnly:false, studentOnly:true  },
         // Admin-only
         { id:'ai-timetable',  icon:'fa-wand-magic-sparkles', label:'AI Timetable Manager', adminOnly:true, separator:'AI TOOLS' },
         { id:'interruptions', icon:'fa-bolt',               label:'Interruptions',         adminOnly:true },
@@ -933,7 +933,8 @@ function buildDashboard(){
     ];
     let sepAdded = false;
     items.forEach((item, idx) => {
-        if(item.adminOnly && !isAdmin) return;
+        if(item.adminOnly && !isAdmin) return;       // hide admin-only items from students
+        if(item.studentOnly && isAdmin) return;      // hide student-only items from admins
         if(item.separator && isAdmin && !sepAdded){
             sepAdded = true;
             menu.innerHTML += `<div class="sidebar-section-label">${item.separator}</div>`;
