@@ -110,31 +110,60 @@
         .timetable-update-banner { background:rgba(217,119,6,0.08); border:1px solid rgba(217,119,6,0.25); border-radius:10px; padding:12px 18px; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
 
         /* ===== MAP & WAYFINDING ===== */
-        .route-builder { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:15px 20px; margin-bottom:15px; display:flex; flex-wrap:wrap; gap:15px; align-items:center; justify-content:space-between; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .route-builder { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:18px 20px; margin-bottom:15px; display:flex; flex-direction:column; gap:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
         .route-controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+        .route-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:10px; border-top:1px solid var(--bg-secondary); }
+        .route-meta-chip { display:inline-flex; align-items:center; gap:6px; background:var(--bg-secondary); border:1px solid var(--card-border); padding:5px 12px; border-radius:20px; font-size:0.8rem; font-weight:600; color:var(--text-main); }
+        .route-steps-container { background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:10px; padding:12px 14px; margin-top:8px; display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto; }
+        .route-step-item { display:flex; align-items:flex-start; gap:10px; font-size:0.82rem; color:var(--text-main); line-height:1.4; }
+        .route-step-num { width:20px; height:20px; border-radius:50%; background:var(--accent-cyan); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:700; flex-shrink:0; margin-top:1px; }
         .map-wrapper { display:grid; grid-template-columns:280px 1fr; gap:20px; height:560px; }
         .map-sidebar { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:15px; display:flex; flex-direction:column; gap:8px; overflow-y:auto; max-height:560px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
         .location-item { padding:10px 12px; background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px; cursor:pointer; transition:0.2s ease; }
         .location-item:hover { background:var(--accent-blue); border-color:var(--accent-cyan); }
-        #map { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; background-color:var(--bg-dark) !important; background-image:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        #map { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; background-color:#F5F5F0 !important; background-image:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
         #container-3d { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; touch-action:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        
         .leaflet-marker-icon.custom-cyber-pin { background:var(--card-bg); border:1.5px solid var(--accent-cyan); color:var(--accent-cyan); padding:4px 8px; border-radius:6px; font-weight:600; font-size:0.72rem; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; cursor:pointer; font-family:var(--font-body); }
+        .leaflet-marker-icon.route-start-pin { background:#16A34A; color:#FFFFFF; border:2px solid #FFFFFF; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.75rem; white-space:nowrap; box-shadow:0 3px 12px rgba(22,163,74,0.4); text-align:center; z-index:1000 !important; }
+        .leaflet-marker-icon.route-dest-pin { background:#DC2626; color:#FFFFFF; border:2px solid #FFFFFF; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.75rem; white-space:nowrap; box-shadow:0 3px 12px rgba(220,38,38,0.4); text-align:center; z-index:1000 !important; }
+
         .block-info-modal { position:absolute; bottom:25px; right:25px; width:320px; max-width:calc(100% - 50px); background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:18px; box-shadow:0 12px 32px rgba(0,0,0,0.12); z-index:1000; animation:fadeIn 0.2s ease-out; max-height:450px; overflow-y:auto; }
         .block-img-preview { width:100%; height:130px; object-fit:cover; border-radius:8px; border:1px solid var(--card-border); margin-bottom:12px; background:var(--bg-secondary); }
         .floor-detail { margin-top:8px; padding:8px 10px; background:var(--bg-secondary); border-left:3px solid var(--accent-cyan); border-radius:6px; font-size:0.8rem; }
         .floor-detail strong { color:var(--accent-cyan); display:block; margin-bottom:2px; }
 
-        /* ===== AI CHAT ===== */
-        .ai-container { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:20px; }
-        .ai-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:20px; display:flex; flex-direction:column; height:420px; box-shadow:0 2px 12px rgba(0,0,0,0.03); }
-        .ai-header { display:flex; align-items:center; gap:12px; margin-bottom:15px; }
-        .ai-header i { font-size:1.8rem; color:var(--accent-cyan); }
-        .chat-box { flex-grow:1; background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:8px; padding:12px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; margin-bottom:12px; font-size:0.85rem; }
-        .msg-input-group { display:flex; gap:8px; }
-        .msg-input-group input { flex-grow:1; padding:10px 14px; background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main); border-radius:6px; outline:none; font-family:var(--font-body); }
-        .msg-input-group input:focus { border-color:var(--accent-cyan); }
-        .msg-input-group button { padding:10px 18px; background:var(--accent-cyan); color:#fff; border:none; border-radius:6px; font-weight:600; cursor:pointer; transition:0.2s; font-family:var(--font-body); }
-        .msg-input-group button:hover { background:var(--accent-pink); }
+        /* ===== PSIT CAMPUS MIND AI ASSISTANT ===== */
+        .ai-assistant-wrapper { background:var(--card-bg); border:1px solid var(--card-border); border-radius:16px; padding:22px; display:flex; flex-direction:column; height:calc(100vh - 270px); min-height:580px; box-shadow:0 4px 20px rgba(0,0,0,0.04); }
+        .ai-assistant-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--card-border); flex-wrap:wrap; gap:10px; }
+        .ai-bot-profile { display:flex; align-items:center; gap:12px; }
+        .ai-bot-avatar { width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-pink) 100%); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 4px 12px rgba(74,93,46,0.25); }
+        .ai-pulse-status { display:inline-flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--success); font-weight:600; background:rgba(22,163,74,0.08); padding:3px 10px; border-radius:12px; border:1px solid rgba(22,163,74,0.2); }
+        
+        .ai-chips-bar { display:flex; gap:8px; overflow-x:auto; padding-bottom:10px; margin-bottom:12px; scrollbar-width:thin; }
+        .ai-chip { white-space:nowrap; padding:6px 14px; background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:20px; font-size:0.78rem; font-weight:600; color:var(--text-main); cursor:pointer; transition:0.2s ease; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-body); flex-shrink:0; }
+        .ai-chip:hover { background:var(--accent-blue); color:var(--accent-cyan); border-color:var(--accent-cyan); transform:translateY(-1px); }
+
+        .chat-box { flex-grow:1; background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:12px; padding:16px; overflow-y:auto; display:flex; flex-direction:column; gap:14px; margin-bottom:14px; font-size:0.88rem; }
+        
+        .chat-msg { display:flex; flex-direction:column; max-width:82%; animation:fadeIn 0.2s ease-out; }
+        .chat-msg.user { align-self:flex-end; }
+        .chat-msg.bot { align-self:flex-start; }
+        .chat-bubble { padding:12px 16px; border-radius:12px; line-height:1.5; }
+        .chat-msg.user .chat-bubble { background:var(--accent-cyan); color:#FFFFFF; border-bottom-right-radius:2px; font-weight:500; }
+        .chat-msg.bot .chat-bubble { background:var(--card-bg); color:var(--text-main); border:1px solid var(--card-border); border-bottom-left-radius:2px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        
+        .ai-info-card { background:rgba(74,93,46,0.04); border:1px solid rgba(74,93,46,0.18); border-radius:10px; padding:12px 14px; margin-top:8px; font-size:0.83rem; }
+        .ai-info-card h4 { font-size:0.88rem; font-family:var(--font-heading); color:var(--text-main); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+        .ai-bullet-list { margin:6px 0 0 16px; display:flex; flex-direction:column; gap:4px; }
+        .ai-action-btn { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; background:var(--accent-cyan); color:#fff; border-radius:8px; font-size:0.78rem; font-weight:600; text-decoration:none; cursor:pointer; border:none; margin-top:10px; transition:0.2s; font-family:var(--font-body); }
+        .ai-action-btn:hover { background:var(--accent-pink); transform:translateY(-1px); }
+        
+        .msg-input-group { display:flex; gap:10px; }
+        .msg-input-group input { flex-grow:1; padding:12px 16px; background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main); border-radius:10px; outline:none; font-family:var(--font-body); font-size:0.9rem; transition:0.2s; }
+        .msg-input-group input:focus { border-color:var(--accent-cyan); box-shadow:0 0 0 3px rgba(74,93,46,0.1); }
+        .msg-input-group button { padding:12px 22px; background:var(--accent-cyan); color:#fff; border:none; border-radius:10px; font-weight:600; cursor:pointer; transition:0.2s; font-family:var(--font-body); display:flex; align-items:center; gap:8px; font-size:0.9rem; }
+        .msg-input-group button:hover { background:var(--accent-pink); transform:translateY(-1px); }
 
         /* ===== MOBILE OVERLAY ===== */
         .mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:999; }
@@ -720,17 +749,26 @@
                 <div class="route-builder">
                     <div class="route-controls">
                         <i class="fa-solid fa-route" style="color:var(--accent-cyan);font-size:1.2rem;"></i>
-                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">From:</label>
+                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">From:</label>
                         <select id="route-start" class="select-dark"></select>
                         <i class="fa-solid fa-arrow-right" style="color:var(--accent-cyan);font-size:0.8rem;"></i>
-                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">To:</label>
+                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">To:</label>
                         <select id="route-end" class="select-dark"></select>
                         <button onclick="drawCampusRoute()" class="btn-batch active" style="padding:8px 20px;">
                             <i class="fa-solid fa-diamond-turn-right"></i> Draw Route Path
                         </button>
-                        <button onclick="clearCampusRoute()" class="btn-batch" style="color:var(--danger);border-color:rgba(220,38,38,0.2);">Clear Route</button>
+                        <button onclick="clearCampusRoute()" class="btn-batch" style="color:var(--danger);border-color:rgba(220,38,38,0.2);">
+                            <i class="fa-solid fa-trash-can"></i> Clear Route
+                        </button>
                     </div>
-                    <div id="route-info" style="font-size:0.85rem;color:var(--text-main);font-weight:500;">Select start and end blocks to generate pathway.</div>
+                    <div class="route-meta-bar" id="route-meta-bar">
+                        <div id="route-info" style="font-size:0.85rem;color:var(--text-main);font-weight:500;">
+                            Select start and destination blocks to generate an optimized pedestrian pathway.
+                        </div>
+                    </div>
+                    <div id="route-steps-panel" class="route-steps-container hidden">
+                        <!-- Dynamic Turn-by-Turn Steps -->
+                    </div>
                 </div>
                 <div class="map-wrapper">
                     <div class="map-sidebar">
@@ -769,25 +807,82 @@
                 </div>
             </section>
 
-            <!-- ===== AI LOCATION AGENT ===== -->
+            <!-- ===== PSIT CAMPUS MIND AI ASSISTANT ===== -->
             <section id="sec-ai-agents" class="tab-section hidden">
-                <h2 class="section-header">CAMPUS AI Assistant</h2>
-                <div class="ai-container">
-                    <div class="ai-card">
-                        <div class="ai-header">
-                            <i class="fa-solid fa-map-pin"></i>
+                <h2 class="section-header">Campus Mind AI Assistant</h2>
+                <div class="ai-assistant-wrapper">
+                    <div class="ai-assistant-header">
+                        <div class="ai-bot-profile">
+                            <div class="ai-bot-avatar"><i class="fa-solid fa-robot"></i></div>
                             <div>
-                                <h3 style="font-family:var(--font-heading);color:var(--text-main);">CAMPUS Location AI</h3>
-                                <small style="color:var(--text-muted);">Ask 'Where is Block G' or 'Route from Block A to Block J'</small>
+                                <h3 style="font-family:var(--font-heading);font-size:1.15rem;margin-bottom:2px;">Campus Mind Intelligence Hub</h3>
+                                <div style="font-size:0.78rem;color:var(--text-muted);">Real-time Knowledge on Placements, Events, Clubs, Academics &amp; Wayfinding</div>
                             </div>
                         </div>
-                        <div class="chat-box" id="chat-nav">
-                            <div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Hello! Ask me any block location or navigation route in CAMPUS.</div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span class="ai-pulse-status"><span class="pulse-dot"></span> Live Real-Time Knowledge</span>
+                            <button class="ai-btn ai-btn-secondary" onclick="clearAIChat()" style="padding:6px 12px;font-size:0.75rem;">
+                                <i class="fa-solid fa-broom"></i> Clear Chat
+                            </button>
                         </div>
-                        <div class="msg-input-group">
-                            <input type="text" id="input-nav" placeholder="e.g. Find Block G or Route from Block A to Tower..." onkeypress="if(event.key==='Enter') sendNavMsg()">
-                            <button onclick="sendNavMsg()">Search &amp; Pin</button>
+                    </div>
+
+                    <!-- Quick Topic Chips Bar -->
+                    <div class="ai-chips-bar">
+                        <button class="ai-chip" onclick="sendQuickQuery('What are the ongoing placements, drives and highest packages in college?')">
+                            <i class="fa-solid fa-briefcase" style="color:var(--warning);"></i> Placements &amp; Drives
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('Tell me about upcoming events, hackathons and tech fests like Ignitia!')">
+                            <i class="fa-solid fa-calendar-star" style="color:var(--info);"></i> Events &amp; Tech Fests
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('What student clubs and societies can I join? (CodeGeeks, Dance, Robotics, E-Cell)')">
+                            <i class="fa-solid fa-users" style="color:var(--accent-cyan);"></i> Clubs &amp; Societies
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('What is my schedule today and are there any rescheduled classes or interruptions?')">
+                            <i class="fa-solid fa-clock" style="color:var(--accent-pink);"></i> Today's Schedule
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('Where is the Central Library and what are the book bank timings?')">
+                            <i class="fa-solid fa-book-bookmark" style="color:var(--accent-cyan);"></i> Central Library
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('Where is the Cafeteria, Nescafe lounge and what food options are available?')">
+                            <i class="fa-solid fa-utensils" style="color:var(--warning);"></i> Cafeteria &amp; Dining
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('How do I navigate from Block A to the Central Library (Block K)?')">
+                            <i class="fa-solid fa-route" style="color:var(--success);"></i> Campus Route Finder
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('Tell me about the AC Bus Transport routes and timings.')">
+                            <i class="fa-solid fa-bus" style="color:var(--info);"></i> Bus &amp; Transport
+                        </button>
+                        <button class="ai-chip" onclick="sendQuickQuery('Tell me about E-Cell, Startup Incubation and Innovation Labs.')">
+                            <i class="fa-solid fa-lightbulb" style="color:var(--warning);"></i> E-Cell &amp; Startups
+                        </button>
+                    </div>
+
+                    <div class="chat-box" id="chat-nav">
+                        <div class="chat-msg bot">
+                            <div class="chat-bubble">
+                                <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-robot"></i> CAMPUS MIND AI:</strong></div>
+                                <div style="margin-top:6px;">
+                                    Hello! I am your <strong>Campus Mind AI Assistant</strong>. I have complete real-time intelligence on everything happening across the campus:
+                                </div>
+                                <div class="ai-bullet-list">
+                                    <div>💼 <strong>Placements:</strong> Active company drives, packages, eligibility, CRPC updates.</div>
+                                    <div>🎉 <strong>Events:</strong> Tech fests (IGNITIA, TechVortex), hackathons, cultural events.</div>
+                                    <div>🤖 <strong>Clubs:</strong> Technical (CodeGeeks, AI/ML, IoT), Cultural (StepUp, Euphony, Dramebaaz), E-Cell, Rotaract.</div>
+                                    <div>📅 <strong>Timetable:</strong> Real-time rescheduling alerts, period timings, cancellations.</div>
+                                    <div>🗺️ <strong>Wayfinding:</strong> High-precision campus navigation &amp; 1-click map routes.</div>
+                                    <div>🏢 <strong>Facilities:</strong> Library book bank, cafeteria food court, gym, medical dispensary, transport.</div>
+                                </div>
+                                <div style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);">
+                                    💡 <em>Type your question below or tap any topic chip above for instant updates!</em>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="msg-input-group">
+                        <input type="text" id="input-nav" placeholder="Ask about placements, fests, clubs, timetable changes, directions..." onkeypress="if(event.key==='Enter') sendNavMsg()">
+                        <button onclick="sendNavMsg()"><i class="fa-solid fa-paper-plane"></i> Ask AI</button>
                     </div>
                 </div>
             </section>
@@ -929,7 +1024,7 @@ function buildDashboard(){
         { id:'timetable',     icon:'fa-calendar-days',      label:'Timetable Matrix',     adminOnly:false, studentOnly:false },
         { id:'navigation',    icon:'fa-map-location-dot',   label:'CAMPUS HD 2D Map',     adminOnly:false, studentOnly:true  },
         { id:'map-3d',        icon:'fa-cubes',              label:'Interactive 3D Campus', adminOnly:false, studentOnly:true  },
-        { id:'ai-agents',     icon:'fa-robot',              label:'COLLEGE AI Agent',     adminOnly:false, studentOnly:true  },
+        { id:'ai-agents',     icon:'fa-robot',              label:'Campus AI Assistant',   adminOnly:false, studentOnly:true  },
         // Admin-only
         { id:'ai-timetable',  icon:'fa-wand-magic-sparkles', label:'AI Timetable Manager', adminOnly:true, separator:'AI TOOLS' },
         { id:'interruptions', icon:'fa-bolt',               label:'Interruptions',         adminOnly:true },
@@ -945,6 +1040,7 @@ function buildDashboard(){
         }
         const li = document.createElement('li');
         if(idx===0) li.classList.add('active');
+        li.setAttribute('data-tab', item.id);
         li.onclick = function(){ switchTab(item.id, this); };
         li.innerHTML = `<a href="#"><i class="fa-solid ${item.icon}"></i> ${item.label}</a>`;
         menu.appendChild(li);
@@ -960,7 +1056,12 @@ function buildDashboard(){
 // ===== TAB SWITCHING =====
 function switchTab(tabId, element){
     document.querySelectorAll('#sidebar-menu li').forEach(li=>li.classList.remove('active'));
-    if(element) element.classList.add('active');
+    if(element){
+        element.classList.add('active');
+    } else {
+        const matchingLi = document.querySelector(`#sidebar-menu li[data-tab="${tabId}"]`);
+        if(matchingLi) matchingLi.classList.add('active');
+    }
     document.querySelectorAll('.tab-section').forEach(sec=>sec.classList.add('hidden'));
     const sec = $(`sec-${tabId}`);
     if(sec) sec.classList.remove('hidden');
@@ -968,7 +1069,10 @@ function switchTab(tabId, element){
         $('sidebar').classList.remove('open');
         $('mobile-overlay').classList.remove('active');
     }
-    if(tabId==='navigation' && map2D) setTimeout(()=>{ map2D.invalidateSize(); },200);
+    if(tabId==='navigation'){
+        if(!map2D) init2DMap();
+        setTimeout(()=>{ if(map2D) map2D.invalidateSize(); }, 150);
+    }
     if(tabId==='map-3d') setTimeout(()=>{ if(!scene) init3DMap(); else resize3DCanvas(); },150);
     if(tabId==='interruptions'){ refreshDashboardStats(); refreshInterruptionLists(); }
     if(tabId==='ai-activity') refreshActivityLog();
@@ -1950,28 +2054,36 @@ function clearActivityLog(){
     showToast('info','Log Cleared','AI activity log has been cleared.');
 }
 
-// ===== CAMPUS LOCATIONS (unchanged) =====
+// ===== CAMPUS LOCATIONS DATASET =====
 const campusLocations = {
-    tower:    {key:"tower",   lat:26.449700,lng:80.192086,name:"CAMPUS Tower",    desc:"Corporate & Public Relations Hub",        img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=80",p12:"PR Office & Visitor Lounge",    p21:"Corporate Relations & Boardroom",              p31:"Director Office & High-Tech Suites",          x:0,   z:-20,w:16,d:8, rot:0,            color:0x4A5D2E,height:7},
-    admin:    {key:"admin",   lat:26.449450,lng:80.192086,name:"Admin / Town Hall",desc:"Central Administrative Block",            img:"https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80",p12:"Student Registrar & Accounts",  p21:"Main Town Hall & Conference Room",             p31:"Dean Academics & Controller Cell",            x:0,   z:-12,w:14,d:6, rot:0,            color:0x6B8E3D,height:4.5},
-    lawn:     {key:"lawn",    lat:26.449000,lng:80.192086,name:"Central Green Lawn",desc:"Main Campus Assembly Ground",            img:"https://images.unsplash.com/photo-1589828996213-56e201216856?w=500&auto=format&fit=crop&q=80",p12:"Open Amphitheatre & Assembly Ground",p21:"N/A",                                         p31:"N/A",                                         x:0,   z:2,  w:10,d:18,rot:0,            color:0x8FAD5E,height:0.2},
-    rangmanch:{key:"rangmanch",lat:26.448200,lng:80.192086,name:"Rang Manch",     desc:"Open Air Cultural Stage Arena",           img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80",p12:"Open Stage Arena & Green Rooms", p21:"Sound, Light Control & VIP Gallery",           p31:"Open Gallery Deck",                           x:0,   z:14, w:10,d:4, rot:0,            color:0xB8860B,height:2},
-    blockG:   {key:"blockG",  lat:26.449650,lng:80.191400,name:"Block G",        desc:"Management & MCA Block",                  img:"https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80",p12:"MBA Seminar Hall G12",           p21:"MCA Classrooms G21",                           p31:"E-Cell & Startup Incubator G31",              x:-16, z:-19,w:10,d:7, rot:0,            color:0x5C7236,height:4},
-    blockE:   {key:"blockE",  lat:26.449400,lng:80.191400,name:"Block E",        desc:"Basic Sciences & Humanities",             img:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=80",p12:"Physics & Chemistry Labs E12",  p21:"Humanities Classrooms E21",                    p31:"Communication Skill Lab E31",                 x:-17, z:-11,w:7, d:7, rot:0,            color:0x6B8E3D,height:4},
-    blockC:   {key:"blockC",  lat:26.449200,lng:80.191400,name:"Block C",        desc:"Information Technology Wing",             img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&auto=format&fit=crop&q=80",p12:"IT Web Dev Labs C12",            p21:"Lecture Rooms C21",                            p31:"Cyber Security Research Lab C31",             x:-17, z:-3,  w:7, d:7, rot:0,            color:0x6B8E3D,height:4},
-    blockA:   {key:"blockA",  lat:26.449000,lng:80.191400,name:"Block A",        desc:"Computer Science Wing",                   img:"https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80",p12:"CSE Hardware Labs A12",          p21:"Classrooms A21",                               p31:"AI Research Center A31",                      x:-17, z:5,   w:7, d:7, rot:0,            color:0x6B8E3D,height:4},
-    blockS:   {key:"blockS",  lat:26.448600,lng:80.191400,name:"Block S",        desc:"Central Cafeteria & Food Court",          img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&auto=format&fit=crop&q=80",p12:"Main Dining Hall S12",           p21:"Nescafe & Express Lounge S21",                 p31:"Executive Dining Zone S31",                   x:-16, z:14,  w:10,d:7, rot:0,            color:0x5C7236,height:4},
-    blockF:   {key:"blockF",  lat:26.449300,lng:80.191600,name:"Block F",        desc:"Mechanical & CAD Labs",                   img:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&auto=format&fit=crop&q=80",p12:"Auto CAD & Robotics Lab F12",   p21:"Classrooms F21",                               p31:"Design Thinking Center F31",                  x:-9,  z:-10, w:6, d:8, rot:Math.PI/4,   color:0x4A5D2E,height:3.5},
-    blockD:   {key:"blockD",  lat:26.449100,lng:80.191600,name:"Block D",        desc:"Electronics & Tech Labs",                 img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80",p12:"IoT & Embedded Systems Lab D12",p21:"Classrooms D21",                               p31:"Microprocessor Lab D31",                       x:-9,  z:-2,  w:6, d:8, rot:Math.PI/4,   color:0x4A5D2E,height:3.5},
-    blockB:   {key:"blockB",  lat:26.448800,lng:80.191600,name:"Block B",        desc:"Software Development Labs",               img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=80",p12:"Python & Java Coding Labs B12",  p21:"Lecture Rooms B21",                            p31:"High-Performance Cloud Lab B31",              x:-9,  z:6,   w:6, d:8, rot:Math.PI/4,   color:0x4A5D2E,height:3.5},
-    blockJ:   {key:"blockJ",  lat:26.449650,lng:80.192700,name:"Block J",        desc:"Pharmacy & Biotech Wing",                 img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=500&auto=format&fit=crop&q=80",p12:"Pharmaceutics Lab J12",         p21:"Biotech Research Lab J21",                     p31:"Lecture Halls J31",                           x:16,  z:-19, w:10,d:7, rot:0,            color:0x8B7355,height:4},
-    blockK:   {key:"blockK",  lat:26.449400,lng:80.192700,name:"Block K",        desc:"Central Library & Digital Hub",           img:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=80",p12:"Reading Hall & Journal Section",p21:"Digital Library & E-Learning",                 p31:"Book Bank & Silent Zone",                     x:17,  z:-11, w:7, d:7, rot:0,            color:0x7C6B50,height:4},
-    blockM:   {key:"blockM",  lat:26.449200,lng:80.192700,name:"Block M",        desc:"Electrical Engineering Wing",             img:"https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=500&auto=format&fit=crop&q=80",p12:"Electrical Machines Lab M12",   p21:"Classrooms M21",                               p31:"Power Systems Lab M31",                       x:17,  z:-3,  w:7, d:7, rot:0,            color:0x7C6B50,height:4},
-    blockP:   {key:"blockP",  lat:26.449000,lng:80.192700,name:"Block P",        desc:"First Year Engineering Wing",             img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=80",p12:"Applied Physics Lab P12",       p21:"Classrooms P21",                               p31:"Engineering Graphics Lab P31",                x:17,  z:5,   w:7, d:7, rot:0,            color:0x7C6B50,height:4},
-    blockR:   {key:"blockR",  lat:26.448600,lng:80.192700,name:"Block R",        desc:"Sports & Amenities Center",               img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80",p12:"Indoor Badminton & Table Tennis",p21:"Gymnasium & Fitness Suite",                    p31:"Student Activity Club",                       x:16,  z:14,  w:10,d:7, rot:0,            color:0x8B7355,height:4},
-    blockL:   {key:"blockL",  lat:26.449300,lng:80.192500,name:"Block L",        desc:"Advanced Computing Wing",                 img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80",p12:"Data Science Lab L12",          p21:"Classrooms L21",                               p31:"Machine Learning Hub L31",                    x:9,   z:-10, w:6, d:8, rot:-Math.PI/4,  color:0x4A5D2E,height:3.5},
-    blockN:   {key:"blockN",  lat:26.449100,lng:80.192500,name:"Block N",        desc:"Civil & Structural Labs",                 img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&auto=format&fit=crop&q=80",p12:"Surveying & Material Lab N12",  p21:"Classrooms N21",                               p31:"CAD Civil Lab N31",                           x:9,   z:-2,  w:6, d:8, rot:-Math.PI/4,  color:0x4A5D2E,height:3.5},
-    blockQ:   {key:"blockQ",  lat:26.448800,lng:80.192500,name:"Block Q",        desc:"Tutorial & Workshop Block",               img:"https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80",p12:"Mechanical Workshop Q12",       p21:"Tutorial Rooms Q21",                           p31:"Language Lab Q31",                            x:9,   z:6,   w:6, d:8, rot:-Math.PI/4,  color:0x4A5D2E,height:3.5}
+    tower:    { key:"tower",   lat:26.449700, lng:80.192086, name:"CAMPUS Tower",         desc:"Corporate & Public Relations Hub (CRPC, Placement Cell & Director Office)", img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=80", p12:"p12 - PR Office, Visitor Lounge & Reception", p21:"p21 - Corporate Relations, Placement Cell (CRPC) & Boardroom", p31:"p31 - Director Office & High-Tech Executive Suites", x:0,   z:-20, w:16, d:8,  rot:0,            color:0x4A5D2E, height:7 },
+    admin:    { key:"admin",   lat:26.449450, lng:80.192086, name:"Admin / Town Hall",     desc:"Central Administrative Block, Registrar, Accounts & Main Auditorium",        img:"https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80", p12:"p12 - Student Registrar, Accounts & Fee Counters", p21:"p21 - Main Town Hall Auditorium & Conference Hall", p31:"p31 - Dean Academics & Controller of Examinations", x:0,   z:-12, w:14, d:6,  rot:0,            color:0x6B8E3D, height:4.5 },
+    lawn:     { key:"lawn",    lat:26.449000, lng:80.192086, name:"Central Green Lawn",     desc:"Main Campus Assembly Ground & Open Amphitheatre",                             img:"https://images.unsplash.com/photo-1589828996213-56e201216856?w=500&auto=format&fit=crop&q=80", p12:"p12 - Open Amphitheatre Lawn & Assembly Ground", p21:"N/A - Central Green Promenade", p31:"N/A - Central Green Promenade", x:0,   z:2,   w:10, d:18, rot:0,            color:0x8FAD5E, height:0.2 },
+    rangmanch:{ key:"rangmanch",lat:26.448200,lng:80.192086, name:"Rang Manch Arena",       desc:"Open Air Cultural Stage Arena & Amphitheatre for Fests & Concerts",          img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80", p12:"p12 - Open Stage Arena & Green Rooms", p21:"p21 - Sound, Light Control & VIP Gallery Deck", p31:"p31 - Open Gallery Viewing Deck", x:0,   z:14,  w:10, d:4,  rot:0,            color:0xB8860B, height:2 },
+
+    // WEST WING
+    blockG:   { key:"blockG",  lat:26.449650, lng:80.191400, name:"Block G (Management)",    desc:"Management & MCA Block, E-Cell & Startup Incubation Center",                  img:"https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80", p12:"p12 - MBA Seminar Hall G12", p21:"p21 - MCA Smart Classrooms G21", p31:"p31 - E-Cell & Startup Incubator Center G31", x:-16, z:-19, w:10, d:7,  rot:0,            color:0x5C7236, height:4 },
+    blockE:   { key:"blockE",  lat:26.449400, lng:80.191400, name:"Block E (Applied Science)",desc:"Basic Sciences, Physics/Chemistry Labs & Humanities Department",               img:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=80", p12:"p12 - Applied Physics & Chemistry Labs E12", p21:"p21 - Humanities Lecture Rooms E21", p31:"p31 - Professional Communication & Language Lab E31", x:-17, z:-11, w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
+    blockC:   { key:"blockC",  lat:26.449200, lng:80.191400, name:"Block C (IT Wing)",        desc:"Information Technology Wing & Cyber Security Research Center",                img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&auto=format&fit=crop&q=80", p12:"p12 - IT Web Dev Labs & Cloud Computing C12", p21:"p21 - IT Department Classrooms C21", p31:"p31 - Cyber Security & Network Defense Research Lab C31", x:-17, z:-3,  w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
+    blockA:   { key:"blockA",  lat:26.449000, lng:80.191400, name:"Block A (CSE Wing)",       desc:"Computer Science & Engineering Department & AI Research Center",              img:"https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80", p12:"p12 - CSE Hardware & Networking Labs A12", p21:"p21 - CSE Core Lecture Halls A21", p31:"p31 - Artificial Intelligence & Deep Learning Research A31", x:-17, z:5,   w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
+    blockS:   { key:"blockS",  lat:26.448600, lng:80.191400, name:"Block S (Cafeteria)",     desc:"Central Cafeteria, Nescafe Lounge, Bakery & Express Food Court",              img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&auto=format&fit=crop&q=80", p12:"p12 - Main Dining Hall & Food Court S12", p21:"p21 - Nescafe Corner & Bakery Lounge S21", p31:"p31 - Executive Dining Zone & Faculty Lounge S31", x:-16, z:14,  w:10, d:7,  rot:0,            color:0x5C7236, height:4 },
+
+    // WEST INNER ANGLED
+    blockF:   { key:"blockF",  lat:26.449300, lng:80.191600, name:"Block F (Mechanical)",     desc:"Mechanical Engineering, Auto CAD & Robotics Design Center",                   img:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&auto=format&fit=crop&q=80", p12:"p12 - AutoCAD, CNC & Robotics Lab F12", p21:"p21 - Mechanical Classrooms F21", p31:"p31 - Design Thinking & Rapid Prototyping Center F31", x:-9,  z:-10, w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
+    blockD:   { key:"blockD",  lat:26.449100, lng:80.191600, name:"Block D (ECE Labs)",       desc:"Electronics & Communication Engineering, IoT & Embedded Systems",              img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80", p12:"p12 - IoT & Embedded Systems Lab D12", p21:"p21 - ECE Lecture Rooms D21", p31:"p31 - Microprocessor & VLSI Design Lab D31", x:-9,  z:-2,  w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
+    blockB:   { key:"blockB",  lat:26.448800, lng:80.191600, name:"Block B (Coding Labs)",    desc:"High-Performance Computing, Python, Java & Cloud Server Labs",                img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=80", p12:"p12 - Python, DSA & Java Coding Labs B12", p21:"p21 - CodeGeeks Club Lecture Rooms B21", p31:"p31 - High-Performance Cloud Computing Cluster B31", x:-9,  z:6,   w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
+
+    // EAST WING
+    blockJ:   { key:"blockJ",  lat:26.449650, lng:80.192700, name:"Block J (Pharmacy)",       desc:"Pharmacy & Biotechnology Wing, Research & Chemistry Laboratories",            img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=500&auto=format&fit=crop&q=80", p12:"p12 - Pharmaceutics & Pharmacology Lab J12", p21:"p21 - Biotech Research Lab J21", p31:"p31 - Pharmaceutical Chemistry Lecture Halls J31", x:16,  z:-19, w:10, d:7,  rot:0,            color:0x8B7355, height:4 },
+    blockK:   { key:"blockK",  lat:26.449400, lng:80.192700, name:"Block K (Central Library)",desc:"Central Library, Digital E-Learning Hub, Periodicals & Book Bank",             img:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Reading Hall & Journal Counter K12", p21:"p21 - Digital Library & IEEE E-Learning Hub K21", p31:"p31 - Book Bank, Reference Section & Silent Study Zone K31", x:17,  z:-11, w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
+    blockM:   { key:"blockM",  lat:26.449200, lng:80.192700, name:"Block M (Electrical)",     desc:"Electrical Engineering Wing, Power Systems & Renewable Energy Lab",            img:"https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=500&auto=format&fit=crop&q=80", p12:"p12 - Electrical Machines & Circuits Lab M12", p21:"p21 - Electrical Engineering Classrooms M21", p31:"p31 - Power Systems & Smart Grid Lab M31", x:17,  z:-3,  w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
+    blockP:   { key:"blockP",  lat:26.449000, lng:80.192700, name:"Block P (1st Year Eng)",   desc:"First Year Foundation Wing, Applied Sciences & Engineering Graphics",         img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=80", p12:"p12 - Applied Sciences Physics Lab P12", p21:"p21 - First Year Core Classrooms P21", p31:"p31 - Engineering Graphics & CAD Drawing Hall P31", x:17,  z:5,   w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
+    blockR:   { key:"blockR",  lat:26.448600, lng:80.192700, name:"Block R (Sports & Gym)",   desc:"Sports Complex, Indoor Badminton Arena, Gymnasium & Student Activity Club",  img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80", p12:"p12 - Indoor Wooden Badminton Courts & Table Tennis R12", p21:"p21 - Modern Gymnasium & Fitness Suite R21", p31:"p31 - Student Activity & Cultural Clubs Headquarters R31", x:16,  z:14,  w:10, d:7,  rot:0,            color:0x8B7355, height:4 },
+
+    // EAST INNER ANGLED
+    blockL:   { key:"blockL",  lat:26.449300, lng:80.192500, name:"Block L (Data Science)",   desc:"Advanced Computing, Data Science Lab & Machine Learning Hub",                 img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80", p12:"p12 - Data Science & Analytics Lab L12", p21:"p21 - Advanced Computing Lecture Rooms L21", p31:"p31 - Machine Learning & AI Research Hub L31", x:9,   z:-10, w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 },
+    blockN:   { key:"blockN",  lat:26.449100, lng:80.192500, name:"Block N (Civil Labs)",     desc:"Civil Engineering, Surveying, Structural & Environmental Engineering Labs",   img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&auto=format&fit=crop&q=80", p12:"p12 - Surveying & Strength of Materials Lab N12", p21:"p21 - Civil Engineering Classrooms N21", p31:"p31 - CAD Civil & Environmental Lab N31", x:9,   z:-2,  w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 },
+    blockQ:   { key:"blockQ",  lat:26.448800, lng:80.192500, name:"Block Q (Workshop & Labs)",desc:"Central Mechanical Workshop, Fabrication & Language Enhancement Lab",         img:"https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Mechanical Workshop & Foundry Q12", p21:"p21 - Tutorial & Mentorship Rooms Q21", p31:"p31 - Advanced Language & Communication Lab Q31", x:9,   z:6,   w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 }
 };
 
 // Populate Route Select Dropdowns
@@ -1995,17 +2107,29 @@ function populateRouteDropdowns(){
     });
 }
 
-// ===== LEAFLET 2D MAP =====
-let map2D;
+// ===== LEAFLET 2D MAP & WAYFINDING =====
+let map2D = null;
 let activeRoutePath = null;
+let activeRouteGlow = null;
+let activeRouteMarkers = [];
 const markers2D = {};
 
 function init2DMap(){
     if(map2D) return;
+    const mapEl = $('map');
+    if(!mapEl) return;
+    
     map2D = L.map('map',{zoomControl:true,attributionControl:false}).setView([26.449100,80.192086],18);
+    
+    // Add campus base layer styling
     Object.keys(campusLocations).forEach(key=>{
         const loc = campusLocations[key];
-        const customIcon = L.divIcon({className:'custom-cyber-pin',html:`<div>${loc.name}</div>`,iconSize:[110,26],iconAnchor:[55,13]});
+        const customIcon = L.divIcon({
+            className:'custom-cyber-pin',
+            html:`<div>${loc.name.split(' (')[0]}</div>`,
+            iconSize:[110,26],
+            iconAnchor:[55,13]
+        });
         const marker = L.marker([loc.lat,loc.lng],{icon:customIcon}).addTo(map2D);
         marker.on('click',()=>showBlockModal2D(loc));
         markers2D[key]=marker;
@@ -2013,11 +2137,19 @@ function init2DMap(){
 }
 
 function flyToLoc(key){
-    if(!map2D||!campusLocations[key]) return;
+    if(!campusLocations[key]) return;
     const loc = campusLocations[key];
-    map2D.flyTo([loc.lat,loc.lng],19,{duration:1.2});
-    showBlockModal2D(loc);
+    if(!map2D) init2DMap();
+    switchTab('navigation');
+    setTimeout(()=>{
+        if(map2D){
+            map2D.invalidateSize();
+            map2D.flyTo([loc.lat,loc.lng],19,{duration:1.0});
+        }
+        showBlockModal2D(loc);
+    },200);
 }
+
 function showBlockModal2D(loc){
     $('card-2d-img').src=loc.img;
     $('card-2d-title').innerHTML=`${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;color:var(--text-muted);" onclick="closeBlockModal2D()"></i>`;
@@ -2029,151 +2161,502 @@ function showBlockModal2D(loc){
 }
 function closeBlockModal2D(){ $('2d-block-info-card').classList.add('hidden'); }
 
-function drawCampusRoute(startKeyOverride,endKeyOverride){
-    const startKey = startKeyOverride||$('route-start').value;
-    const endKey   = endKeyOverride||$('route-end').value;
-    if(startKey===endKey){ $('route-info').innerHTML=`<span style="color:var(--danger);">Start & Destination cannot be the same!</span>`; return; }
-    const startLoc = campusLocations[startKey];
-    const endLoc   = campusLocations[endKey];
-    clearCampusRoute();
-    const distInMeters = getDistanceInMeters(startLoc.lat,startLoc.lng,endLoc.lat,endLoc.lng);
-    const walkTimeMins = Math.ceil(distInMeters/70);
-    const lawnLoc = campusLocations['lawn'];
-    const waypoints = [[startLoc.lat,startLoc.lng],[lawnLoc.lat,lawnLoc.lng],[endLoc.lat,endLoc.lng]];
-    activeRoutePath = L.polyline(waypoints,{color:'#4A5D2E',weight:5,opacity:0.95,dashArray:'8, 12',lineCap:'round'}).addTo(map2D);
-    map2D.fitBounds(activeRoutePath.getBounds(),{padding:[40,40]});
-    $('route-info').innerHTML=`📍 <strong>${startLoc.name}</strong> ➔ <strong>${endLoc.name}</strong> | 🚶 ~${Math.round(distInMeters)}m (${walkTimeMins} min walk)`;
-}
-function clearCampusRoute(){
-    if(activeRoutePath&&map2D){ map2D.removeLayer(activeRoutePath); activeRoutePath=null; }
-    $('route-info').innerText="Select start and end blocks to generate pathway.";
-}
-function getDistanceInMeters(lat1,lon1,lat2,lon2){
-    const R=6371e3,φ1=lat1*Math.PI/180,φ2=lat2*Math.PI/180,Δφ=(lat2-lat1)*Math.PI/180,Δλ=(lon2-lon1)*Math.PI/180;
-    const a=Math.sin(Δφ/2)*Math.sin(Δφ/2)+Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)*Math.sin(Δλ/2);
-    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+// Compute clean orthogonal campus pedestrian walkway path
+function computeCampusWalkwayPath(startLoc, endLoc){
+    const waypoints = [];
+    waypoints.push([startLoc.lat, startLoc.lng]);
+
+    // Check if they are on same side or crossing
+    const isSameLng = Math.abs(startLoc.lng - endLoc.lng) < 0.0003;
+    const midLawnLat = 26.449000;
+    const northCrossLat = 26.449450;
+    const southCrossLat = 26.448600;
+
+    // Pick best crossroad
+    let crossLat = midLawnLat;
+    const avgLat = (startLoc.lat + endLoc.lat) / 2;
+    if(avgLat > 26.449350) crossLat = northCrossLat;
+    else if(avgLat < 26.448800) crossLat = southCrossLat;
+
+    if(!isSameLng){
+        waypoints.push([crossLat, startLoc.lng]);
+        waypoints.push([crossLat, 80.192086]); // Central Spine
+        waypoints.push([crossLat, endLoc.lng]);
+    }
+
+    waypoints.push([endLoc.lat, endLoc.lng]);
+    return waypoints;
 }
 
-// ===== THREE.JS 3D MAP =====
-let scene,camera,renderer,controls;
-const interactiveBlocks=[];
-const raycaster=new THREE.Raycaster();
-const mouse=new THREE.Vector2();
-let pointerDownPos={x:0,y:0};
+// Generate Turn-by-Turn step directions
+function generateTurnSteps(startLoc, endLoc, distMeters, walkMins){
+    const steps = [];
+    steps.push({ icon:'fa-person-walking', text:`Depart from <strong>${startLoc.name}</strong> (${startLoc.p12.split(' - ')[1]||'Ground Floor'}).` });
+    
+    if(Math.abs(startLoc.lng - endLoc.lng) >= 0.0003){
+        const targetSide = endLoc.lng > startLoc.lng ? 'East Academic Wing' : 'West Engineering Wing';
+        steps.push({ icon:'fa-arrow-right', text:`Walk along the connecting corridor toward Central Green Lawn Promenade.` });
+        steps.push({ icon:'fa-diamond-turn-right', text:`Cross through Central Campus Plaza toward <strong>${targetSide}</strong>.` });
+    } else {
+        const dir = endLoc.lat > startLoc.lat ? 'North toward Campus Tower' : 'South toward Cafeteria & Sports Complex';
+        steps.push({ icon:'fa-arrow-up', text:`Walk along the main pedestrian corridor heading ${dir}.` });
+    }
 
-function init3DMap(){
-    const container=$('container-3d');
-    if(!container) return;
-    container.innerHTML='';
-    scene=new THREE.Scene();
-    scene.background=new THREE.Color(0xF5F5F0);
-    scene.fog=new THREE.FogExp2(0xF5F5F0,0.008);
-    const width=container.clientWidth||800,height=container.clientHeight||560;
-    camera=new THREE.PerspectiveCamera(45,width/height,0.1,1000);
-    camera.position.set(0,45,50);
-    renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-    renderer.setSize(width,height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    renderer.shadowMap.enabled=true;
-    container.appendChild(renderer.domElement);
-    const OC=THREE.OrbitControls||(window.THREE&&window.THREE.OrbitControls);
-    if(OC){ controls=new OC(camera,renderer.domElement); controls.enableDamping=true; controls.dampingFactor=0.05; controls.maxPolarAngle=Math.PI/2-0.05; }
-    scene.add(new THREE.AmbientLight(0xffffff,0.85));
-    const dirLight=new THREE.DirectionalLight(0xffffff,1.2);
-    dirLight.position.set(20,50,30); dirLight.castShadow=true; scene.add(dirLight);
-    const pointLight=new THREE.PointLight(0xFFD700,0.6,60);
-    pointLight.position.set(0,15,0); scene.add(pointLight);
-    scene.add(new THREE.GridHelper(80,40,0x4A5D2E,0xE5E7EB));
-    Object.keys(campusLocations).forEach(key=>{
-        const loc=campusLocations[key];
-        const geo=new THREE.BoxGeometry(loc.w,loc.height,loc.d);
-        const mat=new THREE.MeshStandardMaterial({color:loc.color,roughness:0.3,metalness:0.2,emissive:0x000000});
-        const mesh=new THREE.Mesh(geo,mat);
-        mesh.position.set(loc.x,loc.height/2,loc.z); mesh.rotation.y=loc.rot;
-        mesh.castShadow=true; mesh.receiveShadow=true; mesh.userData=loc;
-        const edges=new THREE.EdgesGeometry(geo);
-        mesh.add(new THREE.LineSegments(edges,new THREE.LineBasicMaterial({color:0x4A5D2E})));
-        scene.add(mesh); interactiveBlocks.push(mesh);
-        const canvas=document.createElement('canvas');
-        const ctx=canvas.getContext('2d');
-        canvas.width=256; canvas.height=64;
-        ctx.fillStyle='#4A5D2E'; ctx.font='Bold 22px Inter,sans-serif'; ctx.textAlign='center';
-        ctx.fillText(loc.name,128,40);
-        const texture=new THREE.CanvasTexture(canvas);
-        const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture}));
-        sprite.position.set(loc.x,loc.height+2.5,loc.z); sprite.scale.set(10,2.5,1);
-        scene.add(sprite);
-    });
-    renderer.domElement.addEventListener('pointerdown',e=>{pointerDownPos={x:e.clientX,y:e.clientY};},false);
-    renderer.domElement.addEventListener('pointerup',on3DPointerUp,false);
-    window.addEventListener('resize',resize3DCanvas);
-    animate3D();
+    steps.push({ icon:'fa-flag-checkered', text:`Arrive at destination: <strong>${endLoc.name}</strong>. (${endLoc.p12.split(' - ')[1]||'Main Entrance'}).` });
+    return steps;
 }
-function resize3DCanvas(){
-    const container=$('container-3d');
-    if(!container||!renderer||!camera) return;
-    const width=container.clientWidth,height=container.clientHeight||560;
-    camera.aspect=width/height; camera.updateProjectionMatrix(); renderer.setSize(width,height);
-}
-function animate3D(){ requestAnimationFrame(animate3D); if(controls) controls.update(); if(renderer&&scene&&camera) renderer.render(scene,camera); }
-function on3DPointerUp(event){
-    if(!renderer) return;
-    if(Math.hypot(event.clientX-pointerDownPos.x,event.clientY-pointerDownPos.y)>8) return;
-    const rect=renderer.domElement.getBoundingClientRect();
-    mouse.x=((event.clientX-rect.left)/rect.width)*2-1;
-    mouse.y=-((event.clientY-rect.top)/rect.height)*2+1;
-    raycaster.setFromCamera(mouse,camera);
-    const intersects=raycaster.intersectObjects(interactiveBlocks);
-    if(intersects.length>0) showBlockModal(intersects[0].object.userData);
-}
-function showBlockModal(loc){
-    $('card-3d-img').src=loc.img;
-    $('card-block-title').innerHTML=`${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;color:var(--text-muted);" onclick="closeBlockModal()"></i>`;
-    $('card-block-desc').innerText=loc.desc;
-    $('card-p12').innerText=loc.p12; $('card-p21').innerText=loc.p21; $('card-p31').innerText=loc.p31;
-    $('block-info-card').classList.remove('hidden');
-}
-function closeBlockModal(){ $('block-info-card').classList.add('hidden'); }
 
-// ===== LOCATION AI AGENT =====
-function sendNavMsg(){
-    const input=$('input-nav');
-    const chatBox=$('chat-nav');
-    const msg=input.value.trim();
-    if(!msg) return;
-    chatBox.innerHTML+=`<div><strong style="color:var(--text-main)">You:</strong> ${msg}</div>`;
-    input.value='';
-    const lowerMsg=msg.toLowerCase();
-    if(lowerMsg.includes('route')||lowerMsg.includes('way')||lowerMsg.includes('path')||lowerMsg.includes('to')){
-        let startKey='blockA',endKey='blockJ';
-        if(lowerMsg.includes('tower')) endKey='tower';
-        else if(lowerMsg.includes('admin')) endKey='admin';
-        setTimeout(()=>{
-            chatBox.innerHTML+=`<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Generating wayfinding pathway on 2D map...</div>`;
-            chatBox.scrollTop=chatBox.scrollHeight;
-            switchTab('navigation',document.querySelectorAll('#sidebar-menu li')[1]);
-            $('route-start').value=startKey; $('route-end').value=endKey;
-            drawCampusRoute(startKey,endKey);
-        },500);
+function drawCampusRoute(startKeyOverride, endKeyOverride){
+    const startKey = startKeyOverride || $('route-start').value;
+    const endKey   = endKeyOverride   || $('route-end').value;
+
+    if(!startKey || !endKey || startKey === endKey){
+        $('route-info').innerHTML = `<span style="color:var(--danger); font-weight:600;"><i class="fa-solid fa-triangle-exclamation"></i> Please select two different blocks for wayfinding!</span>`;
+        $('route-steps-panel').classList.add('hidden');
         return;
     }
-    let foundKey=null;
-    Object.keys(campusLocations).forEach(key=>{
-        if(lowerMsg.includes(key.toLowerCase())||lowerMsg.includes(campusLocations[key].name.toLowerCase())) foundKey=key;
+
+    const startLoc = campusLocations[startKey];
+    const endLoc   = campusLocations[endKey];
+    if(!startLoc || !endLoc) return;
+
+    if(!map2D) init2DMap();
+    clearCampusRoute();
+
+    // Update dropdowns
+    if($('route-start')) $('route-start').value = startKey;
+    if($('route-end')) $('route-end').value = endKey;
+
+    const waypoints = computeCampusWalkwayPath(startLoc, endLoc);
+    let totalDist = 0;
+    for(let i=0; i<waypoints.length-1; i++){
+        totalDist += getDistanceInMeters(waypoints[i][0], waypoints[i][1], waypoints[i+1][0], waypoints[i+1][1]);
+    }
+    const distInMeters = Math.max(25, Math.round(totalDist));
+    const walkTimeMins = Math.max(1, Math.ceil(distInMeters / 65));
+
+    // Glow line (background)
+    activeRouteGlow = L.polyline(waypoints, {
+        color: '#4A5D2E',
+        weight: 10,
+        opacity: 0.35,
+        lineCap: 'round'
+    }).addTo(map2D);
+
+    // Active route path
+    activeRoutePath = L.polyline(waypoints, {
+        color: '#2B4219',
+        weight: 5,
+        opacity: 0.95,
+        dashArray: '8, 10',
+        lineCap: 'round'
+    }).addTo(map2D);
+
+    // Start Pin Marker
+    const startPin = L.divIcon({
+        className: 'route-start-pin',
+        html: `<div>🟢 Start: ${startLoc.name.split(' (')[0]}</div>`,
+        iconSize: [130, 28],
+        iconAnchor: [65, 14]
     });
+    const startMarker = L.marker([startLoc.lat, startLoc.lng], { icon: startPin }).addTo(map2D);
+    activeRouteMarkers.push(startMarker);
+
+    // Destination Pin Marker
+    const destPin = L.divIcon({
+        className: 'route-dest-pin',
+        html: `<div>🏁 Dest: ${endLoc.name.split(' (')[0]}</div>`,
+        iconSize: [130, 28],
+        iconAnchor: [65, 14]
+    });
+    const destMarker = L.marker([endLoc.lat, endLoc.lng], { icon: destPin }).addTo(map2D);
+    activeRouteMarkers.push(destMarker);
+
+    // Turn-by-Turn Steps
+    const steps = generateTurnSteps(startLoc, endLoc, distInMeters, walkTimeMins);
+    const stepsPanel = $('route-steps-panel');
+    if(stepsPanel){
+        stepsPanel.innerHTML = steps.map((s, idx)=>`
+            <div class="route-step-item">
+                <div class="route-step-num">${idx+1}</div>
+                <div>${s.text}</div>
+            </div>
+        `).join('');
+        stepsPanel.classList.remove('hidden');
+    }
+
+    $('route-info').innerHTML = `
+        <span class="route-meta-chip"><i class="fa-solid fa-location-dot" style="color:#16A34A;"></i> <strong>${startLoc.name.split(' (')[0]}</strong> ➔ <strong>${endLoc.name.split(' (')[0]}</strong></span>
+        <span class="route-meta-chip"><i class="fa-solid fa-person-walking" style="color:var(--accent-cyan);"></i> ~${distInMeters} meters</span>
+        <span class="route-meta-chip"><i class="fa-solid fa-stopwatch" style="color:var(--warning);"></i> ${walkTimeMins} min walk</span>
+    `;
+
     setTimeout(()=>{
-        if(foundKey){
-            const loc=campusLocations[foundKey];
-            chatBox.innerHTML+=`<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Located <strong>${loc.name}</strong>! Zooming in...</div>`;
-            chatBox.scrollTop=chatBox.scrollHeight;
-            switchTab('navigation',document.querySelectorAll('#sidebar-menu li')[1]);
-            flyToLoc(foundKey);
-        } else {
-            chatBox.innerHTML+=`<div><strong style="color:var(--accent-cyan)">COLLEGE-BOT:</strong> Try asking 'Route from Block A to Block J' or 'Where is Block G'.</div>`;
-            chatBox.scrollTop=chatBox.scrollHeight;
+        if(map2D && activeRoutePath){
+            map2D.invalidateSize();
+            map2D.fitBounds(activeRoutePath.getBounds(), { padding: [50, 50], maxZoom: 19 });
         }
-    },500);
+    }, 150);
 }
+
+function clearCampusRoute(){
+    if(activeRouteGlow && map2D){ map2D.removeLayer(activeRouteGlow); activeRouteGlow = null; }
+    if(activeRoutePath && map2D){ map2D.removeLayer(activeRoutePath); activeRoutePath = null; }
+    activeRouteMarkers.forEach(m => { if(map2D) map2D.removeLayer(m); });
+    activeRouteMarkers = [];
+    if($('route-steps-panel')) $('route-steps-panel').classList.add('hidden');
+    $('route-info').innerText = "Select start and destination blocks to generate an optimized pedestrian pathway.";
+}
+
+function getDistanceInMeters(lat1, lon1, lat2, lon2){
+    const R = 6371e3;
+    const φ1 = lat1 * Math.PI/180;
+    const φ2 = lat2 * Math.PI/180;
+    const Δφ = (lat2-lat1) * Math.PI/180;
+    const Δλ = (lon2-lon1) * Math.PI/180;
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// Function triggered by AI Chat route buttons
+function drawRouteFromChat(startKey, endKey){
+    switchTab('navigation');
+    setTimeout(()=>{
+        drawCampusRoute(startKey, endKey);
+    }, 200);
+}
+
+// ===== COMPREHENSIVE PSIT CAMPUS MIND AI ASSISTANT =====
+function sendQuickQuery(queryText){
+    $('input-nav').value = queryText;
+    sendNavMsg();
+}
+
+function clearAIChat(){
+    $('chat-nav').innerHTML = `
+        <div class="chat-msg bot">
+            <div class="chat-bubble">
+                <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-robot"></i> CAMPUS MIND AI:</strong></div>
+                <div style="margin-top:6px;">Chat cleared! How can I assist you with placements, events, clubs, timetables, or wayfinding today?</div>
+            </div>
+        </div>
+    `;
+}
+
+function sendNavMsg(){
+    const input = $('input-nav');
+    const chatBox = $('chat-nav');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    // Add user message
+    chatBox.innerHTML += `
+        <div class="chat-msg user">
+            <div class="chat-bubble">${escapeHtml(msg)}</div>
+        </div>
+    `;
+    input.value = '';
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Show bot typing simulation
+    const typingId = 'typing_' + Date.now();
+    chatBox.innerHTML += `
+        <div class="chat-msg bot" id="${typingId}">
+            <div class="chat-bubble" style="display:flex; align-items:center; gap:8px;">
+                <div class="spinner" style="width:14px; height:14px; border-width:2px;"></div>
+                <span style="font-size:0.8rem; color:var(--text-muted);">Campus Mind AI is thinking...</span>
+            </div>
+        </div>
+    `;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    setTimeout(()=>{
+        const typingEl = $(typingId);
+        if(typingEl) typingEl.remove();
+
+        const replyHtml = generateCampusAIReply(msg);
+        chatBox.innerHTML += `
+            <div class="chat-msg bot">
+                <div class="chat-bubble">${replyHtml}</div>
+            </div>
+        `;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 450);
+}
+
+function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+function generateCampusAIReply(query){
+    const lower = query.toLowerCase();
+
+    // 1. DYNAMIC & REAL-TIME PLACEMENTS
+    if(lower.includes('placement') || lower.includes('package') || lower.includes('tcs') || lower.includes('infosys') || 
+       lower.includes('amazon') || lower.includes('crpc') || lower.includes('tpo') || lower.includes('recruiter') || 
+       lower.includes('company') || lower.includes('companies') || lower.includes('highest') || lower.includes('drive') || lower.includes('salary')){
+        
+        const activePlacementDrives = masterTimetable.interruptions.filter(i => 
+            (i.type==='Placement Drive' || i.title.toLowerCase().includes('placement')) && i.status !== 'rejected'
+        );
+
+        let activeDriveHtml = '';
+        if(activePlacementDrives.length > 0){
+            activeDriveHtml = `
+                <div class="ai-info-card" style="border-left:3px solid var(--warning); background:rgba(217,119,6,0.06);">
+                    <h4 style="color:var(--warning);"><i class="fa-solid fa-bell"></i> Live / Scheduled Placement Drive Alert:</h4>
+                    ${activePlacementDrives.map(d=>`
+                        <div style="margin-top:4px;">
+                            <strong>${d.title}</strong> on <strong>${formatDate(d.date)}</strong> (${formatTime(d.startTime)} – ${formatTime(d.endTime)})
+                            <br><span style="color:var(--text-muted);">Affected: ${d.affectedClasses.join(', ')} | Venue: ${d.venue||'Seminar Hall'}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-briefcase"></i> PSIT Corporate Relations &amp; Placement Cell (CRPC)</strong></div>
+            <p style="margin-top:6px;">PSIT has an exceptional placement record with <strong>200+ marquee recruiters</strong> visiting annually.</p>
+            ${activeDriveHtml}
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-chart-line"></i> Placement Highlights &amp; Packages:</h4>
+                <div class="ai-bullet-list">
+                    <div>🏆 <strong>Highest Package:</strong> ₹50+ LPA (Amazon, Palo Alto Networks, Commvault, Goldman Sachs).</div>
+                    <div>📈 <strong>Average Package:</strong> ₹6.5 LPA with 90%+ placement conversion rate.</div>
+                    <div>🏢 <strong>Key Recruiters:</strong> TCS (Digital &amp; Ninja), Infosys (SP &amp; DSE), Capgemini, Cognizant, Wipro, Accenture, Mindtree, HCL Technologies, Commvault, Paytm.</div>
+                    <div>📍 <strong>CRPC Office Location:</strong> <strong>CAMPUS Tower, 2nd Floor (p21)</strong>.</div>
+                    <div>📋 <strong>Eligibility Criteria:</strong> Minimum 65% aggregate throughout 10th/12th/B.Tech with 0 active backlogs.</div>
+                </div>
+                <button class="ai-action-btn" onclick="drawRouteFromChat('blockA','tower')">
+                    <i class="fa-solid fa-route"></i> Show Route to Placement Office (Tower)
+                </button>
+            </div>
+        `;
+    }
+
+    // 2. EVENTS, HACKATHONS & TECH FESTS
+    if(lower.includes('event') || lower.includes('fest') || lower.includes('ignitia') || lower.includes('techvortex') || 
+       lower.includes('hackathon') || lower.includes('euphoria') || lower.includes('waves') || lower.includes('workshop') || 
+       lower.includes('seminar') || lower.includes('spardha') || lower.includes('competition')){
+        
+        const activeEvents = masterTimetable.interruptions.filter(i => 
+            (i.type==='College Event' || i.type==='IEEE Event' || i.type==='Workshop' || i.type==='Seminar' || i.type==='Sports Event') && i.status !== 'rejected'
+        );
+
+        let activeEventHtml = '';
+        if(activeEvents.length > 0){
+            activeEventHtml = `
+                <div class="ai-info-card" style="border-left:3px solid var(--info); background:rgba(37,99,235,0.05);">
+                    <h4 style="color:var(--info);"><i class="fa-solid fa-calendar-check"></i> Upcoming Campus Events &amp; Workshops:</h4>
+                    ${activeEvents.map(e=>`
+                        <div style="margin-top:4px;">
+                            <strong>${e.title}</strong> (${e.type}) — <strong>${formatDate(e.date)}</strong>
+                            <br><span style="color:var(--text-muted);">${formatTime(e.startTime)} – ${formatTime(e.endTime)} | Venue: ${e.venue||'Campus Hall'}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-sparkles"></i> PSIT Annual Fests &amp; Technical Events</strong></div>
+            <p style="margin-top:6px;">PSIT hosts premier national-level fests, 24-hour hackathons, and cultural spectacles throughout the academic year.</p>
+            ${activeEventHtml}
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-award"></i> Flagship Campus Fests:</h4>
+                <div class="ai-bullet-list">
+                    <div>🔥 <strong>IGNITIA (Techno-Cultural Megafest):</strong> Featuring RoboWars, Codeathon, WebSprint, Gaming Battle, Star Celebrity Concerts &amp; Fashion Show at Rang Manch Arena.</div>
+                    <div>💻 <strong>TECHVORTEX (24-Hour Hackathon):</strong> Annual software &amp; hardware prototyping hackathon organized by CodeGeeks &amp; GDSC.</div>
+                    <div>🎭 <strong>EUPHORIA / WAVES:</strong> Intra-college cultural extravaganza with Band Wars, Solo/Group Dance, and Dramatics.</div>
+                    <div>🏆 <strong>SPARDHA (Sports Meet):</strong> Inter-departmental Cricket, Football, Basketball, Badminton &amp; Athletics at Block R Arena.</div>
+                    <div>💡 <strong>IEEE Workshops:</strong> Regular international conferences &amp; hands-on GenAI / IoT bootcamps in Admin Town Hall.</div>
+                </div>
+                <button class="ai-action-btn" onclick="drawRouteFromChat('blockA','rangmanch')">
+                    <i class="fa-solid fa-route"></i> Show Route to Rang Manch Fest Arena
+                </button>
+            </div>
+        `;
+    }
+
+    // 3. STUDENT CLUBS & SOCIETIES
+    if(lower.includes('club') || lower.includes('society') || lower.includes('societies') || lower.includes('codegeek') || 
+       lower.includes('dance') || lower.includes('music') || lower.includes('drama') || lower.includes('robotics') || 
+       lower.includes('e-cell') || lower.includes('startup') || lower.includes('rotaract') || lower.includes('nss') || 
+       lower.includes('gdsc') || lower.includes('acm') || lower.includes('stepup') || lower.includes('dramebaaz') || lower.includes('aperture')){
+        
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-users"></i> PSIT Student Clubs &amp; Societies Directory</strong></div>
+            <p style="margin-top:6px;">Join vibrant student-driven clubs to build projects, compete nationally, and network!</p>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-laptop-code"></i> Technical &amp; Professional Clubs:</h4>
+                <div class="ai-bullet-list">
+                    <div>💻 <strong>CodeGeeks Club:</strong> Competitive programming, DSA mastery, and weekly coding contests (Block B Coding Labs).</div>
+                    <div>🤖 <strong>AI/ML Nexus:</strong> Machine Learning, Deep Learning, GenAI research &amp; Kaggle sprints (Block L Data Science Hub).</div>
+                    <div>🦾 <strong>RoboTech Guild:</strong> Autonomous robotics, drones, embedded IoT systems (Block F/D Labs).</div>
+                    <div>🌐 <strong>WebCraft &amp; AppDev:</strong> Full-stack web development, open source contributions (Block C IT Labs).</div>
+                    <div>🛡️ <strong>CyberShield:</strong> Ethical hacking, cybersecurity &amp; CTF defense team (Block C Cyber Lab).</div>
+                    <div>🚀 <strong>E-Cell (Entrepreneurship Cell):</strong> Startup incubation, seed-stage mentorship &amp; pitch decks (Block G 3rd Floor).</div>
+                </div>
+            </div>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-masks-theater"></i> Cultural &amp; Creative Clubs:</h4>
+                <div class="ai-bullet-list">
+                    <div>💃 <strong>StepUp Dance Crew:</strong> Western, Hip-hop, Contemporary &amp; Classical dance.</div>
+                    <div>🎸 <strong>Euphony:</strong> College rock band, instrumental &amp; classical music society.</div>
+                    <div>🎭 <strong>Dramebaaz:</strong> Theater, stage plays, and street plays (Nukkad Natak).</div>
+                    <div>📸 <strong>Aperture Media Club:</strong> Photography, cinematography, video editing &amp; design.</div>
+                    <div>🤝 <strong>Rotaract &amp; NSS:</strong> Social welfare, blood donation drives, environmental initiatives.</div>
+                </div>
+                <button class="ai-action-btn" onclick="drawRouteFromChat('blockA','blockG')">
+                    <i class="fa-solid fa-route"></i> Route to E-Cell &amp; Club HQ (Block G)
+                </button>
+            </div>
+        `;
+    }
+
+    // 4. TIMETABLE, TODAY'S SCHEDULE & RESCHEDULING
+    if(lower.includes('timetable') || lower.includes('schedule') || lower.includes('class') || lower.includes('classes') || 
+       lower.includes('lecture') || lower.includes('today') || lower.includes('tomorrow') || lower.includes('reschedule') || 
+       lower.includes('cancel') || lower.includes('break') || lower.includes('period')){
+        
+        const activeInterrupt = masterTimetable.interruptions.filter(i => i.status==='applied' || i.status==='active');
+        let statusNotice = activeInterrupt.length > 0
+            ? `⚠️ <span style="color:var(--warning); font-weight:600;">Timetable Modified:</span> Recent interruption(s) active (${activeInterrupt.map(a=>a.title).join(', ')}). Rescheduled classes are marked with orange badges.`
+            : `✅ <span style="color:var(--success); font-weight:600;">Normal Timetable:</span> All classes are running according to the regular master schedule matrix.`;
+
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-calendar-days"></i> Academic Timetable &amp; Schedule Status</strong></div>
+            <p style="margin-top:6px;">${statusNotice}</p>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-clock"></i> Daily Period Breakdown:</h4>
+                <div class="ai-bullet-list">
+                    <div>• <strong>Period 1:</strong> 09:00 AM – 10:00 AM</div>
+                    <div>• <strong>Period 2:</strong> 10:00 AM – 11:00 AM</div>
+                    <div>• ☕ <strong>Break Time:</strong> 11:00 AM – 11:15 AM (15 Minutes)</div>
+                    <div>• <strong>Period 3:</strong> 11:15 AM – 12:15 PM</div>
+                    <div>• <strong>Period 4:</strong> 12:15 PM – 01:15 PM</div>
+                    <div>• 🍱 <strong>Lunch Break:</strong> 01:15 PM – 02:00 PM (45 Minutes)</div>
+                    <div>• <strong>Period 5:</strong> 02:00 PM – 03:00 PM</div>
+                </div>
+                <button class="ai-action-btn" onclick="switchTab('timetable')">
+                    <i class="fa-solid fa-table"></i> Open Full Timetable Matrix
+                </button>
+            </div>
+        `;
+    }
+
+    // 5. CENTRAL LIBRARY & BOOK BANK
+    if(lower.includes('library') || lower.includes('book') || lower.includes('journal') || lower.includes('ieee xplore') || lower.includes('reading')){
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-book-bookmark"></i> PSIT Central Library &amp; Knowledge Resource Center</strong></div>
+            <p style="margin-top:6px;">Located in <strong>Block K</strong>, the Central Library is a 3-tier air-conditioned digital learning repository.</p>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-info-circle"></i> Key Details &amp; Timings:</h4>
+                <div class="ai-bullet-list">
+                    <div>⏰ <strong>Regular Timings:</strong> 8:00 AM to 8:00 PM (Monday to Saturday).</div>
+                    <div>🌙 <strong>Exam Period:</strong> Open 24x7 for student reading and revision.</div>
+                    <div>📚 <strong>Collection:</strong> 1.5 Lakh+ books, national/international journals, Delnet &amp; IEEE Xplore digital library access.</div>
+                    <div>📖 <strong>Book Bank Facility:</strong> 6 standard textbooks issued to every student for the entire semester.</div>
+                    <div>🏢 <strong>Layout:</strong> Ground Floor (Reading Hall), 1st Floor (Digital Library &amp; E-Learning), 2nd Floor (Silent Study &amp; Book Bank).</div>
+                </div>
+                <button class="ai-action-btn" onclick="drawRouteFromChat('blockA','blockK')">
+                    <i class="fa-solid fa-route"></i> Show Route to Central Library (Block K)
+                </button>
+            </div>
+        `;
+    }
+
+    // 6. CAFETERIA & DINING
+    if(lower.includes('cafeteria') || lower.includes('canteen') || lower.includes('food') || lower.includes('nescafe') || lower.includes('lunch') || lower.includes('snack') || lower.includes('dining')){
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-utensils"></i> Campus Cafeteria &amp; Food Court (Block S)</strong></div>
+            <p style="margin-top:6px;">Block S houses the multi-cuisine dining food court offering hygienic meals, snacks, and beverages.</p>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-burger"></i> Dining Options &amp; Hours:</h4>
+                <div class="ai-bullet-list">
+                    <div>🍽️ <strong>Ground Floor (S12):</strong> Main multi-cuisine dining hall serving North/South Indian meals, thalis &amp; combos.</div>
+                    <div>☕ <strong>1st Floor (S21):</strong> Nescafe Coffee Lounge, fresh bakery, pastries &amp; sandwiches.</div>
+                    <div>🍕 <strong>Food Stalls:</strong> Amul Ice Cream Parlor, Fresh Fruit Juices, Chaat &amp; Subway snack corner.</div>
+                    <div>⏰ <strong>Operating Hours:</strong> 7:30 AM to 9:00 PM every day.</div>
+                </div>
+                <button class="ai-action-btn" onclick="drawRouteFromChat('blockA','blockS')">
+                    <i class="fa-solid fa-route"></i> Show Route to Cafeteria (Block S)
+                </button>
+            </div>
+        `;
+    }
+
+    // 7. BUS & TRANSPORTATION
+    if(lower.includes('bus') || lower.includes('transport') || lower.includes('route') && (lower.includes('kanpur') || lower.includes('lucknow') || lower.includes('unnao'))){
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-bus"></i> PSIT AC Bus Fleet &amp; Transport Services</strong></div>
+            <p style="margin-top:6px;">PSIT operates an extensive fleet of <strong>100+ Air-Conditioned, GPS-tracked buses</strong> connecting all key routes.</p>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-map-pin"></i> Coverage Routes:</h4>
+                <div class="ai-bullet-list">
+                    <div>🚌 <strong>Kanpur City Routes:</strong> Kalyanpur, Kakadeo, Rawatpur, Govind Nagar, Kidwai Nagar, Barra, Shyam Nagar, Cantt, Civil Lines.</div>
+                    <div>🚌 <strong>Unnao Route:</strong> Daily direct express buses covering Unnao bypass and city junctions.</div>
+                    <div>🚌 <strong>Lucknow Route:</strong> Special AC coaches connecting Charbagh, Alambagh, Transport Nagar, and Amausi.</div>
+                    <div>📍 <strong>Bus Parking Arena:</strong> South Campus Gate Parking Bay.</div>
+                </div>
+            </div>
+        `;
+    }
+
+    // 8. WAYFINDING & LOCATION ROUTE GENERATION
+    let foundStart = null;
+    let foundEnd = null;
+
+    Object.keys(campusLocations).forEach(key=>{
+        const loc = campusLocations[key];
+        const lowerName = loc.name.toLowerCase();
+        if(lower.includes(key.toLowerCase()) || lower.includes(lowerName.split(' ')[0]) || lower.includes(lowerName)){
+            if(!foundEnd) foundEnd = key;
+            else if(!foundStart) foundStart = key;
+        }
+    });
+
+    if(foundEnd){
+        if(!foundStart) foundStart = 'blockA'; // default start from Block A CSE
+        const targetLoc = campusLocations[foundEnd];
+        const startLoc = campusLocations[foundStart];
+
+        return `
+            <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-location-dot"></i> Location Found: ${targetLoc.name}</strong></div>
+            <p style="margin-top:4px;">${targetLoc.desc}</p>
+            <div class="ai-info-card">
+                <h4><i class="fa-solid fa-building"></i> Floor Breakdown:</h4>
+                <div class="ai-bullet-list">
+                    <div>• <strong>Ground Floor:</strong> ${targetLoc.p12}</div>
+                    <div>• <strong>1st Floor:</strong> ${targetLoc.p21}</div>
+                    <div>• <strong>2nd Floor:</strong> ${targetLoc.p31}</div>
+                </div>
+                <button class="ai-action-btn" onclick="drawRouteFromChat('${foundStart}','${foundEnd}')">
+                    <i class="fa-solid fa-diamond-turn-right"></i> Draw Pathway on 2D Map (${startLoc.name.split(' (')[0]} ➔ ${targetLoc.name.split(' (')[0]})
+                </button>
+            </div>
+        `;
+    }
+
+    // 9. GENERAL / FALLBACK INTELLIGENCE
+    return `
+        <div><strong style="color:var(--accent-cyan);"><i class="fa-solid fa-lightbulb"></i> PSIT Campus Intelligence Guide</strong></div>
+        <p style="margin-top:6px;">I can provide instant real-time answers for any campus queries. Here are popular topics:</p>
+        <div class="ai-bullet-list" style="margin-top:8px;">
+            <div>💼 Ask <strong>"Ongoing placement drives and highest package"</strong></div>
+            <div>🎉 Ask <strong>"Tell me about Tech Fest IGNITIA and Hackathons"</strong></div>
+            <div>🤖 Ask <strong>"Student Clubs (CodeGeeks, StepUp Dance, E-Cell)"</strong></div>
+            <div>📅 Ask <strong>"Today's schedule &amp; timetable changes"</strong></div>
+            <div>📚 Ask <strong>"Central Library timings &amp; book bank"</strong></div>
+            <div>🍕 Ask <strong>"Cafeteria and Nescafe lounge food"</strong></div>
+            <div>🗺️ Ask <strong>"Route from Block A to Central Library"</strong></div>
+        </div>
+    `;
+}
+
 
 // ===== INIT =====
 // Set default date on interruption form to today
