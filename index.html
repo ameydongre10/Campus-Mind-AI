@@ -2658,6 +2658,442 @@ function generateCampusAIReply(query){
 }
 
 
+// ===== 3D INTERACTIVE CAMPUS VIEW (Three.js) =====
+let scene, camera3D, renderer3D, controls3D, raycaster3D, mouse3D, buildingMeshes3D = [];
+let animFrame3D = null;
+
+function init3DMap() {
+    const container = $('container-3d');
+    if (!container) return;
+
+    // Prevent double init
+    if (scene) return;
+
+    const W = container.clientWidth || 800;
+    const H = container.clientHeight || 560;
+
+    // Scene
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xE8F0E0);
+    scene.fog = new THREE.FogExp2(0xE8F0E0, 0.006);
+
+    // Camera
+    camera3D = new THREE.PerspectiveCamera(50, W / H, 0.1, 500);
+    camera3D.position.set(40, 35, 45);
+    camera3D.lookAt(0, 0, 0);
+
+    // Renderer
+    renderer3D = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer3D.setSize(W, H);
+    renderer3D.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer3D.shadowMap.enabled = true;
+    renderer3D.shadowMap.type = THREE.PCFSoftShadowMap;
+    container.innerHTML = '';
+    container.appendChild(renderer3D.domElement);
+
+    // Controls
+    controls3D = new THREE.OrbitControls(camera3D, renderer3D.domElement);
+    controls3D.enableDamping = true;
+    controls3D.dampingFactor = 0.08;
+    controls3D.maxPolarAngle = Math.PI / 2.15;
+    controls3D.minDistance = 15;
+    controls3D.maxDistance = 120;
+    controls3D.target.set(0, 0, 0);
+
+    // Raycaster
+    raycaster3D = new THREE.Raycaster();
+    mouse3D = new THREE.Vector2();
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0xfffbe6, 0.9);
+    dirLight.position.set(30, 50, 25);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.camera.left = -60;
+    dirLight.shadow.camera.right = 60;
+    dirLight.shadow.camera.top = 60;
+    dirLight.shadow.camera.bottom = -60;
+    scene.add(dirLight);
+
+    const hemiLight = new THREE.HemisphereLight(0xb5d6a7, 0x5c4033, 0.35);
+    scene.add(hemiLight);
+
+    // Ground Plane — campus terrain
+    const groundGeo = new THREE.PlaneGeometry(120, 100);
+    const groundMat = new THREE.MeshLambertMaterial({ color: 0xC8DEB0 });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -0.05;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // ── Campus Roads (main spine, cross-walks, perimeter) ──
+    const roadMat = new THREE.MeshLambertMaterial({ color: 0xA0A0A0 });
+    function addRoad(rx, ry, rz, rw, rd) {
+        const rGeo = new THREE.PlaneGeometry(rw, rd);
+        const road = new THREE.Mesh(rGeo, roadMat);
+        road.rotation.x = -Math.PI / 2;
+        road.position.set(rx, 0.01, rz);
+        road.receiveShadow = true;
+        scene.add(road);
+    }
+    // Central spine (north-south)
+    addRoad(0, 0, -2, 3, 50);
+    // North cross-walk
+    addRoad(0, 0, -20, 50, 2.5);
+    // Central cross-walk
+    addRoad(0, 0, -5, 50, 2);
+    // South cross-walk
+    addRoad(0, 0, 10, 50, 2);
+    // South perimeter
+    addRoad(0, 0, 20, 50, 2);
+    // West corridor
+    addRoad(-13, 0, -2, 2, 40);
+    // East corridor
+    addRoad(13, 0, -2, 2, 40);
+
+    // ── Covered Gallery Walkways (PSIT signature red-brick covered passages) ──
+    const galleryMat = new THREE.MeshLambertMaterial({ color: 0xC4856A, transparent: true, opacity: 0.7 });
+    function addGallery(gx, gz, gw, gd, gh) {
+        const gGeo = new THREE.BoxGeometry(gw, gh || 0.6, gd);
+        const gal = new THREE.Mesh(gGeo, galleryMat);
+        gal.position.set(gx, 3.5, gz);
+        scene.add(gal);
+    }
+    // West covered gallery (connecting blocks G-E-C-A-S)
+    addGallery(-13, -2, 1.2, 38, 0.5);
+    // East covered gallery (connecting blocks J-K-M-P-R)
+    addGallery(13, -2, 1.2, 38, 0.5);
+
+    // ── Build all campus blocks from campusLocations ──
+    buildingMeshes3D = [];
+    Object.keys(campusLocations).forEach(key => {
+        const loc = campusLocations[key];
+        const w = loc.w || 6;
+        const d = loc.d || 6;
+        const h = loc.height || 3.5;
+        const color = loc.color || 0x6B8E3D;
+        const rot = loc.rot || 0;
+
+        // Building body
+        const geo = new THREE.BoxGeometry(w, h, d);
+        const mat = new THREE.MeshPhongMaterial({
+            color: color,
+            specular: 0x222222,
+            shininess: 20,
+            flatShading: false
+        });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(loc.x, h / 2, loc.z);
+        if (rot) mesh.rotation.y = rot;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        mesh.userData = { key: key, loc: loc };
+        scene.add(mesh);
+        buildingMeshes3D.push(mesh);
+
+        // Roof slab (slightly wider, darker)
+        const roofGeo = new THREE.BoxGeometry(w + 0.6, 0.3, d + 0.6);
+        const roofMat = new THREE.MeshPhongMaterial({ color: darkenColor(color, 0.7) });
+        const roof = new THREE.Mesh(roofGeo, roofMat);
+        roof.position.set(loc.x, h + 0.15, loc.z);
+        if (rot) roof.rotation.y = rot;
+        roof.castShadow = true;
+        scene.add(roof);
+
+        // Window strips (front face detail)
+        if (h > 1) {
+            const winMat = new THREE.MeshPhongMaterial({ color: 0xD4E8F0, emissive: 0x334455, emissiveIntensity: 0.1 });
+            for (let floor = 0; floor < Math.min(Math.floor(h / 1.2), 3); floor++) {
+                const winGeo = new THREE.BoxGeometry(w * 0.8, 0.3, 0.08);
+                const win = new THREE.Mesh(winGeo, winMat);
+                const wy = 1 + floor * 1.3;
+                win.position.set(loc.x, wy, loc.z - d / 2 - 0.04);
+                if (rot) {
+                    // Rotate window around the building center
+                    const dx = -d / 2 - 0.04;
+                    win.position.set(
+                        loc.x + dx * Math.sin(rot),
+                        wy,
+                        loc.z + dx * Math.cos(rot)
+                    );
+                    win.rotation.y = rot;
+                }
+                scene.add(win);
+            }
+        }
+
+        // 3D Label Sprite
+        const label = createTextSprite(loc.name.replace(/\(.*?\)/, '').trim(), h);
+        label.position.set(loc.x, h + 1.2, loc.z);
+        scene.add(label);
+    });
+
+    // ── Additional Infrastructure (approximate positions, based on PSIT campus knowledge) ──
+
+    // Main Gate
+    addInfraBlock(0, -40, 16, 1.5, 3, 0xB22222, 'Main Gate');
+    // Gate pillars
+    addInfraBlock(-9, -40, 1.5, 1.5, 5, 0x8B0000, '');
+    addInfraBlock(9, -40, 1.5, 1.5, 5, 0x8B0000, '');
+
+    // Boys Hostel (south-west campus area)
+    addInfraBlock(-30, 10, 14, 8, 5, 0x7B6B55, "Boys' Hostel");
+    // Girls Hostel (south-east campus area)
+    addInfraBlock(30, 10, 14, 8, 5, 0x8B7B65, "Girls' Hostel");
+
+    // Auditorium (1350-seat Dolby auditorium — near admin block)
+    addInfraBlock(0, -28, 12, 8, 5.5, 0x6B5B4B, 'Auditorium');
+
+    // Parking Area (near main gate, west side)
+    const parkGeo = new THREE.PlaneGeometry(14, 8);
+    const parkMat = new THREE.MeshLambertMaterial({ color: 0x888888 });
+    const parking = new THREE.Mesh(parkGeo, parkMat);
+    parking.rotation.x = -Math.PI / 2;
+    parking.position.set(-25, 0.02, -35);
+    scene.add(parking);
+    const parkLabel = createTextSprite('Parking', 0);
+    parkLabel.position.set(-25, 1.5, -35);
+    scene.add(parkLabel);
+
+    // Bus Stand (near main gate, east side — 53 AC CNG buses)
+    const busGeo = new THREE.PlaneGeometry(12, 6);
+    const busMat = new THREE.MeshLambertMaterial({ color: 0x999999 });
+    const busStand = new THREE.Mesh(busGeo, busMat);
+    busStand.rotation.x = -Math.PI / 2;
+    busStand.position.set(25, 0.02, -35);
+    scene.add(busStand);
+    const busLabel = createTextSprite('Bus Stand', 0);
+    busLabel.position.set(25, 1.5, -35);
+    scene.add(busLabel);
+
+    // Sports Ground / Cricket Ground (far south area)
+    const sportsGeo = new THREE.CircleGeometry(10, 32);
+    const sportsMat = new THREE.MeshLambertMaterial({ color: 0x7CB342 });
+    const sports = new THREE.Mesh(sportsGeo, sportsMat);
+    sports.rotation.x = -Math.PI / 2;
+    sports.position.set(0, 0.02, 35);
+    scene.add(sports);
+    const sportsLabel = createTextSprite('Sports Ground', 0);
+    sportsLabel.position.set(0, 1.5, 35);
+    scene.add(sportsLabel);
+    // Basketball court outline
+    addInfraBlock(15, 30, 5, 3, 0.15, 0xD4A76A, '');
+
+    // Solar Plant (1530 kW — along perimeter)
+    for (let i = 0; i < 5; i++) {
+        const panelGeo = new THREE.BoxGeometry(3, 0.1, 2);
+        const panelMat = new THREE.MeshPhongMaterial({ color: 0x2244AA, specular: 0x4466CC, shininess: 60 });
+        const panel = new THREE.Mesh(panelGeo, panelMat);
+        panel.position.set(-38 + i * 4, 2.5, -30);
+        panel.rotation.x = -Math.PI / 6;
+        scene.add(panel);
+        // Support pole
+        const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.5, 6);
+        const poleMat = new THREE.MeshLambertMaterial({ color: 0x666666 });
+        const pole = new THREE.Mesh(poleGeo, poleMat);
+        pole.position.set(-38 + i * 4, 1.25, -30);
+        scene.add(pole);
+    }
+    const solarLabel = createTextSprite('Solar Plant', 0);
+    solarLabel.position.set(-30, 4, -30);
+    scene.add(solarLabel);
+
+    // Water Tower
+    const wtGeo = new THREE.CylinderGeometry(1.5, 1.5, 6, 12);
+    const wtMat = new THREE.MeshPhongMaterial({ color: 0x6699BB });
+    const waterTower = new THREE.Mesh(wtGeo, wtMat);
+    waterTower.position.set(38, 3, -15);
+    waterTower.castShadow = true;
+    scene.add(waterTower);
+    const wtTopGeo = new THREE.CylinderGeometry(2, 1.5, 2, 12);
+    const wtTop = new THREE.Mesh(wtTopGeo, wtMat);
+    wtTop.position.set(38, 7, -15);
+    scene.add(wtTop);
+    const wtLabel = createTextSprite('Water Tower', 0);
+    wtLabel.position.set(38, 9, -15);
+    scene.add(wtLabel);
+
+    // SBI ATM / Bank (small booth near admin)
+    addInfraBlock(20, -25, 3, 2, 2.5, 0x3366AA, 'SBI ATM');
+
+    // Infirmary / Medical Center
+    addInfraBlock(-20, -25, 4, 3, 2.5, 0xCC3333, 'Infirmary');
+
+    // Decorative trees scattered
+    const treeMat = new THREE.MeshLambertMaterial({ color: 0x4A8C3F });
+    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8B6C42 });
+    const treePositions = [
+        [-6,4],[-6,-8],[6,4],[6,-8],[-25,0],[25,0],[-35,15],[35,15],
+        [-35,-15],[35,-15],[10,25],[-10,25],[0,22],[18,22],[-18,22],
+        [-30,25],[30,25],[0,-33],[-15,-33],[15,-33]
+    ];
+    treePositions.forEach(([tx,tz]) => {
+        const th = 2 + Math.random() * 1.5;
+        const crownGeo = new THREE.SphereGeometry(1.2 + Math.random()*0.5, 8, 6);
+        const crown = new THREE.Mesh(crownGeo, treeMat.clone());
+        crown.material.color.setHex(0x3A7C2F + Math.floor(Math.random()*0x202020));
+        crown.position.set(tx, th + 0.8, tz);
+        crown.castShadow = true;
+        scene.add(crown);
+        const trunkGeo = new THREE.CylinderGeometry(0.15, 0.2, th, 6);
+        const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+        trunk.position.set(tx, th/2, tz);
+        scene.add(trunk);
+    });
+
+    // ── Click interaction ──
+    renderer3D.domElement.addEventListener('click', on3DClick, false);
+    renderer3D.domElement.addEventListener('touchend', on3DTouchEnd, { passive: false });
+    window.addEventListener('resize', resize3DCanvas, false);
+
+    // Start render loop
+    animate3D();
+}
+
+function darkenColor(hex, factor) {
+    const r = ((hex >> 16) & 0xFF) * factor;
+    const g = ((hex >> 8) & 0xFF) * factor;
+    const b = (hex & 0xFF) * factor;
+    return (Math.round(r) << 16) | (Math.round(g) << 8) | Math.round(b);
+}
+
+function addInfraBlock(ix, iz, iw, id, ih, icolor, ilabel) {
+    const geo = new THREE.BoxGeometry(iw, ih, id);
+    const mat = new THREE.MeshPhongMaterial({ color: icolor, shininess: 15 });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(ix, ih / 2, iz);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    scene.add(mesh);
+    if (ilabel) {
+        const label = createTextSprite(ilabel, ih);
+        label.position.set(ix, ih + 1.2, iz);
+        scene.add(label);
+    }
+}
+
+function createTextSprite(text, buildingHeight) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 512;
+    canvas.height = 64;
+    ctx.clearRect(0, 0, 512, 64);
+
+    // Background pill
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.88)';
+    const textWidth = ctx.measureText(text).width;
+    const pad = 16;
+    const pillW = Math.min(textWidth + pad * 2, 500);
+    const pillH = 36;
+    const pillX = (512 - pillW) / 2;
+    const pillY = (64 - pillH) / 2;
+    ctx.beginPath();
+    if (ctx.roundRect) {
+        ctx.roundRect(pillX, pillY, pillW, pillH, 8);
+    } else {
+        ctx.rect(pillX, pillY, pillW, pillH);
+    }
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(74,93,46,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Text
+    ctx.fillStyle = '#2D3A1E';
+    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 256, 32);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.minFilter = THREE.LinearFilter;
+    const spriteMat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false });
+    const sprite = new THREE.Sprite(spriteMat);
+    sprite.scale.set(10, 1.25, 1);
+    return sprite;
+}
+
+function on3DClick(event) {
+    const rect = renderer3D.domElement.getBoundingClientRect();
+    mouse3D.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse3D.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    performRaycast3D();
+}
+
+function on3DTouchEnd(event) {
+    if (event.changedTouches && event.changedTouches.length > 0) {
+        const touch = event.changedTouches[0];
+        const rect = renderer3D.domElement.getBoundingClientRect();
+        mouse3D.x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse3D.y = -((touch.clientY - rect.top) / rect.height) * 2 + 1;
+        performRaycast3D();
+    }
+}
+
+function performRaycast3D() {
+    raycaster3D.setFromCamera(mouse3D, camera3D);
+    const intersects = raycaster3D.intersectObjects(buildingMeshes3D, false);
+    if (intersects.length > 0) {
+        const hit = intersects[0].object;
+        const loc = hit.userData.loc;
+        if (loc) {
+            showBlockInfo3D(loc);
+            // Highlight effect — brief emissive pulse
+            const origColor = hit.material.emissive ? hit.material.emissive.getHex() : 0x000000;
+            hit.material.emissive.setHex(0x446633);
+            setTimeout(() => { hit.material.emissive.setHex(origColor); }, 400);
+        }
+    } else {
+        closeBlockModal();
+    }
+}
+
+function showBlockInfo3D(loc) {
+    const card = $('block-info-card');
+    if (!card) return;
+    const img = $('card-3d-img');
+    const title = $('card-block-title');
+    const desc = $('card-block-desc');
+    const fp12 = $('card-p12');
+    const fp21 = $('card-p21');
+    const fp31 = $('card-p31');
+    if (img) img.src = loc.img || '';
+    if (title) title.innerHTML = loc.name + ' <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;float:right;" onclick="closeBlockModal()"></i>';
+    if (desc) desc.textContent = loc.desc || '';
+    if (fp12) fp12.textContent = (loc.p12 || '').replace(/^p12\s*-\s*/, '');
+    if (fp21) fp21.textContent = (loc.p21 || '').replace(/^p21\s*-\s*/, '');
+    if (fp31) fp31.textContent = (loc.p31 || '').replace(/^p31\s*-\s*/, '');
+    card.classList.remove('hidden');
+}
+
+function closeBlockModal() {
+    const card = $('block-info-card');
+    if (card) card.classList.add('hidden');
+}
+
+function resize3DCanvas() {
+    const container = $('container-3d');
+    if (!container || !renderer3D || !camera3D) return;
+    const W = container.clientWidth;
+    const H = container.clientHeight;
+    if (W < 1 || H < 1) return;
+    camera3D.aspect = W / H;
+    camera3D.updateProjectionMatrix();
+    renderer3D.setSize(W, H);
+}
+
+function animate3D() {
+    animFrame3D = requestAnimationFrame(animate3D);
+    if (controls3D) controls3D.update();
+    if (renderer3D && scene && camera3D) renderer3D.render(scene, camera3D);
+}
+
 // ===== INIT =====
 // Set default date on interruption form to today
 document.addEventListener('DOMContentLoaded',()=>{
