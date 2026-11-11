@@ -2441,34 +2441,34 @@ function clearActivityLog(){
 
 // ===== CAMPUS LOCATIONS DATASET =====
 const campusLocations = {
-    tower:    { key:"tower",   lat:26.449700, lng:80.192086, name:"CAMPUS Tower",         desc:"Corporate & Public Relations Hub (CRPC, Placement Cell & Director Office)", img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=80", p12:"p12 - PR Office, Visitor Lounge & Reception", p21:"p21 - Corporate Relations, Placement Cell (CRPC) & Boardroom", p31:"p31 - Director Office & High-Tech Executive Suites", x:0,   z:-20, w:16, d:8,  rot:0,            color:0x4A5D2E, height:7 },
-    admin:    { key:"admin",   lat:26.449450, lng:80.192086, name:"Admin / Town Hall",     desc:"Central Administrative Block, Registrar, Accounts & Main Auditorium",        img:"https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80", p12:"p12 - Student Registrar, Accounts & Fee Counters", p21:"p21 - Main Town Hall Auditorium & Conference Hall", p31:"p31 - Dean Academics & Controller of Examinations", x:0,   z:-12, w:14, d:6,  rot:0,            color:0x6B8E3D, height:4.5 },
-    lawn:     { key:"lawn",    lat:26.449000, lng:80.192086, name:"Central Green Lawn",     desc:"Main Campus Assembly Ground & Open Amphitheatre",                             img:"https://images.unsplash.com/photo-1589828996213-56e201216856?w=500&auto=format&fit=crop&q=80", p12:"p12 - Open Amphitheatre Lawn & Assembly Ground", p21:"N/A - Central Green Promenade", p31:"N/A - Central Green Promenade", x:0,   z:2,   w:10, d:18, rot:0,            color:0x8FAD5E, height:0.2 },
-    rangmanch:{ key:"rangmanch",lat:26.448200,lng:80.192086, name:"Rang Manch Arena",       desc:"Open Air Cultural Stage Arena & Amphitheatre for Fests & Concerts",          img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80", p12:"p12 - Open Stage Arena & Green Rooms", p21:"p21 - Sound, Light Control & VIP Gallery Deck", p31:"p31 - Open Gallery Viewing Deck", x:0,   z:14,  w:10, d:4,  rot:0,            color:0xB8860B, height:2 },
+    tower:    { key:"tower",   lat:26.451157, lng:80.191752, name:"CAMPUS Tower",         desc:"Corporate & Public Relations Hub (CRPC, Placement Cell & Director Office)", img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=80", p12:"p12 - PR Office, Visitor Lounge & Reception", p21:"p21 - Corporate Relations, Placement Cell (CRPC) & Boardroom", p31:"p31 - Director Office & High-Tech Executive Suites", x:0,   z:-20, w:16, d:8,  rot:0,            color:0x4A5D2E, height:7 },
+    admin:    { key:"admin",   lat:26.450725, lng:80.191537, name:"Admin / Town Hall",     desc:"Central Administrative Block, Registrar, Accounts & Main Auditorium",        img:"https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80", p12:"p12 - Student Registrar, Accounts & Fee Counters", p21:"p21 - Main Town Hall Auditorium & Conference Hall", p31:"p31 - Dean Academics & Controller of Examinations", x:0,   z:-12, w:14, d:6,  rot:0,            color:0x6B8E3D, height:4.5 },
+    lawn:     { key:"lawn",    lat:26.450172, lng:80.191886, name:"Central Green Lawn",     desc:"Main Campus Assembly Ground & Open Amphitheatre",                             img:"https://images.unsplash.com/photo-1589828996213-56e201216856?w=500&auto=format&fit=crop&q=80", p12:"p12 - Open Amphitheatre Lawn & Assembly Ground", p21:"N/A - Central Green Promenade", p31:"N/A - Central Green Promenade", x:0,   z:2,   w:10, d:18, rot:0,            color:0x8FAD5E, height:0.2 },
+    rangmanch:{ key:"rangmanch",lat:26.449452,lng:80.192449, name:"Rang Manch Arena",       desc:"Open Air Cultural Stage Arena & Amphitheatre for Fests & Concerts",          img:"https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80", p12:"p12 - Open Stage Arena & Green Rooms", p21:"p21 - Sound, Light Control & VIP Gallery Deck", p31:"p31 - Open Gallery Viewing Deck", x:0,   z:14,  w:10, d:4,  rot:0,            color:0xB8860B, height:2 },
 
-    // WEST WING
-    blockG:   { key:"blockG",  lat:26.449650, lng:80.191400, name:"Block G (Management)",    desc:"Management & MCA Block, E-Cell & Startup Incubation Center",                  img:"https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80", p12:"p12 - MBA Seminar Hall G12", p21:"p21 - MCA Smart Classrooms G21", p31:"p31 - E-Cell & Startup Incubator Center G31", x:-16, z:-19, w:10, d:7,  rot:0,            color:0x5C7236, height:4 },
-    blockE:   { key:"blockE",  lat:26.449400, lng:80.191400, name:"Block E (Applied Science)",desc:"Basic Sciences, Physics/Chemistry Labs & Humanities Department",               img:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=80", p12:"p12 - Applied Physics & Chemistry Labs E12", p21:"p21 - Humanities Lecture Rooms E21", p31:"p31 - Professional Communication & Language Lab E31", x:-17, z:-11, w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
-    blockC:   { key:"blockC",  lat:26.449200, lng:80.191400, name:"Block C (IT Wing)",        desc:"Information Technology Wing & Cyber Security Research Center",                img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&auto=format&fit=crop&q=80", p12:"p12 - IT Web Dev Labs & Cloud Computing C12", p21:"p21 - IT Department Classrooms C21", p31:"p31 - Cyber Security & Network Defense Research Lab C31", x:-17, z:-3,  w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
-    blockA:   { key:"blockA",  lat:26.449000, lng:80.191400, name:"Block A (CSE Wing)",       desc:"Computer Science & Engineering Department & AI Research Center",              img:"https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80", p12:"p12 - CSE Hardware & Networking Labs A12", p21:"p21 - CSE Core Lecture Halls A21", p31:"p31 - Artificial Intelligence & Deep Learning Research A31", x:-17, z:5,   w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
-    blockS:   { key:"blockS",  lat:26.448600, lng:80.191400, name:"Block S (Cafeteria)",     desc:"Central Cafeteria, Nescafe Lounge, Bakery & Express Food Court",              img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&auto=format&fit=crop&q=80", p12:"p12 - Main Dining Hall & Food Court S12", p21:"p21 - Nescafe Corner & Bakery Lounge S21", p31:"p31 - Executive Dining Zone & Faculty Lounge S31", x:-16, z:14,  w:10, d:7,  rot:0,            color:0x5C7236, height:4 },
+    // WEST WING (Academic Blocks flanking West side of Central Lawn)
+    blockG:   { key:"blockG",  lat:26.450628, lng:80.191108, name:"Block G (Management)",    desc:"Management & MCA Block, E-Cell & Startup Incubation Center",                  img:"https://images.unsplash.com/photo-1562774053-701939374585?w=500&auto=format&fit=crop&q=80", p12:"p12 - MBA Seminar Hall G12", p21:"p21 - MCA Smart Classrooms G21", p31:"p31 - E-Cell & Startup Incubator Center G31", x:-16, z:-19, w:10, d:7,  rot:0,            color:0x5C7236, height:4 },
+    blockE:   { key:"blockE",  lat:26.450340, lng:80.191349, name:"Block E (Applied Science)",desc:"Basic Sciences, Physics/Chemistry Labs & Humanities Department",               img:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=500&auto=format&fit=crop&q=80", p12:"p12 - Applied Physics & Chemistry Labs E12", p21:"p21 - Humanities Lecture Rooms E21", p31:"p31 - Professional Communication & Language Lab E31", x:-17, z:-11, w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
+    blockC:   { key:"blockC",  lat:26.450052, lng:80.191537, name:"Block C (IT Wing)",        desc:"Information Technology Wing & Cyber Security Research Center",                img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&auto=format&fit=crop&q=80", p12:"p12 - IT Web Dev Labs & Cloud Computing C12", p21:"p21 - IT Department Classrooms C21", p31:"p31 - Cyber Security & Network Defense Research Lab C31", x:-17, z:-3,  w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
+    blockA:   { key:"blockA",  lat:26.449764, lng:80.191725, name:"Block A (CSE Wing)",       desc:"Computer Science & Engineering Department & AI Research Center",              img:"https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80", p12:"p12 - CSE Hardware & Networking Labs A12", p21:"p21 - CSE Core Lecture Halls A21", p31:"p31 - Artificial Intelligence & Deep Learning Research A31", x:-17, z:5,   w:7,  d:7,  rot:0,            color:0x6B8E3D, height:4 },
+    blockS:   { key:"blockS",  lat:26.450917, lng:80.190840, name:"Block S (Cafeteria)",      desc:"Central Food Court, Nescafe Lounge & Student Dining Commons",                  img:"https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&auto=format&fit=crop&q=80", p12:"p12 - Main Cafeteria & Fast Food Counters S12", p21:"p21 - Faculty Dining Lounge S21", p31:"p31 - Open Terrace Cafe & Juice Bar S31", x:-16, z:14,  w:10, d:7,  rot:0,            color:0x5C7236, height:4 },
 
     // WEST INNER ANGLED
-    blockF:   { key:"blockF",  lat:26.449300, lng:80.191600, name:"Block F (Mechanical)",     desc:"Mechanical Engineering, Auto CAD & Robotics Design Center",                   img:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&auto=format&fit=crop&q=80", p12:"p12 - AutoCAD, CNC & Robotics Lab F12", p21:"p21 - Mechanical Classrooms F21", p31:"p31 - Design Thinking & Rapid Prototyping Center F31", x:-9,  z:-10, w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
-    blockD:   { key:"blockD",  lat:26.449100, lng:80.191600, name:"Block D (ECE Labs)",       desc:"Electronics & Communication Engineering, IoT & Embedded Systems",              img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80", p12:"p12 - IoT & Embedded Systems Lab D12", p21:"p21 - ECE Lecture Rooms D21", p31:"p31 - Microprocessor & VLSI Design Lab D31", x:-9,  z:-2,  w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
-    blockB:   { key:"blockB",  lat:26.448800, lng:80.191600, name:"Block B (Coding Labs)",    desc:"High-Performance Computing, Python, Java & Cloud Server Labs",                img:"https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=80", p12:"p12 - Python, DSA & Java Coding Labs B12", p21:"p21 - CodeGeeks Club Lecture Rooms B21", p31:"p31 - High-Performance Cloud Computing Cluster B31", x:-9,  z:6,   w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
+    blockF:   { key:"blockF",  lat:26.450460, lng:80.190947, name:"Block F (AI & Innovation)",desc:"Center for Advanced AI Research, Robotics & IoT Innovation Labs",           img:"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&auto=format&fit=crop&q=80", p12:"p12 - Robotics & Drone Innovation Lab F12", p21:"p21 - Machine Learning Classrooms F21", p31:"p31 - Advanced AI GPU Server Farm F31", x:-9,  z:-10, w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
+    blockD:   { key:"blockD",  lat:26.450172, lng:80.191162, name:"Block D (ECE Wing)",        desc:"Electronics & Communication Engineering, VLSI & Embedded Systems",            img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80", p12:"p12 - Digital Signal Processing & VLSI Lab D12", p21:"p21 - ECE Lecture Theatres D21", p31:"p31 - Embedded Systems & IoT Lab D31", x:-9,  z:-2,  w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
+    blockB:   { key:"blockB",  lat:26.449884, lng:80.191376, name:"Block B (Software Labs)",  desc:"Computer Applications, Web Technologies & Open Source Development Hub",       img:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&auto=format&fit=crop&q=80", p12:"p12 - Software Engineering & Open Source Lab B12", p21:"p21 - BCA/MCA Lecture Rooms B21", p31:"p31 - Full-Stack Web Development Lab B31", x:-9,  z:6,   w:6,  d:8,  rot:Math.PI/4,   color:0x4A5D2E, height:3.5 },
 
-    // EAST WING
-    blockJ:   { key:"blockJ",  lat:26.449650, lng:80.192700, name:"Block J (Pharmacy)",       desc:"Pharmacy & Biotechnology Wing, Research & Chemistry Laboratories",            img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=500&auto=format&fit=crop&q=80", p12:"p12 - Pharmaceutics & Pharmacology Lab J12", p21:"p21 - Biotech Research Lab J21", p31:"p31 - Pharmaceutical Chemistry Lecture Halls J31", x:16,  z:-19, w:10, d:7,  rot:0,            color:0x8B7355, height:4 },
-    blockK:   { key:"blockK",  lat:26.449400, lng:80.192700, name:"Block K (Central Library)",desc:"Central Library, Digital E-Learning Hub, Periodicals & Book Bank",             img:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Reading Hall & Journal Counter K12", p21:"p21 - Digital Library & IEEE E-Learning Hub K21", p31:"p31 - Book Bank, Reference Section & Silent Study Zone K31", x:17,  z:-11, w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
-    blockM:   { key:"blockM",  lat:26.449200, lng:80.192700, name:"Block M (Electrical)",     desc:"Electrical Engineering Wing, Power Systems & Renewable Energy Lab",            img:"https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=500&auto=format&fit=crop&q=80", p12:"p12 - Electrical Machines & Circuits Lab M12", p21:"p21 - Electrical Engineering Classrooms M21", p31:"p31 - Power Systems & Smart Grid Lab M31", x:17,  z:-3,  w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
-    blockP:   { key:"blockP",  lat:26.449000, lng:80.192700, name:"Block P (1st Year Eng)",   desc:"First Year Foundation Wing, Applied Sciences & Engineering Graphics",         img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=80", p12:"p12 - Applied Sciences Physics Lab P12", p21:"p21 - First Year Core Classrooms P21", p31:"p31 - Engineering Graphics & CAD Drawing Hall P31", x:17,  z:5,   w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
-    blockR:   { key:"blockR",  lat:26.448600, lng:80.192700, name:"Block R (Sports & Gym)",   desc:"Sports Complex, Indoor Badminton Arena, Gymnasium & Student Activity Club",  img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80", p12:"p12 - Indoor Wooden Badminton Courts & Table Tennis R12", p21:"p21 - Modern Gymnasium & Fitness Suite R21", p31:"p31 - Student Activity & Cultural Clubs Headquarters R31", x:16,  z:14,  w:10, d:7,  rot:0,            color:0x8B7355, height:4 },
+    // EAST WING (Academic Blocks flanking East side of Central Lawn)
+    blockJ:   { key:"blockJ",  lat:26.450965, lng:80.192074, name:"Block J (Pharmacy)",       desc:"Pharmacy & Biotechnology Wing, Research & Chemistry Laboratories",            img:"https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=500&auto=format&fit=crop&q=80", p12:"p12 - Pharmaceutics & Pharmacology Lab J12", p21:"p21 - Biotech Research Lab J21", p31:"p31 - Pharmaceutical Chemistry Lecture Halls J31", x:16,  z:-19, w:10, d:7,  rot:0,            color:0x8B7355, height:4 },
+    blockK:   { key:"blockK",  lat:26.450676, lng:80.192342, name:"Block K (Central Library)",desc:"Central Library, Digital E-Learning Hub, Periodicals & Book Bank",             img:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Reading Hall & Journal Counter K12", p21:"p21 - Digital Library & IEEE E-Learning Hub K21", p31:"p31 - Book Bank, Reference Section & Silent Study Zone K31", x:17,  z:-11, w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
+    blockM:   { key:"blockM",  lat:26.450124, lng:80.192744, name:"Block M (Electrical)",     desc:"Electrical Engineering Wing, Power Systems & Renewable Energy Lab",            img:"https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=500&auto=format&fit=crop&q=80", p12:"p12 - Electrical Machines & Circuits Lab M12", p21:"p21 - Electrical Engineering Classrooms M21", p31:"p31 - Power Systems & Smart Grid Lab M31", x:17,  z:-3,  w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
+    blockP:   { key:"blockP",  lat:26.449668, lng:80.193120, name:"Block P (1st Year Eng)",   desc:"First Year Foundation Wing, Applied Sciences & Engineering Graphics",         img:"https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&auto=format&fit=crop&q=80", p12:"p12 - Applied Sciences Physics Lab P12", p21:"p21 - First Year Core Classrooms P21", p31:"p31 - Engineering Graphics & CAD Drawing Hall P31", x:17,  z:5,   w:7,  d:7,  rot:0,            color:0x7C6B50, height:4 },
+    blockR:   { key:"blockR",  lat:26.449500, lng:80.193281, name:"Block R (Sports & Gym)",   desc:"Sports Complex, Indoor Badminton Arena, Gymnasium & Student Activity Club",  img:"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80", p12:"p12 - Indoor Wooden Badminton Courts & Table Tennis R12", p21:"p21 - Modern Gymnasium & Fitness Suite R21", p31:"p31 - Student Activity & Cultural Clubs Headquarters R31", x:16,  z:14,  w:10, d:7,  rot:0,            color:0x8B7355, height:4 },
 
     // EAST INNER ANGLED
-    blockL:   { key:"blockL",  lat:26.449300, lng:80.192500, name:"Block L (Data Science)",   desc:"Advanced Computing, Data Science Lab & Machine Learning Hub",                 img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80", p12:"p12 - Data Science & Analytics Lab L12", p21:"p21 - Advanced Computing Lecture Rooms L21", p31:"p31 - Machine Learning & AI Research Hub L31", x:9,   z:-10, w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 },
-    blockN:   { key:"blockN",  lat:26.449100, lng:80.192500, name:"Block N (Civil Labs)",     desc:"Civil Engineering, Surveying, Structural & Environmental Engineering Labs",   img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&auto=format&fit=crop&q=80", p12:"p12 - Surveying & Strength of Materials Lab N12", p21:"p21 - Civil Engineering Classrooms N21", p31:"p31 - CAD Civil & Environmental Lab N31", x:9,   z:-2,  w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 },
-    blockQ:   { key:"blockQ",  lat:26.448800, lng:80.192500, name:"Block Q (Workshop & Labs)",desc:"Central Mechanical Workshop, Fabrication & Language Enhancement Lab",         img:"https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Mechanical Workshop & Foundry Q12", p21:"p21 - Tutorial & Mentorship Rooms Q21", p31:"p31 - Advanced Language & Communication Lab Q31", x:9,   z:6,   w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 }
+    blockL:   { key:"blockL",  lat:26.450388, lng:80.192530, name:"Block L (Data Science)",   desc:"Advanced Computing, Data Science Lab & Machine Learning Hub",                 img:"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&auto=format&fit=crop&q=80", p12:"p12 - Data Science & Analytics Lab L12", p21:"p21 - Advanced Computing Lecture Rooms L21", p31:"p31 - Machine Learning & AI Research Hub L31", x:9,   z:-10, w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 },
+    blockN:   { key:"blockN",  lat:26.449884, lng:80.192959, name:"Block N (Civil Labs)",     desc:"Civil Engineering, Surveying, Structural & Environmental Engineering Labs",   img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&auto=format&fit=crop&q=80", p12:"p12 - Surveying & Strength of Materials Lab N12", p21:"p21 - Civil Engineering Classrooms N21", p31:"p31 - CAD Civil & Environmental Lab N31", x:9,   z:-2,  w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 },
+    blockQ:   { key:"blockQ",  lat:26.449644, lng:80.192825, name:"Block Q (Workshop & Labs)",desc:"Central Mechanical Workshop, Fabrication & Language Enhancement Lab",         img:"https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Mechanical Workshop & Foundry Q12", p21:"p21 - Tutorial & Mentorship Rooms Q21", p31:"p31 - Advanced Language & Communication Lab Q31", x:9,   z:6,   w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 }
 };
 
 // ===== LEAFLET 2D MAP & PRECISION WAYFINDING SYSTEM =====
@@ -2495,18 +2495,18 @@ const markers2D = {};
 const buildingPolys2D = {};
 
 const campusInfraLocations = {
-    mainGate:   { key:'mainGate',   lat:26.450350, lng:80.192086, name:'Main Campus Gate', cat:'services', desc:'Grand Entrance Gate, Security Checkpoint & Visitor Verification Turnstiles', img:'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80', p12:'p12 - Security Cabin & RFID Turnstiles', p21:'p21 - Visitor Pass Desk', p31:'p31 - Gate Control & CCTV Monitoring', w:16, d:2.5, rot:0, color:0xB22222 },
-    auditorium: { key:'auditorium', lat:26.449950, lng:80.192086, name:'Central Auditorium', cat:'admin', desc:'1350-Seat State-of-the-Art Dolby Atmos Convention & Cultural Auditorium', img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80', p12:'p12 - Main Hall Stalls & Green Rooms', p21:'p21 - Balcony Seating & Sound Deck', p31:'p31 - Projection Room & VIP Lounge', w:14, d:8, rot:0, color:0x6B5B4B },
-    boysHostel: { key:'boysHostel', lat:26.448750, lng:80.190850, name:"Boys' Hostel Complex", cat:'hostels', desc:'Modern Air-Cooled/AC Multi-Story Student Hostels with Mess & Study Lounges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=80', p12:'p12 - Dining Mess & Warden Office', p21:'p21 - Student Rooms Wing A', p31:'p31 - Student Rooms Wing B & Common Hall', w:14, d:9, rot:0, color:0x7B6B55 },
-    girlsHostel:{ key:'girlsHostel',lat:26.448750, lng:80.193300, name:"Girls' Hostel Complex", cat:'hostels', desc:'Secure 24/7 Gated Multi-Story Residential Wing with Gymnasium & Wi-Fi', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=80', p12:'p12 - Dining Mess & Security Office', p21:'p21 - Student Rooms Wing A', p31:'p31 - Student Rooms Wing B & Study Zone', w:14, d:9, rot:0, color:0x8B7B65 },
-    parking:    { key:'parking',    lat:26.450180, lng:80.191050, name:'Campus Parking Deck', cat:'services', desc:'Spacious Multi-Level Faculty & Student Two-Wheeler / Four-Wheeler Parking', img:'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=500&auto=format&fit=crop&q=80', p12:'p12 - Two-Wheeler Bay & EV Charging Point', p21:'p21 - Four-Wheeler Covered Deck', p31:'p31 - Reserved Faculty Parking', w:14, d:8, rot:0, color:0x888888 },
-    busStand:   { key:'busStand',   lat:26.450180, lng:80.193100, name:'College Bus Terminal', cat:'services', desc:'Transit Depot for College Fleet of 53 Air-Conditioned CNG Buses', img:'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop&q=80', p12:'p12 - Bus Bays 1 to 25 (Kanpur Routes)', p21:'p21 - Bus Bays 26 to 53 (Unnao / Lucknow)', p31:'p31 - Fleet Operations & Transport Office', w:12, d:7, rot:0, color:0x999999 },
-    sportsGround:{ key:'sportsGround',lat:26.447500, lng:80.192086, name:'Athletic Stadium & Ground', cat:'sports', desc:'400m Olympic Standard Running Track, Football Field & Cricket Turf Ground', img:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80', p12:'p12 - Athletic Track & Main Turf Pitch', p21:'p21 - Spectator Stands & Pavilion', p31:'p31 - Sports Equipment Room & Referee Box', w:20, d:16, rot:0, color:0x7CB342 },
-    basketballCourt:{ key:'basketballCourt', lat:26.447650, lng:80.192700, name:'Basketball & Courts Arena', cat:'sports', desc:'Floodlit Synthetic Basketball & Volleyball Courts for Inter-College Tournaments', img:'https://images.unsplash.com/photo-1519766304817-4f37bda74a29?w=500&auto=format&fit=crop&q=80', p12:'p12 - Court A (Full Match Court)', p21:'p21 - Court B (Practice Court)', p31:'p31 - Referee Deck & Player Bench', w:8, d:6, rot:0, color:0xD4A76A },
-    solarPlant: { key:'solarPlant', lat:26.450000, lng:80.190850, name:'1530 kW Solar Power Farm', cat:'services', desc:'Green Energy Generation Array Powering 100% Daytime Campus Clean Energy', img:'https://images.unsplash.com/photo-1509391365360-2e959784a276?w=500&auto=format&fit=crop&q=80', p12:'p12 - Inverter Substation & Control Unit', p21:'p21 - Grid Synchronizer Unit', p31:'p31 - SCADA Solar Monitoring Room', w:10, d:7, rot:0, color:0x2244AA },
-    waterTower: { key:'waterTower', lat:26.449500, lng:80.193600, name:'Water Tower & Reservoir', cat:'services', desc:'Overhead Campus Clean Water Tower with Multi-Stage RO Filtration Plant', img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80', p12:'p12 - Industrial RO Plant & Pump House', p21:'p21 - Underground Water Reservoir', p31:'p31 - Elevated Tank (300,000 Liters)', w:5, d:5, rot:0, color:0x6699BB },
-    sbiAtm:     { key:'sbiAtm',     lat:26.449850, lng:80.192900, name:'SBI ATM & Banking Kiosk', cat:'services', desc:'24/7 State Bank of India Cash Deposit & Withdrawal Kiosk on Campus', img:'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=500&auto=format&fit=crop&q=80', p12:'p12 - ATM 1 & ATM 2 Cash Dispensers', p21:'p21 - Passbook Printing & CDM Machine', p31:'p31 - Bank Help Desk (10 AM - 4 PM)', w:4, d:3, rot:0, color:0x3366AA },
-    infirmary:  { key:'infirmary',  lat:26.449850, lng:80.191250, name:'Medical Dispensary & Health', cat:'services', desc:'24/7 Campus Medical Care Center with Resident Doctor & Emergency Ambulance', img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&auto=format&fit=crop&q=80', p12:'p12 - OPD Consultation & Emergency Bed', p21:'p21 - Pharmacy Dispensary & First Aid', p31:'p31 - Recovery Ward & Ambulance Bay', w:5, d:4, rot:0, color:0xCC3333 }
+    mainGate:   { key:'mainGate',   lat:26.448515, lng:80.192905, name:'Main Campus Gate', cat:'services', desc:'Grand Entrance Gate along NH-19, Security Checkpoint & Visitor Verification', img:'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80', p12:'p12 - Security Cabin & RFID Turnstiles', p21:'p21 - Visitor Pass Desk', p31:'p31 - Gate Control & CCTV Monitoring', w:16, d:2.5, rot:0, color:0xB22222 },
+    auditorium: { key:'auditorium', lat:26.450845, lng:80.191296, name:'Central Auditorium', cat:'admin', desc:'1350-Seat State-of-the-Art Dolby Atmos Convention & Cultural Auditorium', img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80', p12:'p12 - Main Hall Stalls & Green Rooms', p21:'p21 - Balcony Seating & Sound Deck', p31:'p31 - Projection Room & VIP Lounge', w:14, d:8, rot:0, color:0x6B5B4B },
+    boysHostel: { key:'boysHostel', lat:26.452718, lng:80.192127, name:"Boys' Hostel Complex", cat:'hostels', desc:'Modern Air-Cooled/AC Multi-Story Student Hostels with Mess & Study Lounges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=80', p12:'p12 - Dining Mess & Warden Office', p21:'p21 - Student Rooms Wing A', p31:'p31 - Student Rooms Wing B & Common Hall', w:14, d:9, rot:0, color:0x7B6B55 },
+    girlsHostel:{ key:'girlsHostel',lat:26.450268, lng:80.189284, name:"Girls' Hostel Complex", cat:'hostels', desc:'Secure 24/7 Gated Multi-Story Residential Wing with Gymnasium & Wi-Fi', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=80', p12:'p12 - Dining Mess & Security Office', p21:'p21 - Student Rooms Wing A', p31:'p31 - Student Rooms Wing B & Study Zone', w:14, d:9, rot:0, color:0x8B7B65 },
+    parking:    { key:'parking',    lat:26.448971, lng:80.192556, name:'Campus Parking Deck', cat:'services', desc:'Spacious Multi-Level Faculty & Student Two-Wheeler / Four-Wheeler Parking', img:'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=500&auto=format&fit=crop&q=80', p12:'p12 - Two-Wheeler Bay & EV Charging Point', p21:'p21 - Four-Wheeler Covered Deck', p31:'p31 - Reserved Faculty Parking', w:14, d:8, rot:0, color:0x888888 },
+    busStand:   { key:'busStand',   lat:26.449019, lng:80.190464, name:'College Bus Terminal', cat:'services', desc:'Transit Depot for College Fleet of 53 Air-Conditioned CNG Buses', img:'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop&q=80', p12:'p12 - Bus Bays 1 to 25 (Kanpur Routes)', p21:'p21 - Bus Bays 26 to 53 (Unnao / Lucknow)', p31:'p31 - Fleet Operations & Transport Office', w:12, d:7, rot:0, color:0x999999 },
+    sportsGround:{ key:'sportsGround',lat:26.449500, lng:80.193468, name:'Athletic Stadium & Ground', cat:'sports', desc:'400m Olympic Standard Running Track, Football Field & Cricket Turf Ground', img:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80', p12:'p12 - Athletic Track & Main Turf Pitch', p21:'p21 - Spectator Stands & Pavilion', p31:'p31 - Sports Equipment Room & Referee Box', w:20, d:16, rot:0, color:0x7CB342 },
+    basketballCourt:{ key:'basketballCourt', lat:26.453102, lng:80.193039, name:'Basketball & Courts Arena', cat:'sports', desc:'Floodlit Synthetic Basketball & Volleyball Courts for Inter-College Tournaments', img:'https://images.unsplash.com/photo-1519766304817-4f37bda74a29?w=500&auto=format&fit=crop&q=80', p12:'p12 - Court A (Full Match Court)', p21:'p21 - Court B (Practice Court)', p31:'p31 - Referee Deck & Player Bench', w:8, d:6, rot:0, color:0xD4A76A },
+    solarPlant: { key:'solarPlant', lat:26.450749, lng:80.189713, name:'1530 kW Solar Power Farm', cat:'services', desc:'Green Energy Generation Array Powering 100% Daytime Campus Clean Energy', img:'https://images.unsplash.com/photo-1509391365360-2e959784a276?w=500&auto=format&fit=crop&q=80', p12:'p12 - Inverter Substation & Control Unit', p21:'p21 - Grid Synchronizer Unit', p31:'p31 - SCADA Solar Monitoring Room', w:10, d:7, rot:0, color:0x2244AA },
+    waterTower: { key:'waterTower', lat:26.451709, lng:80.191752, name:'Water Tower & Reservoir', cat:'services', desc:'Overhead Campus Clean Water Tower with Multi-Stage RO Filtration Plant', img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80', p12:'p12 - Industrial RO Plant & Pump House', p21:'p21 - Underground Water Reservoir', p31:'p31 - Elevated Tank (300,000 Liters)', w:5, d:5, rot:0, color:0x6699BB },
+    sbiAtm:     { key:'sbiAtm',     lat:26.449356, lng:80.192235, name:'SBI ATM & Banking Kiosk', cat:'services', desc:'24/7 State Bank of India Cash Deposit & Withdrawal Kiosk on Campus', img:'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=500&auto=format&fit=crop&q=80', p12:'p12 - ATM 1 & ATM 2 Cash Dispensers', p21:'p21 - Passbook Printing & CDM Machine', p31:'p31 - Bank Help Desk (10 AM - 4 PM)', w:4, d:3, rot:0, color:0x3366AA },
+    infirmary:  { key:'infirmary',  lat:26.450460, lng:80.190625, name:'Medical Dispensary & Health', cat:'services', desc:'24/7 Campus Medical Care Center with Resident Doctor & Emergency Ambulance', img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&auto=format&fit=crop&q=80', p12:'p12 - OPD Consultation & Emergency Bed', p21:'p21 - Pharmacy Dispensary & First Aid', p31:'p31 - Recovery Ward & Ambulance Bay', w:5, d:4, rot:0, color:0xCC3333 }
 };
 
 function getAllCampusLocations() {
@@ -2578,96 +2578,116 @@ const locNodeMap = {
 };
 
 const campusNavGraphNodes = {
-  gate: { pos: [26.450350, 80.192086], name: 'Main Campus Gate' },
-  avenueNorth: { pos: [26.450180, 80.192086], name: 'Main Entrance Avenue' },
-  parking: { pos: [26.450180, 80.191100], name: 'Campus Parking Deck' },
-  busStand: { pos: [26.450180, 80.193100], name: 'Campus Bus Stand' },
-  solarPlant: { pos: [26.450000, 80.190850], name: 'Solar Energy Array' },
-  avenueMid: { pos: [26.449850, 80.192086], name: 'North Central Plaza' },
-  infirmary: { pos: [26.449850, 80.191250], name: 'Medical Health Center' },
-  sbiAtm: { pos: [26.449850, 80.192900], name: 'SBI ATM & Bank Kiosk' },
-  auditorium: { pos: [26.449950, 80.192086], name: 'Central Auditorium Foyer' },
-  towerPlaza: { pos: [26.449700, 80.192086], name: 'Campus Tower Promenade' },
-  adminPlaza: { pos: [26.449450, 80.192086], name: 'Town Hall Central Square' },
-  lawnNorth: { pos: [26.449250, 80.192086], name: 'Central Lawn North Walk' },
-  lawnCenter: { pos: [26.449000, 80.192086], name: 'Central Lawn Center Promenade' },
-  lawnSouth: { pos: [26.448600, 80.192086], name: 'Central Lawn South Walk' },
-  rangmanchPlaza: { pos: [26.448200, 80.192086], name: 'Rang Manch Amphitheatre' },
-  southPlaza: { pos: [26.448000, 80.192086], name: 'South Promenade' },
-  sportsJunction: { pos: [26.447500, 80.192086], name: 'Athletic Track & Sports Stadium' },
-  basketballCourt: { pos: [26.447650, 80.192700], name: 'Basketball & Volleyball Courts' },
-  wgG: { pos: [26.449650, 80.191450], name: 'West Gallery at Block G' },
-  wgE: { pos: [26.449400, 80.191450], name: 'West Gallery at Block E' },
-  wgC: { pos: [26.449200, 80.191450], name: 'West Gallery at Block C' },
-  wgA: { pos: [26.449000, 80.191450], name: 'West Gallery at Block A' },
-  wgS: { pos: [26.448600, 80.191450], name: 'West Gallery at Block S (Cafeteria)' },
-  boysHostel: { pos: [26.448750, 80.190850], name: "Boys' Hostel Quadrangle" },
-  wgF: { pos: [26.449300, 80.191650], name: 'Block F Inner Walkway' },
-  wgD: { pos: [26.449100, 80.191650], name: 'Block D Inner Walkway' },
-  wgB: { pos: [26.448800, 80.191650], name: 'Block B Inner Walkway' },
-  egJ: { pos: [26.449650, 80.192650], name: 'East Gallery at Block J' },
-  egK: { pos: [26.449400, 80.192650], name: 'East Gallery at Block K (Library)' },
-  egM: { pos: [26.449200, 80.192650], name: 'East Gallery at Block M' },
-  egP: { pos: [26.449000, 80.192650], name: 'East Gallery at Block P' },
-  egR: { pos: [26.448600, 80.192650], name: 'East Gallery at Block R (Gym)' },
-  girlsHostel: { pos: [26.448750, 80.193300], name: "Girls' Hostel Quadrangle" },
-  waterTower: { pos: [26.449500, 80.193600], name: 'Campus Water Tower' },
-  egL: { pos: [26.449300, 80.192450], name: 'Block L Inner Walkway' },
-  egN: { pos: [26.449100, 80.192450], name: 'Block N Inner Walkway' },
-  egQ: { pos: [26.448800, 80.192450], name: 'Block Q Inner Walkway' }
+  // Entrance & Transit Corridor
+  gate:             { pos: [26.448515, 80.192905], name: 'Main Campus Gate' },
+  entryAvenue:      { pos: [26.448900, 80.192650], name: 'Main Entrance Avenue' },
+  parking:          { pos: [26.448971, 80.192556], name: 'Campus Parking Area' },
+  busTerminalRd:    { pos: [26.448980, 80.191500], name: 'Transit Link Road' },
+  busStand:         { pos: [26.449019, 80.190464], name: 'College Bus Terminal' },
+  
+  // Ceremonial Spine & Lawns
+  rangmanchPlaza:   { pos: [26.449452, 80.192449], name: 'Rang Manch Plaza' },
+  sbiAtm:           { pos: [26.449356, 80.192235], name: 'SBI ATM & Bank Kiosk' },
+  lawnSouth:        { pos: [26.449700, 80.192150], name: 'Central Lawn South Walk' },
+  lawnCenter:       { pos: [26.450172, 80.191886], name: 'Central Lawn Promenade' },
+  lawnNorth:        { pos: [26.450500, 80.191650], name: 'Central Lawn North Walk' },
+  
+  // Administrative & Apex Tower
+  adminPlaza:       { pos: [26.450725, 80.191537], name: 'Town Hall Central Square' },
+  auditorium:       { pos: [26.450845, 80.191296], name: 'Central Auditorium Foyer' },
+  towerPlaza:       { pos: [26.451157, 80.191752], name: 'Campus Tower Promenade' },
+  waterTower:       { pos: [26.451709, 80.191752], name: 'Campus Water Tower' },
+
+  // West Wing Nodes
+  wgA:              { pos: [26.449764, 80.191725], name: 'West Gallery at Block A' },
+  wgB:              { pos: [26.449884, 80.191376], name: 'Block B Inner Walkway' },
+  wgC:              { pos: [26.450052, 80.191537], name: 'West Gallery at Block C' },
+  wgD:              { pos: [26.450172, 80.191162], name: 'Block D Inner Walkway' },
+  wgE:              { pos: [26.450340, 80.191349], name: 'West Gallery at Block E' },
+  wgF:              { pos: [26.450460, 80.190947], name: 'Block F Inner Walkway' },
+  wgG:              { pos: [26.450628, 80.191108], name: 'West Gallery at Block G' },
+  wgS:              { pos: [26.450917, 80.190840], name: 'Cafeteria & Food Court Walkway' },
+  infirmary:        { pos: [26.450460, 80.190625], name: 'Medical Health Center' },
+  solarPlant:       { pos: [26.450749, 80.189713], name: 'Solar Energy Array' },
+  girlsHostel:      { pos: [26.450268, 80.189284], name: "Girls' Hostel Quadrangle" },
+
+  // East Wing Nodes
+  egR:              { pos: [26.449500, 80.193281], name: 'East Gallery at Block R (Gym)' },
+  egQ:              { pos: [26.449644, 80.192825], name: 'Block Q Inner Walkway' },
+  egP:              { pos: [26.449668, 80.193120], name: 'East Gallery at Block P' },
+  egN:              { pos: [26.449884, 80.192959], name: 'Block N Inner Walkway' },
+  egM:              { pos: [26.450124, 80.192744], name: 'East Gallery at Block M' },
+  egL:              { pos: [26.450388, 80.192530], name: 'Block L Inner Walkway' },
+  egK:              { pos: [26.450676, 80.192342], name: 'East Gallery at Block K (Library)' },
+  egJ:              { pos: [26.450965, 80.192074], name: 'East Gallery at Block J' },
+  sportsJunction:   { pos: [26.449500, 80.193468], name: 'Athletic Track & Sports Stadium' },
+
+  // North Sector (Boys' Hostel & Courts)
+  northRoad:        { pos: [26.451800, 80.192300], name: 'North Campus Promenade' },
+  boysHostel:       { pos: [26.452718, 80.192127], name: "Boys' Hostel Quadrangle" },
+  basketballCourt:  { pos: [26.453102, 80.193039], name: 'Basketball & Volleyball Courts' }
 };
 
 const campusNavEdges = [
-  ['gate', 'avenueNorth'],
-  ['avenueNorth', 'parking'],
-  ['avenueNorth', 'busStand'],
-  ['parking', 'solarPlant'],
-  ['avenueNorth', 'avenueMid'],
-  ['avenueMid', 'infirmary'],
-  ['avenueMid', 'sbiAtm'],
-  ['avenueMid', 'auditorium'],
-  ['auditorium', 'towerPlaza'],
-  ['avenueMid', 'towerPlaza'],
-  ['towerPlaza', 'adminPlaza'],
-  ['adminPlaza', 'lawnNorth'],
-  ['lawnNorth', 'lawnCenter'],
-  ['lawnCenter', 'lawnSouth'],
-  ['lawnSouth', 'rangmanchPlaza'],
-  ['rangmanchPlaza', 'southPlaza'],
-  ['southPlaza', 'sportsJunction'],
-  ['sportsJunction', 'basketballCourt'],
-  ['infirmary', 'wgG'],
-  ['wgG', 'wgE'],
-  ['wgE', 'wgC'],
-  ['wgC', 'wgA'],
-  ['wgA', 'wgS'],
-  ['wgS', 'boysHostel'],
-  ['boysHostel', 'southPlaza'],
-  ['sbiAtm', 'egJ'],
-  ['egJ', 'egK'],
-  ['egK', 'egM'],
-  ['egM', 'egP'],
-  ['egP', 'egR'],
-  ['egK', 'waterTower'],
-  ['egR', 'girlsHostel'],
-  ['girlsHostel', 'southPlaza'],
-  ['girlsHostel', 'basketballCourt'],
-  ['wgG', 'towerPlaza'],
-  ['towerPlaza', 'egJ'],
-  ['wgE', 'adminPlaza'],
-  ['adminPlaza', 'egK'],
-  ['wgC', 'lawnCenter'],
-  ['lawnCenter', 'egM'],
-  ['wgA', 'lawnSouth'],
-  ['lawnSouth', 'egP'],
-  ['wgS', 'rangmanchPlaza'],
+  // Entrance & Parking & Transit
+  ['gate', 'entryAvenue'],
+  ['entryAvenue', 'parking'],
+  ['parking', 'busTerminalRd'],
+  ['busTerminalRd', 'busStand'],
+  ['busTerminalRd', 'girlsHostel'],
+  ['entryAvenue', 'rangmanchPlaza'],
+  ['entryAvenue', 'sbiAtm'],
+  ['entryAvenue', 'sportsJunction'],
+
+  // Ceremonial Spine & Lawns
+  ['sbiAtm', 'rangmanchPlaza'],
+  ['rangmanchPlaza', 'lawnSouth'],
+  ['lawnSouth', 'lawnCenter'],
+  ['lawnCenter', 'lawnNorth'],
+  ['lawnNorth', 'adminPlaza'],
+  ['adminPlaza', 'towerPlaza'],
+  ['adminPlaza', 'auditorium'],
+  ['towerPlaza', 'waterTower'],
+  ['waterTower', 'northRoad'],
+
+  // West Wing Connections
+  ['lawnSouth', 'wgA'],
+  ['wgA', 'wgB'],
+  ['wgB', 'wgC'],
+  ['lawnCenter', 'wgC'],
+  ['wgC', 'wgD'],
+  ['wgD', 'wgE'],
+  ['lawnNorth', 'wgE'],
+  ['wgE', 'wgF'],
+  ['wgF', 'wgG'],
+  ['adminPlaza', 'wgG'],
+  ['wgG', 'wgS'],
+  ['wgS', 'infirmary'],
+  ['infirmary', 'solarPlant'],
+  ['solarPlant', 'girlsHostel'],
+  ['girlsHostel', 'busStand'],
+
+  // East Wing Connections
   ['rangmanchPlaza', 'egR'],
-  ['wgF', 'wgE'], ['wgF', 'adminPlaza'],
-  ['wgD', 'wgC'], ['wgD', 'lawnCenter'],
-  ['wgB', 'wgA'], ['wgB', 'lawnSouth'],
-  ['egL', 'egK'], ['egL', 'adminPlaza'],
-  ['egN', 'egM'], ['egN', 'lawnCenter'],
-  ['egQ', 'egP'], ['egQ', 'lawnSouth']
+  ['egR', 'sportsJunction'],
+  ['egR', 'egQ'],
+  ['egQ', 'egP'],
+  ['lawnSouth', 'egP'],
+  ['egP', 'egN'],
+  ['egN', 'egM'],
+  ['lawnCenter', 'egM'],
+  ['egM', 'egL'],
+  ['egL', 'egK'],
+  ['lawnNorth', 'egK'],
+  ['egK', 'egJ'],
+  ['adminPlaza', 'egJ'],
+  ['egJ', 'towerPlaza'],
+
+  // North Sector (Hostels & Sports)
+  ['towerPlaza', 'northRoad'],
+  ['northRoad', 'boysHostel'],
+  ['northRoad', 'basketballCourt'],
+  ['boysHostel', 'basketballCourt']
 ];
 
 const campusNavAdj = {};
@@ -2916,7 +2936,7 @@ function init2DMap(){
         attributionControl: false,
         minZoom: 16,
         maxZoom: 20
-    }).setView([26.449100, 80.192086], 18);
+    }).setView([26.450400, 80.191800], 18);
 
     L.control.zoom({ position: 'topleft' }).addTo(map2D);
 
@@ -2951,10 +2971,10 @@ function renderBlueprintBase(){
 
     // 1. Campus Boundary & Green Grounds
     const campusBounds = [
-        [26.450700, 80.190100],
-        [26.450700, 80.194000],
-        [26.447000, 80.194000],
-        [26.447000, 80.190100]
+        [26.453800, 80.188800],
+        [26.453800, 80.194200],
+        [26.448200, 80.194200],
+        [26.448200, 80.188800]
     ];
     L.polygon(campusBounds, {
         color: '#BDD2A6',
@@ -2967,11 +2987,15 @@ function renderBlueprintBase(){
 
     // 2. Campus Roads (Ring Road & Main Avenue)
     const ringRoadPath = [
-        [26.450300, 80.190700],
-        [26.450300, 80.193400],
-        [26.447400, 80.193400],
-        [26.447400, 80.190700],
-        [26.450300, 80.190700]
+        [26.448515, 80.192905],
+        [26.448900, 80.192650],
+        [26.448980, 80.190464],
+        [26.450800, 80.189500],
+        [26.452600, 80.191500],
+        [26.452800, 80.193200],
+        [26.449600, 80.193800],
+        [26.448900, 80.192650],
+        [26.448515, 80.192905]
     ];
     // Road asphalt base
     L.polyline(ringRoadPath, {
@@ -2992,10 +3016,10 @@ function renderBlueprintBase(){
         interactive: false
     }).addTo(campusRoadsLayer);
 
-    // Main Entrance Boulevard (Gate to North Central Plaza)
+    // Main Entrance Boulevard (Gate along NH-19 to Rang Manch & Admin Plaza)
     const entranceBoulevard = [
-        [26.450350, 80.192086],
-        [26.449850, 80.192086]
+        [26.448515, 80.192905],
+        [26.449452, 80.192449]
     ];
     L.polyline(entranceBoulevard, {
         color: '#75808D',
@@ -3012,10 +3036,10 @@ function renderBlueprintBase(){
     }).addTo(campusRoadsLayer);
 
     // 3. PSIT Signature Red-Brick Covered Gallery Walkways
-    // West covered gallery corridor (Blocks G-E-C-A-S)
+    // West covered gallery corridor (Blocks G-E-C-A)
     const westGallery = [
-        [26.449700, 80.191450],
-        [26.448550, 80.191450]
+        [26.450628, 80.191108],
+        [26.449764, 80.191725]
     ];
     L.polyline(westGallery, {
         color: '#C8684A',
@@ -3034,8 +3058,8 @@ function renderBlueprintBase(){
 
     // East covered gallery corridor (Blocks J-K-M-P-R)
     const eastGallery = [
-        [26.449700, 80.192650],
-        [26.448550, 80.192650]
+        [26.450965, 80.192074],
+        [26.449500, 80.193281]
     ];
     L.polyline(eastGallery, {
         color: '#C8684A',
@@ -3054,10 +3078,10 @@ function renderBlueprintBase(){
 
     // Covered Crosswalks connecting corridors to Central Town Hall Plaza
     const crosswalks = [
-        [[26.449650, 80.191450], [26.449700, 80.192086], [26.449650, 80.192650]],
-        [[26.449400, 80.191450], [26.449450, 80.192086], [26.449400, 80.192650]],
-        [[26.449000, 80.191450], [26.449000, 80.192086], [26.449000, 80.192650]],
-        [[26.448600, 80.191450], [26.448200, 80.192086], [26.448600, 80.192650]]
+        [[26.450628, 80.191108], [26.450725, 80.191537], [26.450965, 80.192074]],
+        [[26.450340, 80.191349], [26.450400, 80.191800], [26.450676, 80.192342]],
+        [[26.450052, 80.191537], [26.450172, 80.191886], [26.450124, 80.192744]],
+        [[26.449764, 80.191725], [26.449452, 80.192449], [26.449668, 80.193120]]
     ];
     crosswalks.forEach(cw => {
         L.polyline(cw, {
@@ -3070,10 +3094,10 @@ function renderBlueprintBase(){
 
     // 4. Central Green Lawn Landscape
     const lawnPolygon = [
-        [26.449300, 80.191850],
-        [26.449300, 80.192320],
-        [26.448700, 80.192320],
-        [26.448700, 80.191850]
+        [26.450500, 80.191750],
+        [26.450300, 80.192250],
+        [26.449850, 80.192000],
+        [26.450050, 80.191500]
     ];
     L.polygon(lawnPolygon, {
         color: '#7EA651',
@@ -3090,10 +3114,10 @@ function renderBlueprintBase(){
         iconSize: [24, 24],
         iconAnchor: [12, 12]
     });
-    L.marker([26.449000, 80.192086], { icon: fountainIcon, interactive: false }).addTo(campusBlueprintLayer);
+    L.marker([26.450172, 80.191886], { icon: fountainIcon, interactive: false }).addTo(campusBlueprintLayer);
 
     // 5. Sports Stadium Track (Athletic Field)
-    L.circle([26.447500, 80.192086], {
+    L.circle([26.449500, 80.193468], {
         radius: 36,
         color: '#D2694E',
         weight: 6,
@@ -3104,10 +3128,10 @@ function renderBlueprintBase(){
 
     // Basketball Synthetic Court
     const bballCourtPoly = [
-        [26.447730, 80.192550],
-        [26.447730, 80.192850],
-        [26.447570, 80.192850],
-        [26.447570, 80.192550]
+        [26.453200, 80.192900],
+        [26.453200, 80.193200],
+        [26.453000, 80.193200],
+        [26.453000, 80.192900]
     ];
     L.polygon(bballCourtPoly, {
         color: '#FFFFFF',
@@ -3117,13 +3141,13 @@ function renderBlueprintBase(){
         interactive: false
     }).addTo(campusBlueprintLayer);
 
-    // 6. Trees scattered in courtyards (matching 3D model)
+    // 6. Trees scattered in courtyards
     const treePoints = [
-        [26.449800, 80.191750], [26.449800, 80.192400],
-        [26.449550, 80.191750], [26.449550, 80.192400],
-        [26.449150, 80.191750], [26.449150, 80.192400],
-        [26.448400, 80.191750], [26.448400, 80.192400],
-        [26.450250, 80.191650], [26.450250, 80.192550]
+        [26.450800, 80.191300], [26.450800, 80.191800],
+        [26.450400, 80.191200], [26.450400, 80.192200],
+        [26.449900, 80.191600], [26.449900, 80.192500],
+        [26.449200, 80.192200], [26.449200, 80.192700],
+        [26.448700, 80.192600], [26.451500, 80.191900]
     ];
     treePoints.forEach(pt => {
         L.circleMarker(pt, {
@@ -3198,7 +3222,7 @@ function renderCampusPolygons(){
         if (currentBasemapMode === 'satellite') {
             polyColor = '#FACC15'; // Crisp golden outline for satellite
             polyWeight = 2;
-            polyOpacity = 0.20;    // Highly translucent fill so real satellite ground & roofs are 100% visible!
+            polyOpacity = 0.10;    // Whisper-light outline so real satellite ground, buildings & roofs are 100% crystal clear!
         } else if (currentBasemapMode === 'night') {
             polyColor = '#38BDF8';
             polyWeight = 2;
@@ -3750,7 +3774,7 @@ function stopWalkSimulation(){
 function fitCampusView(){
     if(!map2D) return;
     map2D.invalidateSize();
-    map2D.setView([26.449100, 80.192086], 18, { animate: true });
+    map2D.setView([26.450400, 80.191800], 18, { animate: true });
 }
 
 function toggleMapFullscreen(){
@@ -4296,108 +4320,118 @@ function init3DMap() {
 
     // ── Additional Infrastructure (All fully interactive!) ──
 
-    // Main Gate
-    addInfraBlock('mainGate', 0, -40, 16, 1.5, 3, 0xB22222, 'Main Gate');
-    // Gate pillars
-    addInfraBlock('', -9, -40, 1.5, 1.5, 5, 0x8B0000, '');
-    addInfraBlock('', 9, -40, 1.5, 1.5, 5, 0x8B0000, '');
+    // Main Gate at Entrance (+Z coordinate along front access)
+    addInfraBlock('mainGate', 0, 36, 16, 1.8, 3, 0xB22222, 'Main Gate');
+    addInfraBlock('', -9, 36, 1.5, 1.8, 5, 0x8B0000, '');
+    addInfraBlock('', 9, 36, 1.5, 1.8, 5, 0x8B0000, '');
 
-    // Boys Hostel & Girls Hostel
-    addInfraBlock('boysHostel', -30, 10, 14, 8, 5, 0x7B6B55, "Boys' Hostel");
-    addInfraBlock('girlsHostel', 30, 10, 14, 8, 5, 0x8B7B65, "Girls' Hostel");
-
-    // Central Auditorium
-    addInfraBlock('auditorium', 0, -28, 12, 8, 5.5, 0x6B5B4B, 'Auditorium');
-
-    // Parking Area
+    // Parking Area (in front of gate, west side)
     const parkGeo = new THREE.BoxGeometry(14, 0.2, 8);
     const parkMat = new THREE.MeshPhongMaterial({ color: 0x888888, shininess: 10 });
     const parking = new THREE.Mesh(parkGeo, parkMat);
-    parking.position.set(-25, 0.1, -35);
+    parking.position.set(-16, 0.1, 28);
     parking.receiveShadow = true;
     parking.userData = { key: 'parking', loc: campusInfraLocations.parking };
     scene.add(parking);
     buildingMeshes3D.push(parking);
     const parkLabel = createTextSprite('Campus Parking', 0);
-    parkLabel.position.set(-25, 2.0, -35);
+    parkLabel.position.set(-16, 2.0, 28);
     scene.add(parkLabel);
 
-    // Bus Stand (College Fleet)
-    const busGeo = new THREE.BoxGeometry(12, 0.2, 6);
-    const busMat = new THREE.MeshPhongMaterial({ color: 0x999999, shininess: 10 });
+    // Bus Stand (College Fleet - west side transit yard)
+    const busGeo = new THREE.BoxGeometry(16, 0.2, 10);
+    const busMat = new THREE.MeshPhongMaterial({ color: 0x777777, shininess: 10 });
     const busStand = new THREE.Mesh(busGeo, busMat);
-    busStand.position.set(25, 0.1, -35);
+    busStand.position.set(-28, 0.1, 24);
     busStand.receiveShadow = true;
     busStand.userData = { key: 'busStand', loc: campusInfraLocations.busStand };
     scene.add(busStand);
     buildingMeshes3D.push(busStand);
     const busLabel = createTextSprite('Bus Terminal', 0);
-    busLabel.position.set(25, 2.0, -35);
+    busLabel.position.set(-28, 2.5, 24);
     scene.add(busLabel);
 
-    // Sports Ground (Athletic Stadium)
-    const sportsGeo = new THREE.CylinderGeometry(10, 10, 0.2, 32);
+    // College Buses models parked in rows!
+    for (let bi = 0; bi < 6; bi++) {
+        const bx = -31 + (bi % 3) * 3.5;
+        const bz = 21 + Math.floor(bi / 3) * 5;
+        const busBodyGeo = new THREE.BoxGeometry(2.0, 1.1, 3.8);
+        const busBodyMat = new THREE.MeshPhongMaterial({ color: 0xF59E0B });
+        const busMesh = new THREE.Mesh(busBodyGeo, busBodyMat);
+        busMesh.position.set(bx, 0.65, bz);
+        busMesh.castShadow = true;
+        scene.add(busMesh);
+    }
+
+    // Sports Ground (Athletic Stadium - east side of entrance lawn)
+    const sportsGeo = new THREE.CylinderGeometry(11, 11, 0.2, 32);
     const sportsMat = new THREE.MeshLambertMaterial({ color: 0x7CB342 });
     const sports = new THREE.Mesh(sportsGeo, sportsMat);
-    sports.position.set(0, 0.1, 35);
+    sports.position.set(28, 0.1, 14);
     sports.receiveShadow = true;
     sports.userData = { key: 'sportsGround', loc: campusInfraLocations.sportsGround };
     scene.add(sports);
     buildingMeshes3D.push(sports);
     const sportsLabel = createTextSprite('Sports Stadium', 0);
-    sportsLabel.position.set(0, 2.2, 35);
+    sportsLabel.position.set(28, 2.2, 14);
     scene.add(sportsLabel);
 
-    // Basketball Court
-    addInfraBlock('basketballCourt', 15, 30, 6, 4, 0.2, 0xD4A76A, 'Basketball');
+    // Central Auditorium (integrated next to Admin)
+    addInfraBlock('auditorium', -15, -14, 12, 8, 5.5, 0x6B5B4B, 'Auditorium');
 
-    // Solar Power Plant
+    // Girls' Hostel (West residential quad)
+    addInfraBlock('girlsHostel', -30, 2, 14, 8, 5, 0x8B7B65, "Girls' Hostel");
+
+    // Boys' Hostel (North campus quad)
+    addInfraBlock('boysHostel', 15, -34, 14, 8, 5, 0x7B6B55, "Boys' Hostel");
+
+    // Basketball Court (North courts)
+    addInfraBlock('basketballCourt', 25, -34, 8, 5, 0.2, 0xD4A76A, 'Basketball');
+
+    // Solar Power Plant (West array)
     for (let i = 0; i < 5; i++) {
         const panelGeo = new THREE.BoxGeometry(3, 0.1, 2);
         const panelMat = new THREE.MeshPhongMaterial({ color: 0x2244AA, specular: 0x4466CC, shininess: 60 });
         const panel = new THREE.Mesh(panelGeo, panelMat);
-        panel.position.set(-38 + i * 4, 2.5, -30);
+        panel.position.set(-36 + i * 3.5, 2.0, -8);
         panel.rotation.x = -Math.PI / 6;
         panel.userData = { key: 'solarPlant', loc: campusInfraLocations.solarPlant };
         scene.add(panel);
         buildingMeshes3D.push(panel);
-
-        const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.5, 6);
+        const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.0, 6);
         const poleMat = new THREE.MeshLambertMaterial({ color: 0x666666 });
         const pole = new THREE.Mesh(poleGeo, poleMat);
-        pole.position.set(-38 + i * 4, 1.25, -30);
+        pole.position.set(-36 + i * 3.5, 1.0, -8);
         scene.add(pole);
     }
     const solarLabel = createTextSprite('Solar Farm', 0);
-    solarLabel.position.set(-30, 4.2, -30);
+    solarLabel.position.set(-30, 3.8, -8);
     scene.add(solarLabel);
 
-    // Water Tower
+    // Water Tower (North-east utility area)
     const wtGeo = new THREE.CylinderGeometry(1.5, 1.5, 6, 12);
     const wtMat = new THREE.MeshPhongMaterial({ color: 0x6699BB });
     const waterTower = new THREE.Mesh(wtGeo, wtMat);
-    waterTower.position.set(38, 3, -15);
+    waterTower.position.set(10, 3, -28);
     waterTower.castShadow = true;
     waterTower.userData = { key: 'waterTower', loc: campusInfraLocations.waterTower };
     scene.add(waterTower);
     buildingMeshes3D.push(waterTower);
-
     const wtTopGeo = new THREE.CylinderGeometry(2, 1.5, 2, 12);
     const wtTop = new THREE.Mesh(wtTopGeo, wtMat);
-    wtTop.position.set(38, 7, -15);
+    wtTop.position.set(10, 7, -28);
     wtTop.userData = { key: 'waterTower', loc: campusInfraLocations.waterTower };
     scene.add(wtTop);
     buildingMeshes3D.push(wtTop);
-
     const wtLabel = createTextSprite('Water Tower', 0);
-    wtLabel.position.set(38, 9, -15);
+    wtLabel.position.set(10, 9, -28);
     scene.add(wtLabel);
 
-    // SBI ATM
-    addInfraBlock('sbiAtm', 20, -25, 3.5, 2.5, 2.5, 0x3366AA, 'SBI ATM');
+    // SBI ATM (Near entrance plaza)
+    addInfraBlock('sbiAtm', 12, 22, 3.5, 2.5, 2.5, 0x3366AA, 'SBI ATM');
 
-    // Medical Infirmary
-    addInfraBlock('infirmary', -20, -25, 4.5, 3.5, 2.5, 0xCC3333, 'Infirmary');
+    // Medical Infirmary (West corridor)
+    addInfraBlock('infirmary', -24, -8, 4.5, 3.5, 2.5, 0xCC3333, 'Infirmary');
 
     // Decorative campus trees
     const treeMat = new THREE.MeshLambertMaterial({ color: 0x4A8C3F });
@@ -4405,7 +4439,7 @@ function init3DMap() {
     const treePositions = [
         [-6,4],[-6,-8],[6,4],[6,-8],[-25,0],[25,0],[-35,15],[35,15],
         [-35,-15],[35,-15],[10,25],[-10,25],[0,22],[18,22],[-18,22],
-        [-30,25],[30,25],[0,-33],[-15,-33],[15,-33]
+        [-30,25],[30,25],[0,30],[-12,32],[12,32]
     ];
     treePositions.forEach(([tx,tz]) => {
         const th = 2 + Math.random() * 1.5;
@@ -4421,7 +4455,6 @@ function init3DMap() {
         scene.add(trunk);
     });
 
-    // Event listeners
     renderer3D.domElement.addEventListener('click', on3DClick, false);
     renderer3D.domElement.addEventListener('mousemove', on3DMouseMove, false);
     renderer3D.domElement.addEventListener('touchend', on3DTouchEnd, { passive: false });

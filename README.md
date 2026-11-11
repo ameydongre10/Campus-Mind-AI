@@ -31,17 +31,20 @@ Access the production deployment directly on GitHub Pages:
 
 ## ✨ Key Features & Capabilities
 
-### 🗺️ 1. Precision 2D Campus GIS & Wayfinding (Leaflet.js)
+### 🗺️ 1. Precision 2D Campus GIS & Ground-Truth Wayfinding (Leaflet.js)
+- **High-Precision Ground-Truth Geolocation**:
+  - All **32 campus facilities and academic blocks** are calibrated with high-precision GPS coordinates derived directly from OpenStreetMap and high-resolution Esri World Imagery (aligned with Pranveer Singh Institute of Technology - PSIT Kanpur on NH-19).
+  - **Zero Highway Intrusion**: Accurately recognizes the NH-19 National Highway along the south-east perimeter. All buildings, hostels, and athletic fields are strictly positioned on verified physical ground structures inside the campus. The Girls' Hostel and residential complexes are correctly situated in the secure north-western sector, and the Main Campus Gate sits exactly at the NH-19 turnoff avenue.
 - **4 Dynamic Basemap Modes**:
   - **CAD Architectural Blueprint**: High-definition architectural vector rendering showing building footprints, perimeter ring roads, covered gallery walkways, central lawns, fountain pins, and courtyard foliage.
-  - **Esri World Imagery Satellite**: High-resolution true-color satellite view. Automatically detaches opaque CAD ground fills and road polylines, providing a **100% unobstructed, crystal-clear view of the real ground terrain, sports turf, and landscaping**.
+  - **Esri World Imagery Satellite**: True-color satellite photography with whisper-light outlines (`fillOpacity: 0.10`). CAD grounds are automatically removed so the **real physical roofs, lawns, cricket pitch, transit yard, and landscaping are 100% visible and unobstructed**.
   - **Carto Light Streets**: Minimalist modern street-map cartography for city-integrated navigation.
   - **Carto Dark Cyber Night**: High-contrast dark cartography for low-light situations.
 - **Readable Building Names & Contrast Badges**:
-  - Every one of the **32 campus zones and facilities** features clean, full name badges (e.g. *Block A (CSE)*, *Block B (Coding)*, *Campus Tower*, *Admin / Town Hall*, *Central Auditorium*, *Central Library*, *Boys' Hostel*, *Girls' Hostel*, *Main Campus Gate*, *SBI Bank & ATM*, *Medical Infirmary*).
-  - In Satellite mode, badges transform into frosted dark glass pills with golden borders (`#FACC15`) and category status dots for effortless optical readability against satellite photography.
+  - Clean, full name badges on every building (e.g. *Block A (CSE)*, *Block B (Software)*, *Campus Tower*, *Admin / Town Hall*, *Central Auditorium*, *Central Library*, *Boys' Hostel*, *Girls' Hostel*, *Main Campus Gate*, *SBI Bank & ATM*, *Medical Infirmary*).
+  - In Satellite mode, badges transform into frosted dark glass pills with golden borders (`#FACC15`) and status dots for effortless optical readability against satellite imagery.
 - **Dijkstra Shortest-Path Navigation Engine**:
-  - Topological pedestrian corridor graph with 24 calibrated junction nodes.
+  - Topological pedestrian corridor graph with 37 calibrated nodes and 50 bidirectional edges connecting all 32 destinations.
   - Accurately calculates true pedestrian distance in meters and walking time (at 1.2 m/s average speed).
   - Generates clear, turn-by-turn navigation steps with directional icons and distance markers.
 - **Live Walk Simulation**:
@@ -56,7 +59,8 @@ Access the production deployment directly on GitHub Pages:
 
 ### 🧊 2. Interactive 3D Campus Digital Twin (Three.js)
 - **100% Interactive Campus Infrastructure**:
-  - Full raycasting detection across all 32 campus entities: Academic Blocks (A through R), Central Tower, Town Hall Admin, Central Auditorium, Boys' & Girls' Hostels, 1530 kW Solar Power Farm, Elevated Water Tower, Fleet Bus Terminal, Multi-deck Parking, SBI Bank Kiosk, and Medical Infirmary.
+  - Realigned 3D coordinate system reflecting the physical campus orientation: Main Gate and Entrance Boulevard along the front (+Z), leading to the Rangmanch Arena, Central Lawn with animated fountain, and the central Campus Tower apex (-Z).
+  - Full raycasting detection across all 32 campus entities: Academic Blocks (A through R), Central Tower, Town Hall Admin, Central Auditorium, Boys' & Girls' Hostels, 1530 kW Solar Power Farm, Elevated Water Tower, Fleet Bus Terminal with signature yellow buses, Multi-deck Parking, SBI Bank Kiosk, and Medical Infirmary.
 - **Smooth Glide Camera Tweening**:
   - Clicking any 3D building smoothly glides the camera into an optimal framing angle with cubic ease-in-out interpolation and emits an active highlight pulse.
 - **One-Touch Camera Presets Dock**:
