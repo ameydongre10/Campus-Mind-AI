@@ -181,9 +181,158 @@
         .legend-item { display:flex; align-items:center; gap:6px; color:var(--text-main); font-weight:500; }
         .legend-color { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
 
-        /* Leaflet Vector Styling */
-        .campus-building-label { background:rgba(255,255,255,0.92); border:1px solid rgba(0,0,0,0.15); color:#1A2510; font-weight:700; font-size:0.68rem; padding:2px 6px; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); white-space:nowrap; text-align:center; font-family:var(--font-body); pointer-events:auto; cursor:pointer; }
-        .campus-building-label:hover { background:var(--accent-cyan); color:#FFFFFF; }
+        /* Leaflet Vector Styling & Pin Badges */
+        .custom-building-pin-wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 0 !important;
+            height: 0 !important;
+            pointer-events: none !important;
+        }
+
+        .campus-building-label {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 700;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            user-select: none;
+            z-index: 450;
+        }
+
+        .campus-building-label:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+            z-index: 550 !important;
+        }
+
+        .campus-building-label .label-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        }
+
+        /* Blueprint mode label */
+        .campus-building-label.label-blueprint {
+            background: rgba(255, 255, 255, 0.94);
+            border: 1.5px solid #243315;
+            color: #1A2510;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+        .campus-building-label.label-blueprint:hover {
+            background: #FFFFFF;
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 4px 12px rgba(74, 93, 46, 0.25);
+        }
+
+        /* Satellite mode label (crisp, frosted glass, high-contrast over dark satellite terrain) */
+        .campus-building-label.label-satellite {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1.5px solid #FACC15;
+            color: #F8FAFC;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+        }
+        .campus-building-label.label-satellite:hover {
+            background: rgba(15, 23, 42, 0.98);
+            border-color: #FFFFFF;
+            color: #FACC15;
+            box-shadow: 0 6px 18px rgba(250, 204, 21, 0.4);
+        }
+
+        /* Night mode label */
+        .campus-building-label.label-night {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(6px);
+            border: 1.5px solid #38BDF8;
+            color: #F0F9FF;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+        }
+
+        /* Streets mode label */
+        .campus-building-label.label-streets {
+            background: rgba(255, 255, 255, 0.96);
+            border: 1.5px solid #334155;
+            color: #0F172A;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 3D Map Floating Toolbar */
+        .campus-3d-toolbar {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 6px 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            z-index: 100;
+        }
+        .dock-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dock-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-right: 2px;
+        }
+        .dock-divider {
+            width: 1px;
+            height: 18px;
+            background: var(--card-border);
+            margin: 0 4px;
+        }
+        .dock-pill {
+            background: var(--bg-secondary);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 9px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-body);
+        }
+        .dock-pill:hover {
+            background: var(--accent-blue);
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+        .dock-pill.active {
+            background: var(--accent-cyan);
+            color: #ffffff;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 2px 6px rgba(74, 93, 46, 0.25);
+        }
+
         .campus-tooltip { background:rgba(26,37,16,0.92); color:#FFFFFF; border:none; border-radius:6px; padding:6px 10px; font-size:0.75rem; font-family:var(--font-body); box-shadow:0 4px 16px rgba(0,0,0,0.15); }
         .campus-tooltip::before { border-top-color:rgba(26,37,16,0.92) !important; }
 
@@ -986,19 +1135,59 @@
 
             <!-- ===== 3D CAMPUS ===== -->
             <section id="sec-map-3d" class="tab-section hidden">
-                <h2 class="section-header">COLLEGE Interactive 3D Blueprint (Click Any Block)</h2>
-                <div style="height:560px;width:100%;position:relative;">
+                <h2 class="section-header">COLLEGE Interactive 3D Campus (Click Any Block to Inspect)</h2>
+                <div style="height:580px;width:100%;position:relative;">
                     <div id="container-3d"></div>
-                    <div style="position:absolute;top:15px;left:15px;background:rgba(255,255,255,0.95);padding:10px 15px;border-radius:8px;border:1px solid var(--card-border);font-size:0.8rem;pointer-events:none;z-index:10;color:var(--text-main);box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-                        <i class="fa-solid fa-hand-pointer" style="color:var(--accent-cyan)"></i> <strong>Tap on any 3D Block</strong> to view details
+                    <div style="position:absolute;top:15px;left:15px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:8px 14px;border-radius:8px;border:1px solid var(--card-border);font-size:0.78rem;pointer-events:none;z-index:10;color:var(--text-main);box-shadow:0 4px 12px rgba(0,0,0,0.06);display:flex;align-items:center;gap:6px;">
+                        <i class="fa-solid fa-cube" style="color:var(--accent-cyan)"></i> <strong>32 Interactive Campus Blocks</strong> • Click any building to focus
                     </div>
+                    
+                    <!-- 3D Camera & Lighting Control Dock -->
+                    <div class="campus-3d-toolbar">
+                        <div class="dock-group">
+                            <span class="dock-label"><i class="fa-solid fa-video"></i> Camera:</span>
+                            <button class="dock-pill active" id="btn-cam-default" onclick="set3DCameraPreset('default')" title="Default Perspective"><i class="fa-solid fa-cube"></i> Default</button>
+                            <button class="dock-pill" id="btn-cam-gate" onclick="set3DCameraPreset('gate')" title="Main Entrance Perspective"><i class="fa-solid fa-archway"></i> Main Gate</button>
+                            <button class="dock-pill" id="btn-cam-quad" onclick="set3DCameraPreset('quad')" title="Central Lawn & Amphitheatre View"><i class="fa-solid fa-tree"></i> Central Quad</button>
+                            <button class="dock-pill" id="btn-cam-top" onclick="set3DCameraPreset('top')" title="Tactical Bird's Eye View"><i class="fa-solid fa-satellite"></i> Bird's Eye</button>
+                            <button class="dock-pill" id="btn-cam-orbit" onclick="toggle3DAutoTour()" title="Auto Cinematic Orbit Tour"><i class="fa-solid fa-arrows-rotate"></i> Auto Tour</button>
+                        </div>
+                        <div class="dock-divider"></div>
+                        <div class="dock-group">
+                            <span class="dock-label"><i class="fa-solid fa-sun"></i> Light:</span>
+                            <button class="dock-pill active" id="btn-env-day" onclick="set3DLighting('day')" title="Crisp Daylight"><i class="fa-solid fa-sun"></i> Day</button>
+                            <button class="dock-pill" id="btn-env-sunset" onclick="set3DLighting('sunset')" title="Warm Golden Hour"><i class="fa-solid fa-cloud-sun"></i> Sunset</button>
+                            <button class="dock-pill" id="btn-env-night" onclick="set3DLighting('night')" title="Cyber Night Mode"><i class="fa-solid fa-moon"></i> Night</button>
+                        </div>
+                    </div>
+
+                    <!-- 3D Building Info Card / Drawer -->
                     <div id="block-info-card" class="block-info-modal hidden">
-                        <img id="card-3d-img" class="block-img-preview" src="" alt="Block Image">
-                        <h3 id="card-block-title">Block Details <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;" onclick="closeBlockModal()"></i></h3>
-                        <p id="card-block-desc" style="font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;">Click details</p>
-                        <div class="floor-detail"><strong>Ground Floor (p12):</strong><span id="card-p12">CSE Labs &amp; Seminar Hall</span></div>
-                        <div class="floor-detail"><strong>1st Floor (p21):</strong><span id="card-p21">IT Classrooms &amp; Faculty Cabins</span></div>
-                        <div class="floor-detail"><strong>2nd Floor (p31):</strong><span id="card-p31">AI / ML Specialized Labs</span></div>
+                        <div class="block-header-wrap">
+                            <img id="card-3d-img" class="block-img-preview" src="" alt="Block Image">
+                            <span class="block-cat-badge" id="card-3d-cat">Campus Facility</span>
+                            <button class="block-close-btn" onclick="closeBlockModal()" aria-label="Close Modal"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <h3 id="card-block-title" style="font-size:1.05rem;color:var(--text-main);font-family:var(--font-heading);margin-bottom:4px;">Block Details</h3>
+                        <p id="card-block-desc" style="font-size:0.75rem;color:var(--text-muted);line-height:1.4;margin-bottom:10px;">Click details</p>
+                        <div class="card-action-bar">
+                            <button class="btn-card-act primary" onclick="routeToBuildingFrom3D()"><i class="fa-solid fa-diamond-turn-right"></i> Navigate Here (2D)</button>
+                            <button class="btn-card-act" onclick="focusCurrent3DBuilding()"><i class="fa-solid fa-crosshairs"></i> Focus</button>
+                        </div>
+                        <div class="floor-tabs-bar" id="card-3d-floor-tabs">
+                            <button class="floor-tab-btn active" onclick="switch3DModalFloorTab('p12', this)">Ground</button>
+                            <button class="floor-tab-btn" onclick="switch3DModalFloorTab('p21', this)">1st Floor</button>
+                            <button class="floor-tab-btn" onclick="switch3DModalFloorTab('p31', this)">2nd Floor</button>
+                        </div>
+                        <div class="floor-detail" id="card-3d-floor-content">
+                            <strong id="card-3d-floor-title">Ground Floor (p12):</strong>
+                            <span id="card-3d-floor-desc">Facilities</span>
+                        </div>
+                        <div class="hidden" style="display:none;">
+                            <span id="card-p12"></span>
+                            <span id="card-p21"></span>
+                            <span id="card-p31"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -2948,6 +3137,45 @@ function renderBlueprintBase(){
     });
 }
 
+function getBuildingDisplayName(loc) {
+    if (!loc) return '';
+    const cleanNames = {
+        tower: 'Campus Tower',
+        admin: 'Admin / Town Hall',
+        lawn: 'Central Green Lawn',
+        rangmanch: 'Rang Manch Arena',
+        mainGate: 'Main Campus Gate',
+        auditorium: 'Central Auditorium',
+        boysHostel: "Boys' Hostel",
+        girlsHostel: "Girls' Hostel",
+        parking: 'Campus Parking',
+        busStand: 'Bus Terminal',
+        sportsGround: 'Sports Stadium',
+        basketballCourt: 'Basketball Court',
+        solarPlant: 'Solar Power Plant',
+        waterTower: 'Water Tower',
+        sbiAtm: 'SBI Bank & ATM',
+        infirmary: 'Medical Infirmary',
+        blockA: 'Block A (CSE)',
+        blockB: 'Block B (Coding)',
+        blockC: 'Block C (IT)',
+        blockD: 'Block D (ECE)',
+        blockE: 'Block E (Science)',
+        blockF: 'Block F (Mech)',
+        blockG: 'Block G (MBA)',
+        blockH: 'Block H (Civil)',
+        blockI: 'Block I (Robotics)',
+        blockJ: 'Block J (Pharmacy)',
+        blockK: 'Block K (Library)',
+        blockL: 'Block L (Bio-Tech)',
+        blockM: 'Block M (Electrical)',
+        blockP: 'Block P (1st Year)',
+        blockR: 'Block R (Sports/Gym)',
+        blockS: 'Block S (Cafeteria)'
+    };
+    return cleanNames[loc.key] || loc.name.split(' (')[0] || loc.name;
+}
+
 function renderCampusPolygons(){
     if(!campusPolygonsLayer) return;
     campusPolygonsLayer.clearLayers();
@@ -2959,15 +3187,34 @@ function renderCampusPolygons(){
         const loc = allLocs[key];
         const cat = loc.cat || 'academic';
         const cfg = getCategoryConfig(cat);
-        const code = buildingShortCodes[key] || key.toUpperCase();
+        const displayName = getBuildingDisplayName(loc);
         const corners = computePolygonCorners(loc);
+
+        // Dynamic styling depending on currentBasemapMode
+        let polyColor = '#243315';
+        let polyWeight = 1.8;
+        let polyOpacity = 0.88;
+
+        if (currentBasemapMode === 'satellite') {
+            polyColor = '#FACC15'; // Crisp golden outline for satellite
+            polyWeight = 2;
+            polyOpacity = 0.20;    // Highly translucent fill so real satellite ground & roofs are 100% visible!
+        } else if (currentBasemapMode === 'night') {
+            polyColor = '#38BDF8';
+            polyWeight = 2;
+            polyOpacity = 0.45;
+        } else if (currentBasemapMode === 'streets') {
+            polyColor = '#334155';
+            polyWeight = 1.8;
+            polyOpacity = 0.65;
+        }
 
         // Building Polygon
         const poly = L.polygon(corners, {
-            color: '#243315',
-            weight: 1.8,
+            color: polyColor,
+            weight: polyWeight,
             fillColor: cfg.badgeBg,
-            fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.88,
+            fillOpacity: polyOpacity,
             className: 'campus-poly-interactive'
         }).addTo(campusPolygonsLayer);
 
@@ -2983,7 +3230,11 @@ function renderCampusPolygons(){
 
         // Events
         poly.on('mouseover', () => {
-            poly.setStyle({ weight: 3, color: '#EAB308', fillOpacity: 0.98 });
+            poly.setStyle({
+                weight: 3,
+                color: currentBasemapMode === 'satellite' ? '#FFFFFF' : '#EAB308',
+                fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.98
+            });
             const dirItem = $(`dir-item-${key}`);
             if(dirItem) dirItem.classList.add('selected');
         });
@@ -2991,9 +3242,9 @@ function renderCampusPolygons(){
         poly.on('mouseout', () => {
             if(activePolyHighlight !== poly) {
                 poly.setStyle({
-                    weight: 1.8,
-                    color: '#243315',
-                    fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.88
+                    weight: polyWeight,
+                    color: polyColor,
+                    fillOpacity: polyOpacity
                 });
             }
             const dirItem = $(`dir-item-${key}`);
@@ -3007,12 +3258,13 @@ function renderCampusPolygons(){
 
         buildingPolys2D[key] = poly;
 
-        // Centered Badge Marker
+        // Centered Badge Marker with Full Building Name
+        const labelClass = `label-${currentBasemapMode || 'blueprint'}`;
         const customIcon = L.divIcon({
             className: 'custom-building-pin-wrap',
-            html: `<div class="campus-building-label" style="border-color:${cfg.color};" onclick="flyToLoc('${key}')">${code}</div>`,
-            iconSize: [44, 20],
-            iconAnchor: [22, 10]
+            html: `<div class="campus-building-label ${labelClass}" onclick="flyToLoc('${key}')"><span class="label-dot" style="background:${cfg.color};"></span><span>${displayName}</span></div>`,
+            iconSize: [0, 0],
+            iconAnchor: [0, 0]
         });
         const labelMarker = L.marker([loc.lat, loc.lng], { icon: customIcon }).addTo(campusLabelsLayer);
         markers2D[key] = labelMarker;
@@ -3021,12 +3273,32 @@ function renderCampusPolygons(){
 
 function highlightBuildingPoly(key){
     if(activePolyHighlight) {
-        activePolyHighlight.setStyle({ weight: 1.8, color: '#243315' });
+        const prevKey = Object.keys(buildingPolys2D).find(k => buildingPolys2D[k] === activePolyHighlight);
+        const prevLoc = prevKey ? getLocationByKey(prevKey) : null;
+        const prevCat = prevLoc ? (prevLoc.cat || 'academic') : 'academic';
+        const prevCfg = getCategoryConfig(prevCat);
+
+        let resetColor = '#243315';
+        let resetOpacity = 0.88;
+        let resetWeight = 1.8;
+        if (currentBasemapMode === 'satellite') {
+            resetColor = '#FACC15';
+            resetOpacity = 0.20;
+            resetWeight = 2;
+        } else if (currentBasemapMode === 'night') {
+            resetColor = '#38BDF8';
+            resetOpacity = 0.45;
+            resetWeight = 2;
+        } else if (currentBasemapMode === 'streets') {
+            resetColor = '#334155';
+            resetOpacity = 0.65;
+        }
+        activePolyHighlight.setStyle({ weight: resetWeight, color: resetColor, fillOpacity: resetOpacity });
         activePolyHighlight = null;
     }
     const poly = buildingPolys2D[key];
     if(poly) {
-        poly.setStyle({ weight: 4, color: '#16A34A', fillOpacity: 0.98 });
+        poly.setStyle({ weight: 4, color: '#16A34A', fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.98 });
         activePolyHighlight = poly;
     }
 }
@@ -3044,38 +3316,46 @@ function setMapBasemap(mode){
 
     const mapEl = $('map');
 
-    if(mode === 'streets') {
-        if(mapEl) mapEl.style.backgroundColor = '#FFFFFF';
-        tileBaseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            maxZoom: 20
-        }).addTo(map2D);
-        if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
-    } else if(mode === 'satellite') {
-        if(mapEl) mapEl.style.backgroundColor = '#1A1A1A';
-        tileBaseLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 19
-        }).addTo(map2D);
-        if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
-    } else if(mode === 'night') {
-        if(mapEl) mapEl.style.backgroundColor = '#0F172A';
-        tileBaseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            maxZoom: 20
-        }).addTo(map2D);
-        if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
-    } else {
-        // Blueprint mode (pure vector CAD)
+    if(mode === 'blueprint') {
+        // Blueprint mode: show CAD ground, roads, trees
         if(mapEl) mapEl.style.backgroundColor = '#F5F7F2';
+        if(map2D) {
+            if(campusBlueprintLayer && !map2D.hasLayer(campusBlueprintLayer)) map2D.addLayer(campusBlueprintLayer);
+            if(campusRoadsLayer && !map2D.hasLayer(campusRoadsLayer)) map2D.addLayer(campusRoadsLayer);
+            if(campusBlueprintLayer && campusBlueprintLayer.bringToBack) campusBlueprintLayer.bringToBack();
+            if(campusRoadsLayer && campusRoadsLayer.bringToBack) campusRoadsLayer.bringToBack();
+        }
+    } else {
+        // Satellite, Streets, Night modes:
+        // HIDE the opaque CAD ground & road polygons so satellite/street ground imagery is 100% visible!
+        if(map2D) {
+            if(campusBlueprintLayer && map2D.hasLayer(campusBlueprintLayer)) map2D.removeLayer(campusBlueprintLayer);
+            if(campusRoadsLayer && map2D.hasLayer(campusRoadsLayer)) map2D.removeLayer(campusRoadsLayer);
+        }
+
+        if(mode === 'streets') {
+            if(mapEl) mapEl.style.backgroundColor = '#FFFFFF';
+            tileBaseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                maxZoom: 20
+            }).addTo(map2D);
+            if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
+        } else if(mode === 'satellite') {
+            if(mapEl) mapEl.style.backgroundColor = '#1A1A1A';
+            tileBaseLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 19
+            }).addTo(map2D);
+            if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
+        } else if(mode === 'night') {
+            if(mapEl) mapEl.style.backgroundColor = '#0F172A';
+            tileBaseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                maxZoom: 20
+            }).addTo(map2D);
+            if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
+        }
     }
 
-    // Refresh polygon opacities
-    if(campusPolygonsLayer) {
-        Object.keys(buildingPolys2D).forEach(k => {
-            buildingPolys2D[k].setStyle({
-                fillOpacity: mode === 'satellite' ? 0.45 : 0.88,
-                color: mode === 'satellite' ? '#EAB308' : '#243315'
-            });
-        });
-    }
+    // Re-render building polygons and labels to match the active basemap mode
+    renderCampusPolygons();
 }
 
 function flyToLoc(key){
@@ -3182,15 +3462,17 @@ function setDestinationFromModal(){
 function jumpTo3DFromCurrentModal(){
     if(!activeModalLocKey) return;
     const key = activeModalLocKey;
-    if(campusLocations[key]) {
+    const loc = getLocationByKey(key);
+    if(loc) {
         switchTab('map-3d');
         setTimeout(() => {
             if(typeof showBlockInfo3D === 'function') {
-                showBlockInfo3D(campusLocations[key]);
+                showBlockInfo3D(loc);
+                if(typeof focusCurrent3DBuilding === 'function') {
+                    focusCurrent3DBuilding();
+                }
             }
         }, 200);
-    } else {
-        showToast('info', '3D View', '3D visual perspective is loaded for primary academic blocks.');
     }
 }
 
@@ -3839,7 +4121,9 @@ function generateCampusAIReply(query){
 
 // ===== 3D INTERACTIVE CAMPUS VIEW (Three.js) =====
 let scene, camera3D, renderer3D, controls3D, raycaster3D, mouse3D, buildingMeshes3D = [];
+let ambientLight3D, dirLight3D, hemiLight3D;
 let animFrame3D = null;
+let cameraTransition3D = null;
 
 function init3DMap() {
     const container = $('container-3d');
@@ -3849,7 +4133,7 @@ function init3DMap() {
     if (scene) return;
 
     const W = container.clientWidth || 800;
-    const H = container.clientHeight || 560;
+    const H = container.clientHeight || 580;
 
     // Scene
     scene = new THREE.Scene();
@@ -3875,8 +4159,8 @@ function init3DMap() {
     controls3D.enableDamping = true;
     controls3D.dampingFactor = 0.08;
     controls3D.maxPolarAngle = Math.PI / 2.15;
-    controls3D.minDistance = 15;
-    controls3D.maxDistance = 120;
+    controls3D.minDistance = 12;
+    controls3D.maxDistance = 140;
     controls3D.target.set(0, 0, 0);
 
     // Raycaster
@@ -3884,22 +4168,22 @@ function init3DMap() {
     mouse3D = new THREE.Vector2();
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
-    scene.add(ambientLight);
+    ambientLight3D = new THREE.AmbientLight(0xffffff, 0.55);
+    scene.add(ambientLight3D);
 
-    const dirLight = new THREE.DirectionalLight(0xfffbe6, 0.9);
-    dirLight.position.set(30, 50, 25);
-    dirLight.castShadow = true;
-    dirLight.shadow.mapSize.width = 2048;
-    dirLight.shadow.mapSize.height = 2048;
-    dirLight.shadow.camera.left = -60;
-    dirLight.shadow.camera.right = 60;
-    dirLight.shadow.camera.top = 60;
-    dirLight.shadow.camera.bottom = -60;
-    scene.add(dirLight);
+    dirLight3D = new THREE.DirectionalLight(0xfffbe6, 0.9);
+    dirLight3D.position.set(30, 50, 25);
+    dirLight3D.castShadow = true;
+    dirLight3D.shadow.mapSize.width = 2048;
+    dirLight3D.shadow.mapSize.height = 2048;
+    dirLight3D.shadow.camera.left = -60;
+    dirLight3D.shadow.camera.right = 60;
+    dirLight3D.shadow.camera.top = 60;
+    dirLight3D.shadow.camera.bottom = -60;
+    scene.add(dirLight3D);
 
-    const hemiLight = new THREE.HemisphereLight(0xb5d6a7, 0x5c4033, 0.35);
-    scene.add(hemiLight);
+    hemiLight3D = new THREE.HemisphereLight(0xb5d6a7, 0x5c4033, 0.35);
+    scene.add(hemiLight3D);
 
     // Ground Plane — campus terrain
     const groundGeo = new THREE.PlaneGeometry(120, 100);
@@ -3935,7 +4219,7 @@ function init3DMap() {
     // East corridor
     addRoad(13, 0, -2, 2, 40);
 
-    // ── Covered Gallery Walkways (PSIT signature red-brick covered passages) ──
+    // ── Covered Gallery Walkways ──
     const galleryMat = new THREE.MeshLambertMaterial({ color: 0xC4856A, transparent: true, opacity: 0.7 });
     function addGallery(gx, gz, gw, gd, gh) {
         const gGeo = new THREE.BoxGeometry(gw, gh || 0.6, gd);
@@ -3943,9 +4227,7 @@ function init3DMap() {
         gal.position.set(gx, 3.5, gz);
         scene.add(gal);
     }
-    // West covered gallery (connecting blocks G-E-C-A-S)
     addGallery(-13, -2, 1.2, 38, 0.5);
-    // East covered gallery (connecting blocks J-K-M-P-R)
     addGallery(13, -2, 1.2, 38, 0.5);
 
     // ── Build all campus blocks from campusLocations ──
@@ -3975,7 +4257,7 @@ function init3DMap() {
         scene.add(mesh);
         buildingMeshes3D.push(mesh);
 
-        // Roof slab (slightly wider, darker)
+        // Roof slab
         const roofGeo = new THREE.BoxGeometry(w + 0.6, 0.3, d + 0.6);
         const roofMat = new THREE.MeshPhongMaterial({ color: darkenColor(color, 0.7) });
         const roof = new THREE.Mesh(roofGeo, roofMat);
@@ -3993,7 +4275,6 @@ function init3DMap() {
                 const wy = 1 + floor * 1.3;
                 win.position.set(loc.x, wy, loc.z - d / 2 - 0.04);
                 if (rot) {
-                    // Rotate window around the building center
                     const dx = -d / 2 - 0.04;
                     win.position.set(
                         loc.x + dx * Math.sin(rot),
@@ -4007,79 +4288,88 @@ function init3DMap() {
         }
 
         // 3D Label Sprite
-        const label = createTextSprite(loc.name.replace(/\(.*?\)/, '').trim(), h);
+        const cleanTitle = getBuildingDisplayName(loc);
+        const label = createTextSprite(cleanTitle, h);
         label.position.set(loc.x, h + 1.2, loc.z);
         scene.add(label);
     });
 
-    // ── Additional Infrastructure (approximate positions, based on PSIT campus knowledge) ──
+    // ── Additional Infrastructure (All fully interactive!) ──
 
     // Main Gate
-    addInfraBlock(0, -40, 16, 1.5, 3, 0xB22222, 'Main Gate');
+    addInfraBlock('mainGate', 0, -40, 16, 1.5, 3, 0xB22222, 'Main Gate');
     // Gate pillars
-    addInfraBlock(-9, -40, 1.5, 1.5, 5, 0x8B0000, '');
-    addInfraBlock(9, -40, 1.5, 1.5, 5, 0x8B0000, '');
+    addInfraBlock('', -9, -40, 1.5, 1.5, 5, 0x8B0000, '');
+    addInfraBlock('', 9, -40, 1.5, 1.5, 5, 0x8B0000, '');
 
-    // Boys Hostel (south-west campus area)
-    addInfraBlock(-30, 10, 14, 8, 5, 0x7B6B55, "Boys' Hostel");
-    // Girls Hostel (south-east campus area)
-    addInfraBlock(30, 10, 14, 8, 5, 0x8B7B65, "Girls' Hostel");
+    // Boys Hostel & Girls Hostel
+    addInfraBlock('boysHostel', -30, 10, 14, 8, 5, 0x7B6B55, "Boys' Hostel");
+    addInfraBlock('girlsHostel', 30, 10, 14, 8, 5, 0x8B7B65, "Girls' Hostel");
 
-    // Auditorium (1350-seat Dolby auditorium — near admin block)
-    addInfraBlock(0, -28, 12, 8, 5.5, 0x6B5B4B, 'Auditorium');
+    // Central Auditorium
+    addInfraBlock('auditorium', 0, -28, 12, 8, 5.5, 0x6B5B4B, 'Auditorium');
 
-    // Parking Area (near main gate, west side)
-    const parkGeo = new THREE.PlaneGeometry(14, 8);
-    const parkMat = new THREE.MeshLambertMaterial({ color: 0x888888 });
+    // Parking Area
+    const parkGeo = new THREE.BoxGeometry(14, 0.2, 8);
+    const parkMat = new THREE.MeshPhongMaterial({ color: 0x888888, shininess: 10 });
     const parking = new THREE.Mesh(parkGeo, parkMat);
-    parking.rotation.x = -Math.PI / 2;
-    parking.position.set(-25, 0.02, -35);
+    parking.position.set(-25, 0.1, -35);
+    parking.receiveShadow = true;
+    parking.userData = { key: 'parking', loc: campusInfraLocations.parking };
     scene.add(parking);
-    const parkLabel = createTextSprite('Parking', 0);
-    parkLabel.position.set(-25, 1.5, -35);
+    buildingMeshes3D.push(parking);
+    const parkLabel = createTextSprite('Campus Parking', 0);
+    parkLabel.position.set(-25, 2.0, -35);
     scene.add(parkLabel);
 
-    // Bus Stand (near main gate, east side — 53 AC CNG buses)
-    const busGeo = new THREE.PlaneGeometry(12, 6);
-    const busMat = new THREE.MeshLambertMaterial({ color: 0x999999 });
+    // Bus Stand (College Fleet)
+    const busGeo = new THREE.BoxGeometry(12, 0.2, 6);
+    const busMat = new THREE.MeshPhongMaterial({ color: 0x999999, shininess: 10 });
     const busStand = new THREE.Mesh(busGeo, busMat);
-    busStand.rotation.x = -Math.PI / 2;
-    busStand.position.set(25, 0.02, -35);
+    busStand.position.set(25, 0.1, -35);
+    busStand.receiveShadow = true;
+    busStand.userData = { key: 'busStand', loc: campusInfraLocations.busStand };
     scene.add(busStand);
-    const busLabel = createTextSprite('Bus Stand', 0);
-    busLabel.position.set(25, 1.5, -35);
+    buildingMeshes3D.push(busStand);
+    const busLabel = createTextSprite('Bus Terminal', 0);
+    busLabel.position.set(25, 2.0, -35);
     scene.add(busLabel);
 
-    // Sports Ground / Cricket Ground (far south area)
-    const sportsGeo = new THREE.CircleGeometry(10, 32);
+    // Sports Ground (Athletic Stadium)
+    const sportsGeo = new THREE.CylinderGeometry(10, 10, 0.2, 32);
     const sportsMat = new THREE.MeshLambertMaterial({ color: 0x7CB342 });
     const sports = new THREE.Mesh(sportsGeo, sportsMat);
-    sports.rotation.x = -Math.PI / 2;
-    sports.position.set(0, 0.02, 35);
+    sports.position.set(0, 0.1, 35);
+    sports.receiveShadow = true;
+    sports.userData = { key: 'sportsGround', loc: campusInfraLocations.sportsGround };
     scene.add(sports);
-    const sportsLabel = createTextSprite('Sports Ground', 0);
-    sportsLabel.position.set(0, 1.5, 35);
+    buildingMeshes3D.push(sports);
+    const sportsLabel = createTextSprite('Sports Stadium', 0);
+    sportsLabel.position.set(0, 2.2, 35);
     scene.add(sportsLabel);
-    // Basketball court outline
-    addInfraBlock(15, 30, 5, 3, 0.15, 0xD4A76A, '');
 
-    // Solar Plant (1530 kW — along perimeter)
+    // Basketball Court
+    addInfraBlock('basketballCourt', 15, 30, 6, 4, 0.2, 0xD4A76A, 'Basketball');
+
+    // Solar Power Plant
     for (let i = 0; i < 5; i++) {
         const panelGeo = new THREE.BoxGeometry(3, 0.1, 2);
         const panelMat = new THREE.MeshPhongMaterial({ color: 0x2244AA, specular: 0x4466CC, shininess: 60 });
         const panel = new THREE.Mesh(panelGeo, panelMat);
         panel.position.set(-38 + i * 4, 2.5, -30);
         panel.rotation.x = -Math.PI / 6;
+        panel.userData = { key: 'solarPlant', loc: campusInfraLocations.solarPlant };
         scene.add(panel);
-        // Support pole
+        buildingMeshes3D.push(panel);
+
         const poleGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.5, 6);
         const poleMat = new THREE.MeshLambertMaterial({ color: 0x666666 });
         const pole = new THREE.Mesh(poleGeo, poleMat);
         pole.position.set(-38 + i * 4, 1.25, -30);
         scene.add(pole);
     }
-    const solarLabel = createTextSprite('Solar Plant', 0);
-    solarLabel.position.set(-30, 4, -30);
+    const solarLabel = createTextSprite('Solar Farm', 0);
+    solarLabel.position.set(-30, 4.2, -30);
     scene.add(solarLabel);
 
     // Water Tower
@@ -4088,22 +4378,28 @@ function init3DMap() {
     const waterTower = new THREE.Mesh(wtGeo, wtMat);
     waterTower.position.set(38, 3, -15);
     waterTower.castShadow = true;
+    waterTower.userData = { key: 'waterTower', loc: campusInfraLocations.waterTower };
     scene.add(waterTower);
+    buildingMeshes3D.push(waterTower);
+
     const wtTopGeo = new THREE.CylinderGeometry(2, 1.5, 2, 12);
     const wtTop = new THREE.Mesh(wtTopGeo, wtMat);
     wtTop.position.set(38, 7, -15);
+    wtTop.userData = { key: 'waterTower', loc: campusInfraLocations.waterTower };
     scene.add(wtTop);
+    buildingMeshes3D.push(wtTop);
+
     const wtLabel = createTextSprite('Water Tower', 0);
     wtLabel.position.set(38, 9, -15);
     scene.add(wtLabel);
 
-    // SBI ATM / Bank (small booth near admin)
-    addInfraBlock(20, -25, 3, 2, 2.5, 0x3366AA, 'SBI ATM');
+    // SBI ATM
+    addInfraBlock('sbiAtm', 20, -25, 3.5, 2.5, 2.5, 0x3366AA, 'SBI ATM');
 
-    // Infirmary / Medical Center
-    addInfraBlock(-20, -25, 4, 3, 2.5, 0xCC3333, 'Infirmary');
+    // Medical Infirmary
+    addInfraBlock('infirmary', -20, -25, 4.5, 3.5, 2.5, 0xCC3333, 'Infirmary');
 
-    // Decorative trees scattered
+    // Decorative campus trees
     const treeMat = new THREE.MeshLambertMaterial({ color: 0x4A8C3F });
     const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8B6C42 });
     const treePositions = [
@@ -4125,8 +4421,9 @@ function init3DMap() {
         scene.add(trunk);
     });
 
-    // ── Click interaction ──
+    // Event listeners
     renderer3D.domElement.addEventListener('click', on3DClick, false);
+    renderer3D.domElement.addEventListener('mousemove', on3DMouseMove, false);
     renderer3D.domElement.addEventListener('touchend', on3DTouchEnd, { passive: false });
     window.addEventListener('resize', resize3DCanvas, false);
 
@@ -4141,13 +4438,17 @@ function darkenColor(hex, factor) {
     return (Math.round(r) << 16) | (Math.round(g) << 8) | Math.round(b);
 }
 
-function addInfraBlock(ix, iz, iw, id, ih, icolor, ilabel) {
+function addInfraBlock(key, ix, iz, iw, id, ih, icolor, ilabel) {
     const geo = new THREE.BoxGeometry(iw, ih, id);
     const mat = new THREE.MeshPhongMaterial({ color: icolor, shininess: 15 });
     const mesh = new THREE.Mesh(geo, mat);
     mesh.position.set(ix, ih / 2, iz);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
+    if (key && campusInfraLocations[key]) {
+        mesh.userData = { key: key, loc: campusInfraLocations[key] };
+        buildingMeshes3D.push(mesh);
+    }
     scene.add(mesh);
     if (ilabel) {
         const label = createTextSprite(ilabel, ih);
@@ -4165,11 +4466,11 @@ function createTextSprite(text, buildingHeight) {
 
     // Background pill
     ctx.font = 'bold 22px Inter, Arial, sans-serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.88)';
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
     const textWidth = ctx.measureText(text).width;
     const pad = 16;
     const pillW = Math.min(textWidth + pad * 2, 500);
-    const pillH = 36;
+    const pillH = 38;
     const pillX = (512 - pillW) / 2;
     const pillY = (64 - pillH) / 2;
     ctx.beginPath();
@@ -4179,13 +4480,13 @@ function createTextSprite(text, buildingHeight) {
         ctx.rect(pillX, pillY, pillW, pillH);
     }
     ctx.fill();
-    ctx.strokeStyle = 'rgba(74,93,46,0.3)';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(36,51,21,0.35)';
+    ctx.lineWidth = 1.5;
     ctx.stroke();
 
     // Text
-    ctx.fillStyle = '#2D3A1E';
-    ctx.font = 'bold 22px Inter, Arial, sans-serif';
+    ctx.fillStyle = '#1A2510';
+    ctx.font = 'bold 21px Inter, Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(text, 256, 32);
@@ -4196,6 +4497,114 @@ function createTextSprite(text, buildingHeight) {
     const sprite = new THREE.Sprite(spriteMat);
     sprite.scale.set(10, 1.25, 1);
     return sprite;
+}
+
+// Smooth camera gliding
+function smoothCameraTo(posX, posY, posZ, tarX, tarY, tarZ, duration = 850) {
+    if (!camera3D || !controls3D) return;
+    cameraTransition3D = {
+        startPos: camera3D.position.clone(),
+        endPos: new THREE.Vector3(posX, posY, posZ),
+        startTarget: controls3D.target.clone(),
+        endTarget: new THREE.Vector3(tarX, tarY, tarZ),
+        startTime: performance.now(),
+        duration: duration
+    };
+}
+
+// 3D Camera Presets
+function set3DCameraPreset(preset) {
+    document.querySelectorAll('[id^="btn-cam-"]').forEach(b => {
+        if (b.id !== 'btn-cam-orbit') b.classList.remove('active');
+    });
+    const btn = $(`btn-cam-${preset}`);
+    if (btn) btn.classList.add('active');
+
+    if (controls3D) {
+        controls3D.autoRotate = false;
+        const orbitBtn = $('btn-cam-orbit');
+        if (orbitBtn) orbitBtn.classList.remove('active');
+    }
+
+    if (preset === 'default') {
+        smoothCameraTo(40, 35, 45, 0, 0, 0, 900);
+    } else if (preset === 'gate') {
+        smoothCameraTo(0, 16, -60, 0, 4, -15, 900);
+    } else if (preset === 'quad') {
+        smoothCameraTo(0, 14, 28, 0, 3, -4, 900);
+    } else if (preset === 'top') {
+        smoothCameraTo(0, 85, 12, 0, 0, 0, 900);
+    }
+}
+
+// 3D Auto Cinematic Orbit Tour
+function toggle3DAutoTour() {
+    if (!controls3D) return;
+    controls3D.autoRotate = !controls3D.autoRotate;
+    controls3D.autoRotateSpeed = 1.2;
+    const btn = $('btn-cam-orbit');
+    if (btn) {
+        if (controls3D.autoRotate) {
+            btn.classList.add('active');
+            showToast('info', 'Cinematic Tour', 'Auto-orbit camera tour activated. Drag to look around.');
+        } else {
+            btn.classList.remove('active');
+        }
+    }
+}
+
+// 3D Environment & Lighting Modes
+function set3DLighting(mode) {
+    document.querySelectorAll('[id^="btn-env-"]').forEach(b => b.classList.remove('active'));
+    const btn = $(`btn-env-${mode}`);
+    if (btn) btn.classList.add('active');
+
+    if (!scene || !ambientLight3D || !dirLight3D) return;
+
+    if (mode === 'day') {
+        scene.background = new THREE.Color(0xE8F0E0);
+        if (scene.fog) scene.fog.color = new THREE.Color(0xE8F0E0);
+        ambientLight3D.color.setHex(0xFFFFFF);
+        ambientLight3D.intensity = 0.55;
+        dirLight3D.color.setHex(0xFFFBE6);
+        dirLight3D.intensity = 0.9;
+        if (hemiLight3D) {
+            hemiLight3D.color.setHex(0xB5D6A7);
+            hemiLight3D.groundColor.setHex(0x5C4033);
+        }
+    } else if (mode === 'sunset') {
+        scene.background = new THREE.Color(0xFBBF24);
+        if (scene.fog) scene.fog.color = new THREE.Color(0xF59E0B);
+        ambientLight3D.color.setHex(0xFED7AA);
+        ambientLight3D.intensity = 0.5;
+        dirLight3D.color.setHex(0xEA580C);
+        dirLight3D.intensity = 1.1;
+        if (hemiLight3D) {
+            hemiLight3D.color.setHex(0xF97316);
+            hemiLight3D.groundColor.setHex(0x7C2D12);
+        }
+    } else if (mode === 'night') {
+        scene.background = new THREE.Color(0x0A0F1D);
+        if (scene.fog) scene.fog.color = new THREE.Color(0x0A0F1D);
+        ambientLight3D.color.setHex(0x1E293B);
+        ambientLight3D.intensity = 0.35;
+        dirLight3D.color.setHex(0x38BDF8);
+        dirLight3D.intensity = 0.45;
+        if (hemiLight3D) {
+            hemiLight3D.color.setHex(0x0F172A);
+            hemiLight3D.groundColor.setHex(0x020617);
+        }
+    }
+}
+
+function on3DMouseMove(event) {
+    if (!renderer3D || !camera3D || !raycaster3D) return;
+    const rect = renderer3D.domElement.getBoundingClientRect();
+    mouse3D.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse3D.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster3D.setFromCamera(mouse3D, camera3D);
+    const intersects = raycaster3D.intersectObjects(buildingMeshes3D, true);
+    renderer3D.domElement.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
 }
 
 function on3DClick(event) {
@@ -4217,16 +4626,31 @@ function on3DTouchEnd(event) {
 
 function performRaycast3D() {
     raycaster3D.setFromCamera(mouse3D, camera3D);
-    const intersects = raycaster3D.intersectObjects(buildingMeshes3D, false);
+    const intersects = raycaster3D.intersectObjects(buildingMeshes3D, true);
     if (intersects.length > 0) {
-        const hit = intersects[0].object;
-        const loc = hit.userData.loc;
-        if (loc) {
+        let hit = intersects[0].object;
+        while (hit && (!hit.userData || !hit.userData.loc) && hit.parent && hit.parent !== scene) {
+            hit = hit.parent;
+        }
+        if (hit && hit.userData && hit.userData.loc) {
+            const loc = hit.userData.loc;
             showBlockInfo3D(loc);
-            // Highlight effect — brief emissive pulse
-            const origColor = hit.material.emissive ? hit.material.emissive.getHex() : 0x000000;
-            hit.material.emissive.setHex(0x446633);
-            setTimeout(() => { hit.material.emissive.setHex(origColor); }, 400);
+
+            // Smooth camera glide to building
+            const targetX = hit.position.x;
+            const targetZ = hit.position.z;
+            const camOffsetX = targetX >= 0 ? 16 : -16;
+            const camOffsetZ = targetZ >= 0 ? 18 : -18;
+            smoothCameraTo(targetX + camOffsetX, (loc.height || 4) + 14, targetZ + camOffsetZ, targetX, (loc.height || 4) / 2, targetZ, 800);
+
+            // Highlight pulse
+            if (hit.material && hit.material.emissive) {
+                const origColor = hit.material.emissive.getHex();
+                hit.material.emissive.setHex(0x558833);
+                setTimeout(() => {
+                    if (hit.material && hit.material.emissive) hit.material.emissive.setHex(origColor);
+                }, 400);
+            }
         }
     } else {
         closeBlockModal();
@@ -4234,21 +4658,68 @@ function performRaycast3D() {
 }
 
 function showBlockInfo3D(loc) {
+    if (!loc) return;
+    activeModalLocKey = loc.key;
     const card = $('block-info-card');
     if (!card) return;
     const img = $('card-3d-img');
     const title = $('card-block-title');
     const desc = $('card-block-desc');
-    const fp12 = $('card-p12');
-    const fp21 = $('card-p21');
-    const fp31 = $('card-p31');
-    if (img) img.src = loc.img || '';
-    if (title) title.innerHTML = loc.name + ' <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;float:right;" onclick="closeBlockModal()"></i>';
-    if (desc) desc.textContent = loc.desc || '';
-    if (fp12) fp12.textContent = (loc.p12 || '').replace(/^p12\s*-\s*/, '');
-    if (fp21) fp21.textContent = (loc.p21 || '').replace(/^p21\s*-\s*/, '');
-    if (fp31) fp31.textContent = (loc.p31 || '').replace(/^p31\s*-\s*/, '');
+    const cat = $('card-3d-cat');
+    if (img) img.src = loc.img || 'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80';
+    if (title) title.innerText = loc.name;
+    if (desc) desc.innerText = loc.desc || '';
+    if (cat) {
+        const catCfg = getCategoryConfig(loc.cat || 'academic');
+        cat.innerText = catCfg.label;
+    }
+    switch3DModalFloorTab('p12');
     card.classList.remove('hidden');
+}
+
+function switch3DModalFloorTab(floorCode, btnEl) {
+    const loc = getLocationByKey(activeModalLocKey);
+    if (!loc) return;
+    if (btnEl) {
+        document.querySelectorAll('#card-3d-floor-tabs .floor-tab-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+    }
+    const labelEl = $('card-3d-floor-title');
+    const descEl = $('card-3d-floor-desc');
+    const floorTitles = {
+        p12: 'Ground Floor (p12)',
+        p21: '1st Floor (p21)',
+        p31: '2nd Floor (p31)'
+    };
+    if (labelEl) labelEl.innerText = floorTitles[floorCode] || 'Facilities:';
+    if (descEl) descEl.innerText = loc[floorCode] || 'General campus department / facilities area.';
+}
+
+function focusCurrent3DBuilding() {
+    if (!activeModalLocKey) return;
+    const loc = getLocationByKey(activeModalLocKey);
+    if (!loc) return;
+    const mesh = buildingMeshes3D.find(m => m.userData && m.userData.key === activeModalLocKey);
+    if (mesh) {
+        const targetX = mesh.position.x;
+        const targetZ = mesh.position.z;
+        const camOffsetX = targetX >= 0 ? 16 : -16;
+        const camOffsetZ = targetZ >= 0 ? 18 : -18;
+        smoothCameraTo(targetX + camOffsetX, (loc.height || 4) + 14, targetZ + camOffsetZ, targetX, (loc.height || 4) / 2, targetZ, 800);
+    }
+}
+
+function routeToBuildingFrom3D() {
+    if (!activeModalLocKey) return;
+    const loc = getLocationByKey(activeModalLocKey);
+    if (!loc) return;
+    closeBlockModal();
+    switchTab('navigation');
+    setTimeout(() => {
+        if ($('route-end')) $('route-end').value = activeModalLocKey;
+        flyToLoc(activeModalLocKey);
+        showToast('info', 'Destination Selected', `Navigating to ${loc.name}. Choose a starting point to draw route.`);
+    }, 200);
 }
 
 function closeBlockModal() {
@@ -4269,6 +4740,20 @@ function resize3DCanvas() {
 
 function animate3D() {
     animFrame3D = requestAnimationFrame(animate3D);
+
+    if (cameraTransition3D) {
+        const elapsed = performance.now() - cameraTransition3D.startTime;
+        const progress = Math.min(elapsed / cameraTransition3D.duration, 1);
+        const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+        camera3D.position.lerpVectors(cameraTransition3D.startPos, cameraTransition3D.endPos, ease);
+        controls3D.target.lerpVectors(cameraTransition3D.startTarget, cameraTransition3D.endTarget, ease);
+
+        if (progress >= 1) {
+            cameraTransition3D = null;
+        }
+    }
+
     if (controls3D) controls3D.update();
     if (renderer3D && scene && camera3D) renderer3D.render(scene, camera3D);
 }

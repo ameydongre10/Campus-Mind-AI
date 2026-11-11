@@ -1,85 +1,144 @@
 <div align="center">
-  <img src="campus.png" alt="Campus Mind ERP" width="100%" style="border-radius: 12px; margin-bottom: 20px;">
+  <img src="campus.png" alt="Campus Mind AI" width="100%" style="border-radius: 12px; margin-bottom: 20px;">
 
   <h1>🎓 CAMPUS MIND AI</h1>
-  <p><strong>A Modern, Interactive Campus Management Dashboard & Wayfinding System</strong></p>
+  <p><strong>Next-Generation Smart Campus Operations Dashboard, Precision GIS Wayfinding & Interactive 3D Digital Twin</strong></p>
   
   <p>
+    <a href="https://ameydongre10.github.io/Campus-Mind-AI/"><img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-22c55e?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live Demo" /></a>
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+    <img src="https://img.shields.io/badge/Leaflet-199900?style=for-the-badge&logo=leaflet&logoColor=white" alt="Leaflet.js" />
     <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white" alt="Three.js" />
   </p>
 </div>
 
 <br>
 
-## 📖 Overview
+## 🌐 Live Website
 
-**Campus Mind ERP** is a comprehensive, single-page application (SPA) designed to modernize college campus management. Redesigned with a clean, editorial SaaS aesthetic, this project combines standard academic tools (like dynamic timetables) with advanced spatial features, including a fully interactive 2D blueprint routing system and a 3D campus viewer.
+Access the production deployment directly on GitHub Pages:  
+👉 **[https://ameydongre10.github.io/Campus-Mind-AI/](https://ameydongre10.github.io/Campus-Mind-AI/)**
 
-Built entirely with **Vanilla Web Technologies** (HTML, CSS, JS) without heavy frontend frameworks, ensuring blazing fast load times and an easily understandable single-file architecture.
 ---
 
+## 📖 Overview
 
-Website:https://ameydongre10.github.io/Campus-Mind-AI/
+**Campus Mind AI** is a comprehensive single-page web application engineered to modernize institutional university management and campus mobility. Built with high-craftsmanship vanilla web technologies, the platform integrates standard academic schedule planning with enterprise-grade geospatial features, including a multi-layer **2D Precision GIS Navigation System** and a rich, interactive **3D Campus Digital Twin**.
 
-## ✨ Key Features
+---
 
-- 📅 **Dynamic Timetable Matrix:** Filter schedules by academic year and section dynamically. Avoids professor and room overlaps.
-- 🗺️ **2D HD Vector Wayfinding (Leaflet.js):** Select a starting block and destination to generate a routed path with estimated walking times and distances.
-- 🧊 **Interactive 3D Campus (Three.js):** Pan, zoom, and orbit around a 3D model of the campus. Click on specific buildings to view floor-by-floor details.
-- 🤖 **Location AI Assistant:** A built-in chat agent that helps students find blocks or generate navigation paths using natural language keywords.
-- 🎨 **Editorial UI/UX Design:** A highly polished, responsive interface inspired by modern enterprise SaaS products, featuring refined typography (*Playfair Display* & *Inter*) and an olive-green accent palette.
+## ✨ Key Features & Capabilities
+
+### 🗺️ 1. Precision 2D Campus GIS & Wayfinding (Leaflet.js)
+- **4 Dynamic Basemap Modes**:
+  - **CAD Architectural Blueprint**: High-definition architectural vector rendering showing building footprints, perimeter ring roads, covered gallery walkways, central lawns, fountain pins, and courtyard foliage.
+  - **Esri World Imagery Satellite**: High-resolution true-color satellite view. Automatically detaches opaque CAD ground fills and road polylines, providing a **100% unobstructed, crystal-clear view of the real ground terrain, sports turf, and landscaping**.
+  - **Carto Light Streets**: Minimalist modern street-map cartography for city-integrated navigation.
+  - **Carto Dark Cyber Night**: High-contrast dark cartography for low-light situations.
+- **Readable Building Names & Contrast Badges**:
+  - Every one of the **32 campus zones and facilities** features clean, full name badges (e.g. *Block A (CSE)*, *Block B (Coding)*, *Campus Tower*, *Admin / Town Hall*, *Central Auditorium*, *Central Library*, *Boys' Hostel*, *Girls' Hostel*, *Main Campus Gate*, *SBI Bank & ATM*, *Medical Infirmary*).
+  - In Satellite mode, badges transform into frosted dark glass pills with golden borders (`#FACC15`) and category status dots for effortless optical readability against satellite photography.
+- **Dijkstra Shortest-Path Navigation Engine**:
+  - Topological pedestrian corridor graph with 24 calibrated junction nodes.
+  - Accurately calculates true pedestrian distance in meters and walking time (at 1.2 m/s average speed).
+  - Generates clear, turn-by-turn navigation steps with directional icons and distance markers.
+- **Live Walk Simulation**:
+  - Real-time animated pedestrian marker (`route-walker-pin`) that traverses the generated route with smooth cubic interpolation and animated path dashes.
+- **Interactive Building Inspector Drawer**:
+  - Click any building polygon, map pin, or directory item to open a detailed modal drawer showing high-resolution campus photos, department overviews, and three-tier floor room allocations (**Ground Floor p12**, **1st Floor p21**, **2nd Floor p31**).
+  - Quick action buttons: *"From Here"*, *"To Here"*, and *"3D View"*.
+- **Category Filter Chips**:
+  - Filter across *All Blocks*, *Academic Wings*, *Admin & PR*, *Dining & Cafes*, *Hostel Complexes*, *Sports Arenas*, and *Campus Services*.
+
+---
+
+### 🧊 2. Interactive 3D Campus Digital Twin (Three.js)
+- **100% Interactive Campus Infrastructure**:
+  - Full raycasting detection across all 32 campus entities: Academic Blocks (A through R), Central Tower, Town Hall Admin, Central Auditorium, Boys' & Girls' Hostels, 1530 kW Solar Power Farm, Elevated Water Tower, Fleet Bus Terminal, Multi-deck Parking, SBI Bank Kiosk, and Medical Infirmary.
+- **Smooth Glide Camera Tweening**:
+  - Clicking any 3D building smoothly glides the camera into an optimal framing angle with cubic ease-in-out interpolation and emits an active highlight pulse.
+- **One-Touch Camera Presets Dock**:
+  - 🏰 **Main Gate View**: Front entrance perspective looking down the central boulevard.
+  - 🏛️ **Central Quad**: Intimate look at the central lawns, fountain, and amphitheatre.
+  - 🦅 **Bird's Eye**: High-altitude tactical overview of the entire campus layout.
+  - 🔄 **Cinematic Auto-Tour**: Automated 360° slow orbit around campus architecture.
+  - 🎯 **Default Perspective**: Quick reset to the classic isometric view.
+- **Dynamic Lighting & Atmosphere Switcher**:
+  - ☀️ **Daylight**: Crisp natural sunlight, soft green terrain shadows, and bright sky fog.
+  - 🌅 **Sunset (Golden Hour)**: Rich amber directional lighting, warm horizon fog, and dramatic long building shadows.
+  - 🌙 **Cyber Night Mode**: Dark moody sky (`#0A0F1D`), cyan accent lighting, and glowing illuminated classroom windows.
+- **Cross-View Synchronization**:
+  - Click *"Navigate Here in 2D"* from any 3D building card to transition directly to the 2D GIS map with origin/destination endpoints auto-populated.
+
+---
+
+### 📅 3. Dynamic Academic Timetable Matrix
+- Real-time timetable filtering by academic year and section (Year 2 Section A/B, Year 3 Section A/B).
+- Conflict prevention and schedule clash protection across professors and lecture halls.
+- Administrative schedule adjustments, emergency interruptions, and automated room reassignment.
+
+---
+
+### 🤖 4. Campus Mind AI Assistant
+- Built-in contextual AI agent with live knowledge of placement statistics, company drives (highest CTC, average packages), upcoming tech fests (*Ignitia*), clubs, and institutional policies.
+- Direct natural-language routing: asking *"Where is Block A?"* or *"How do I get from Hostel to Library?"* provides instant answers and draws the route on the map with one click.
 
 ---
 
 ## 🚀 Getting Started
 
-Since this is a lightweight, zero-build-step application, running it is incredibly simple.
+Since this application is built with vanilla web technologies, there are zero complex build steps or dependencies required.
 
-### Installation
+### 1. Clone the repository
+```bash
+git clone https://github.com/ameydongre10/Campus-Mind-AI.git
+cd Campus-Mind-AI
+```
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/ameydongre10/ERP-PROJECT.git
-   ```
-2. **Navigate to the directory:**
-   ```bash
-   cd ERP-PROJECT
-   ```
-3. **Run the app:**
-   Simply double-click `index.html` to open it in your preferred web browser. No local server required!
+### 2. Run locally
+- Open `index.html` directly in any modern browser (Chrome, Edge, Firefox, Safari).
+- Or run a lightweight local server:
+```bash
+# Python 3
+python -m http.server 8080
+
+# Node.js
+npx serve .
+```
+Then visit `http://localhost:8080`.
 
 ---
 
-## 🔐 Demo Login Credentials
+## 🔐 Demo Credentials
 
-The application includes a mock authentication portal. Use the following credentials to access the dashboard:
+The portal features a built-in authentication system with role-based access:
 
-| Role | Registration ID / Roll No | Password |
-| :--- | :--- | :--- |
-| **Admin** | `CAMPUS2026102` | `admin123` |
-| **Student** | `CAMPUS2026103` | `student@2026` |
+| Role | Registration ID / Roll No | Password | Permissions |
+| :--- | :--- | :--- | :--- |
+| **Admin** | `CAMPUS2026102` | `admin123` | Full control, Timetable scheduling, Class cancellation, AI interruptions |
+| **Student** | `CAMPUS2026103` | `student@2026` | Personalized timetable, GIS Wayfinding, 3D Campus Explorer, AI Assistant |
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Core:** HTML5, CSS3 (Custom Properties/Tokens), Vanilla JavaScript
-- **2D Maps & Routing:** [Leaflet.js](https://leafletjs.com/)
-- **3D Rendering:** [Three.js](https://threejs.org/)
-- **Icons:** [FontAwesome 6.4](https://fontawesome.com/)
-- **Typography:** [Google Fonts](https://fonts.google.com/) (Playfair Display, Inter)
+- **Frontend Core:** HTML5, Modern CSS3 (Variables, Flexbox, Grid, Backdrop Filters), Vanilla JavaScript (ES6+)
+- **GIS Cartography:** [Leaflet.js 1.9.4](https://leafletjs.com/) with Esri World Imagery & Carto Basemaps
+- **3D Graphics Engine:** [Three.js r128](https://threejs.org/) + OrbitControls
+- **Icons & Typography:** [FontAwesome 6.4](https://fontawesome.com/), Google Fonts (*Playfair Display*, *Inter*)
 
 ---
 
-## 📱 Responsive Design
+## 📱 Responsive & Touch-Optimized
 
-The application is fully responsive, featuring a mobile-friendly hamburger menu, stackable layout grids, horizontal scrolling for data tables, and touch-optimized map controls for tablets and smartphones.
+- Custom mobile drawer navigation and touch gesture support for OrbitControls in 3D.
+- Touch-friendly Leaflet pinch-to-zoom and tapping targets for campus buildings.
+- Concentric responsive containers scaling gracefully from 320px mobile screens to 4K displays.
 
 <br>
 
 <div align="center">
-  <i>Designed and built for modern educational institutions.</i>
+  <i>Engineered with precision for modern educational campuses.</i>
 </div>
