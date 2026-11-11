@@ -109,29 +109,124 @@
         .empty-card { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:50px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.03); }
         .timetable-update-banner { background:rgba(217,119,6,0.08); border:1px solid rgba(217,119,6,0.25); border-radius:10px; padding:12px 18px; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
 
-        /* ===== MAP & WAYFINDING ===== */
-        .route-builder { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:18px 20px; margin-bottom:15px; display:flex; flex-direction:column; gap:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-        .route-controls { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+        /* ===== 2D CAMPUS MAP & WAYFINDING (ENTERPRISE STANDARD) ===== */
+        .section-header-row { display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; margin-bottom:18px; }
+        .map-mode-pills { display:flex; gap:6px; background:var(--bg-secondary); padding:4px; border-radius:10px; border:1px solid var(--card-border); }
+        .map-pill { background:transparent; border:none; color:var(--text-muted); font-size:0.78rem; font-weight:600; padding:6px 12px; border-radius:7px; cursor:pointer; transition:all 0.2s ease; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-body); }
+        .map-pill:hover { color:var(--text-main); background:rgba(0,0,0,0.04); }
+        .map-pill.active { background:var(--accent-cyan); color:#FFFFFF; box-shadow:0 2px 8px rgba(74,93,46,0.25); }
+
+        .route-builder { background:var(--card-bg); border:1px solid var(--card-border); border-radius:14px; padding:18px 22px; margin-bottom:16px; display:flex; flex-direction:column; gap:12px; box-shadow:0 2px 10px rgba(0,0,0,0.03); }
+        .route-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        .route-input-group { display:inline-flex; align-items:center; gap:8px; background:var(--bg-secondary); border:1px solid var(--card-border); padding:6px 12px; border-radius:8px; flex-grow:1; min-width:210px; }
+        .route-input-group select { background:transparent; border:none; outline:none; color:var(--text-main); font-size:0.85rem; font-weight:500; width:100%; font-family:var(--font-body); cursor:pointer; }
+        .btn-icon-swap { width:36px; height:36px; border-radius:8px; border:1px solid var(--card-border); background:var(--card-bg); color:var(--text-main); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:0.2s; font-size:0.85rem; }
+        .btn-icon-swap:hover { background:var(--accent-blue); color:var(--accent-cyan); border-color:var(--accent-cyan); transform:rotate(180deg); }
+        .btn-walk-sim { background:var(--bg-secondary); border:1px solid var(--card-border); color:var(--text-main); font-weight:600; padding:8px 16px; border-radius:8px; cursor:pointer; font-size:0.85rem; transition:0.2s; display:inline-flex; align-items:center; gap:6px; font-family:var(--font-body); }
+        .btn-walk-sim:hover { background:var(--accent-blue); color:var(--accent-cyan); border-color:var(--accent-cyan); }
+        .btn-walk-sim.active { background:#2563EB; color:#fff; border-color:#2563EB; }
+
         .route-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:10px; border-top:1px solid var(--bg-secondary); }
+        .route-meta-chips { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
         .route-meta-chip { display:inline-flex; align-items:center; gap:6px; background:var(--bg-secondary); border:1px solid var(--card-border); padding:5px 12px; border-radius:20px; font-size:0.8rem; font-weight:600; color:var(--text-main); }
-        .route-steps-container { background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:10px; padding:12px 14px; margin-top:8px; display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto; }
-        .route-step-item { display:flex; align-items:flex-start; gap:10px; font-size:0.82rem; color:var(--text-main); line-height:1.4; }
-        .route-step-num { width:20px; height:20px; border-radius:50%; background:var(--accent-cyan); color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:700; flex-shrink:0; margin-top:1px; }
-        .map-wrapper { display:grid; grid-template-columns:280px 1fr; gap:20px; height:560px; }
-        .map-sidebar { background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:15px; display:flex; flex-direction:column; gap:8px; overflow-y:auto; max-height:560px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-        .location-item { padding:10px 12px; background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px; cursor:pointer; transition:0.2s ease; }
-        .location-item:hover { background:var(--accent-blue); border-color:var(--accent-cyan); }
-        #map { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; background-color:#F5F5F0 !important; background-image:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+        .route-meta-chip.highlight { background:rgba(74,93,46,0.1); border-color:rgba(74,93,46,0.3); color:var(--accent-cyan); }
+        .route-meta-chip.covered { background:rgba(22,163,74,0.09); border-color:rgba(22,163,74,0.25); color:var(--success); }
+
+        .route-steps-container { background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:10px; padding:14px; margin-top:8px; display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; scrollbar-width:thin; }
+        .route-step-item { display:flex; align-items:flex-start; gap:12px; font-size:0.83rem; color:var(--text-main); line-height:1.45; padding:8px 10px; border-radius:8px; background:var(--card-bg); border:1px solid rgba(0,0,0,0.03); transition:0.2s; }
+        .route-step-item.active-step { background:var(--accent-blue); border-color:var(--accent-cyan); box-shadow:0 2px 8px rgba(74,93,46,0.12); }
+        .route-step-icon-wrap { width:26px; height:26px; border-radius:50%; background:var(--accent-blue); color:var(--accent-cyan); display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0; margin-top:1px; }
+        .route-step-item.active-step .route-step-icon-wrap { background:var(--accent-cyan); color:#fff; }
+        .route-step-dist { font-size:0.72rem; color:var(--text-muted); font-weight:600; margin-left:auto; white-space:nowrap; background:var(--bg-secondary); padding:2px 8px; border-radius:6px; }
+
+        .map-wrapper { display:grid; grid-template-columns:320px 1fr; gap:20px; height:620px; position:relative; }
+        .map-sidebar { background:var(--card-bg); border:1px solid var(--card-border); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px; overflow:hidden; height:620px; box-shadow:0 2px 10px rgba(0,0,0,0.03); }
+        .map-search-box { position:relative; display:flex; align-items:center; }
+        .map-search-box i { position:absolute; left:12px; color:var(--text-muted); font-size:0.85rem; pointer-events:none; }
+        .map-search-box input { width:100%; padding:9px 12px 9px 34px; background:var(--bg-secondary); border:1px solid var(--card-border); border-radius:8px; outline:none; font-size:0.82rem; font-family:var(--font-body); color:var(--text-main); transition:0.2s; }
+        .map-search-box input:focus { border-color:var(--accent-cyan); background:#fff; box-shadow:0 0 10px rgba(74,93,46,0.12); }
+        .map-search-box .search-clear { position:absolute; right:10px; color:var(--text-muted); cursor:pointer; font-size:0.8rem; display:none; }
+
+        .cat-pills-bar { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin; margin:2px 0; }
+        .cat-pill { white-space:nowrap; padding:4px 10px; border-radius:20px; font-size:0.72rem; font-weight:600; border:1px solid var(--card-border); background:var(--bg-secondary); color:var(--text-muted); cursor:pointer; transition:0.2s; font-family:var(--font-body); }
+        .cat-pill:hover { color:var(--text-main); background:rgba(0,0,0,0.05); }
+        .cat-pill.active { background:var(--accent-blue); color:var(--accent-cyan); border-color:var(--accent-cyan); }
+
+        #2d-location-list { flex-grow:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding-right:4px; scrollbar-width:thin; }
+        .location-item { padding:10px 12px; background:var(--card-bg); border:1px solid var(--card-border); border-radius:10px; cursor:pointer; transition:all 0.2s ease; display:flex; align-items:flex-start; gap:10px; }
+        .location-item:hover { background:var(--accent-blue); border-color:var(--accent-cyan); transform:translateY(-1px); box-shadow:0 3px 10px rgba(74,93,46,0.08); }
+        .location-item.selected { border-color:var(--accent-cyan); background:rgba(74,93,46,0.08); box-shadow:0 0 0 1px var(--accent-cyan); }
+        .loc-badge { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.75rem; color:#fff; flex-shrink:0; }
+        .loc-details { flex-grow:1; min-width:0; }
+        .loc-details strong { display:block; font-size:0.83rem; color:var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .loc-sub { font-size:0.72rem; color:var(--text-muted); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .loc-chips { display:flex; gap:4px; margin-top:4px; }
+        .loc-tag { font-size:0.65rem; padding:1px 6px; border-radius:4px; background:var(--bg-secondary); color:var(--text-muted); font-weight:500; }
+
+        /* Map Canvas */
+        #map { width:100%; height:620px; border-radius:14px; border:1px solid var(--card-border); overflow:hidden; position:relative; background-color:#F5F7F2 !important; box-shadow:0 4px 16px rgba(0,0,0,0.04); }
         #container-3d { width:100%; height:560px; border-radius:12px; border:1px solid var(--card-border); overflow:hidden; position:relative; touch-action:none; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
         
-        .leaflet-marker-icon.custom-cyber-pin { background:var(--card-bg); border:1.5px solid var(--accent-cyan); color:var(--accent-cyan); padding:4px 8px; border-radius:6px; font-weight:600; font-size:0.72rem; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; cursor:pointer; font-family:var(--font-body); }
-        .leaflet-marker-icon.route-start-pin { background:#16A34A; color:#FFFFFF; border:2px solid #FFFFFF; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.75rem; white-space:nowrap; box-shadow:0 3px 12px rgba(22,163,74,0.4); text-align:center; z-index:1000 !important; }
-        .leaflet-marker-icon.route-dest-pin { background:#DC2626; color:#FFFFFF; border:2px solid #FFFFFF; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.75rem; white-space:nowrap; box-shadow:0 3px 12px rgba(220,38,38,0.4); text-align:center; z-index:1000 !important; }
+        /* Floating Map Controls */
+        .map-tool-float-tr { position:absolute; top:16px; right:16px; z-index:900; display:flex; flex-direction:column; gap:8px; }
+        .map-tool-btn { width:36px; height:36px; border-radius:8px; background:var(--card-bg); border:1px solid var(--card-border); color:var(--text-main); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.88rem; transition:0.2s; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+        .map-tool-btn:hover { background:var(--accent-blue); color:var(--accent-cyan); border-color:var(--accent-cyan); }
+        
+        .map-compass-bl { position:absolute; bottom:16px; left:16px; z-index:900; background:rgba(255,255,255,0.92); backdrop-filter:blur(6px); border:1px solid var(--card-border); padding:6px 12px; border-radius:8px; font-size:0.75rem; font-weight:700; color:var(--text-main); display:flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+        .map-scale-meter { font-size:0.7rem; color:var(--text-muted); border-left:1px solid var(--card-border); padding-left:8px; }
 
-        .block-info-modal { position:absolute; bottom:25px; right:25px; width:320px; max-width:calc(100% - 50px); background:var(--card-bg); border:1px solid var(--card-border); border-radius:12px; padding:18px; box-shadow:0 12px 32px rgba(0,0,0,0.12); z-index:1000; animation:fadeIn 0.2s ease-out; max-height:450px; overflow-y:auto; }
-        .block-img-preview { width:100%; height:130px; object-fit:cover; border-radius:8px; border:1px solid var(--card-border); margin-bottom:12px; background:var(--bg-secondary); }
-        .floor-detail { margin-top:8px; padding:8px 10px; background:var(--bg-secondary); border-left:3px solid var(--accent-cyan); border-radius:6px; font-size:0.8rem; }
-        .floor-detail strong { color:var(--accent-cyan); display:block; margin-bottom:2px; }
+        .map-legend-card { position:absolute; bottom:16px; right:16px; z-index:900; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); border:1px solid var(--card-border); padding:10px 14px; border-radius:10px; font-size:0.72rem; box-shadow:0 6px 20px rgba(0,0,0,0.08); max-width:260px; transition:all 0.3s ease; }
+        .map-legend-card.hidden { opacity:0; pointer-events:none; transform:translateY(10px); }
+        .legend-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px 12px; margin-top:6px; }
+        .legend-item { display:flex; align-items:center; gap:6px; color:var(--text-main); font-weight:500; }
+        .legend-color { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+
+        /* Leaflet Vector Styling */
+        .campus-building-label { background:rgba(255,255,255,0.92); border:1px solid rgba(0,0,0,0.15); color:#1A2510; font-weight:700; font-size:0.68rem; padding:2px 6px; border-radius:5px; box-shadow:0 2px 6px rgba(0,0,0,0.1); white-space:nowrap; text-align:center; font-family:var(--font-body); pointer-events:auto; cursor:pointer; }
+        .campus-building-label:hover { background:var(--accent-cyan); color:#FFFFFF; }
+        .campus-tooltip { background:rgba(26,37,16,0.92); color:#FFFFFF; border:none; border-radius:6px; padding:6px 10px; font-size:0.75rem; font-family:var(--font-body); box-shadow:0 4px 16px rgba(0,0,0,0.15); }
+        .campus-tooltip::before { border-top-color:rgba(26,37,16,0.92) !important; }
+
+        /* Route Pins & Animation */
+        .leaflet-marker-icon.custom-cyber-pin { background:var(--card-bg); border:1.5px solid var(--accent-cyan); color:var(--accent-cyan); padding:4px 8px; border-radius:6px; font-weight:600; font-size:0.72rem; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.1); text-align:center; cursor:pointer; font-family:var(--font-body); }
+        .leaflet-marker-icon.route-start-pin { background:#16A34A; color:#FFFFFF; border:2px solid #FFFFFF; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.75rem; white-space:nowrap; box-shadow:0 3px 12px rgba(22,163,74,0.4); text-align:center; z-index:1000 !important; animation:pulsePin 2s infinite; }
+        .leaflet-marker-icon.route-dest-pin { background:#DC2626; color:#FFFFFF; border:2px solid #FFFFFF; padding:4px 10px; border-radius:20px; font-weight:700; font-size:0.75rem; white-space:nowrap; box-shadow:0 3px 12px rgba(220,38,38,0.4); text-align:center; z-index:1000 !important; animation:pulsePin 2s infinite; }
+        .leaflet-marker-icon.route-walker-pin { width:32px; height:32px; border-radius:50%; background:#2563EB; color:#FFFFFF; border:2.5px solid #FFFFFF; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(37,99,235,0.5); z-index:1100 !important; font-size:0.9rem; }
+
+        @keyframes pulsePin {
+            0% { transform:scale(1); }
+            50% { transform:scale(1.06); }
+            100% { transform:scale(1); }
+        }
+
+        @keyframes routeDashFlow {
+            from { stroke-dashoffset: 48; }
+            to { stroke-dashoffset: 0; }
+        }
+        .animated-route-flow { animation:routeDashFlow 1.4s linear infinite; }
+
+        /* Modern Building Inspector Modal / Drawer */
+        .block-info-modal { position:absolute; bottom:20px; right:20px; width:340px; max-width:calc(100% - 40px); background:rgba(255,255,255,0.98); backdrop-filter:blur(10px); border:1px solid var(--card-border); border-radius:14px; padding:18px; box-shadow:0 16px 40px rgba(0,0,0,0.14); z-index:1000; animation:fadeIn 0.2s ease-out; max-height:500px; overflow-y:auto; scrollbar-width:thin; }
+        .block-header-wrap { position:relative; margin-bottom:12px; }
+        .block-img-preview { width:100%; height:135px; object-fit:cover; border-radius:10px; border:1px solid var(--card-border); background:var(--bg-secondary); }
+        .block-cat-badge { position:absolute; top:8px; left:8px; background:rgba(255,255,255,0.92); font-size:0.68rem; font-weight:700; padding:3px 8px; border-radius:6px; color:var(--text-main); border:1px solid rgba(0,0,0,0.08); }
+        .block-close-btn { position:absolute; top:8px; right:8px; width:28px; height:28px; border-radius:50%; background:rgba(0,0,0,0.55); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.8rem; transition:0.2s; border:none; }
+        .block-close-btn:hover { background:rgba(0,0,0,0.85); transform:scale(1.05); }
+
+        .card-action-bar { display:flex; gap:6px; margin:12px 0; }
+        .btn-card-act { flex:1; padding:7px 10px; font-size:0.75rem; font-weight:600; border-radius:7px; border:1px solid var(--card-border); background:var(--bg-secondary); color:var(--text-main); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:5px; transition:0.2s; font-family:var(--font-body); }
+        .btn-card-act:hover { background:var(--accent-blue); color:var(--accent-cyan); border-color:var(--accent-cyan); }
+        .btn-card-act.primary { background:var(--accent-cyan); color:#fff; border-color:var(--accent-cyan); }
+        .btn-card-act.primary:hover { background:var(--accent-pink); }
+
+        .floor-tabs-bar { display:flex; gap:4px; margin-top:10px; border-bottom:1px solid var(--card-border); padding-bottom:6px; }
+        .floor-tab-btn { background:transparent; border:none; font-size:0.72rem; font-weight:600; color:var(--text-muted); padding:4px 8px; border-radius:5px; cursor:pointer; font-family:var(--font-body); }
+        .floor-tab-btn.active { background:var(--accent-blue); color:var(--accent-cyan); }
+
+        .floor-detail { margin-top:8px; padding:10px 12px; background:var(--bg-secondary); border-left:3px solid var(--accent-cyan); border-radius:8px; font-size:0.78rem; line-height:1.4; }
+        .floor-detail strong { color:var(--accent-cyan); display:block; margin-bottom:2px; font-size:0.8rem; }
+        .block-amenities { display:flex; flex-wrap:wrap; gap:4px; margin-top:10px; }
+        .amenity-chip { font-size:0.68rem; font-weight:500; background:rgba(74,93,46,0.06); border:1px solid rgba(74,93,46,0.15); color:var(--accent-cyan); padding:2px 8px; border-radius:4px; display:inline-flex; align-items:center; gap:4px; }
 
         /* ===== PSIT CAMPUS MIND AI ASSISTANT ===== */
         .ai-assistant-wrapper { background:var(--card-bg); border:1px solid var(--card-border); border-radius:16px; padding:22px; display:flex; flex-direction:column; height:calc(100vh - 270px); min-height:580px; box-shadow:0 4px 20px rgba(0,0,0,0.04); }
@@ -745,20 +840,40 @@
 
             <!-- ===== 2D MAP ===== -->
             <section id="sec-navigation" class="tab-section hidden">
-                <h2 class="section-header">COLLEGE - Vector Blueprint Wayfinding</h2>
+                <div class="section-header-row">
+                    <div>
+                        <h2 class="section-header" style="margin-bottom:4px;">PSIT Campus Blueprint & Precision Wayfinding</h2>
+                        <p style="font-size:0.82rem;color:var(--text-muted);margin-left:14px;">Interactive 2D GIS Blueprint • Graph-Optimized Pedestrian Routing • Real-Time Zone Telemetry</p>
+                    </div>
+                    <div class="map-mode-pills">
+                        <button class="map-pill active" id="pill-blueprint" onclick="setMapBasemap('blueprint')"><i class="fa-solid fa-compass-drafting"></i> Blueprint</button>
+                        <button class="map-pill" id="pill-streets" onclick="setMapBasemap('streets')"><i class="fa-solid fa-map"></i> Streets</button>
+                        <button class="map-pill" id="pill-satellite" onclick="setMapBasemap('satellite')"><i class="fa-solid fa-satellite"></i> Satellite</button>
+                        <button class="map-pill" id="pill-night" onclick="setMapBasemap('night')"><i class="fa-solid fa-moon"></i> Night</button>
+                    </div>
+                </div>
+
                 <div class="route-builder">
                     <div class="route-controls">
-                        <i class="fa-solid fa-route" style="color:var(--accent-cyan);font-size:1.2rem;"></i>
-                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">From:</label>
-                        <select id="route-start" class="select-dark"></select>
-                        <i class="fa-solid fa-arrow-right" style="color:var(--accent-cyan);font-size:0.8rem;"></i>
-                        <label style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">To:</label>
-                        <select id="route-end" class="select-dark"></select>
-                        <button onclick="drawCampusRoute()" class="btn-batch active" style="padding:8px 20px;">
-                            <i class="fa-solid fa-diamond-turn-right"></i> Draw Route Path
+                        <div class="route-input-group">
+                            <i class="fa-solid fa-location-dot" style="color:var(--success);font-size:0.95rem;"></i>
+                            <select id="route-start" aria-label="Route start location"></select>
+                        </div>
+                        <button onclick="swapRouteEndpoints()" class="btn-icon-swap" title="Swap Origin & Destination">
+                            <i class="fa-solid fa-right-left"></i>
                         </button>
-                        <button onclick="clearCampusRoute()" class="btn-batch" style="color:var(--danger);border-color:rgba(220,38,38,0.2);">
-                            <i class="fa-solid fa-trash-can"></i> Clear Route
+                        <div class="route-input-group">
+                            <i class="fa-solid fa-flag-checkered" style="color:var(--danger);font-size:0.95rem;"></i>
+                            <select id="route-end" aria-label="Route destination location"></select>
+                        </div>
+                        <button onclick="drawCampusRoute()" class="btn-batch active" style="padding:9px 20px;">
+                            <i class="fa-solid fa-diamond-turn-right"></i> Draw Route
+                        </button>
+                        <button id="btn-simulate-walk" onclick="toggleWalkSimulation()" class="btn-walk-sim hidden">
+                            <i class="fa-solid fa-person-walking"></i> Walk Simulation
+                        </button>
+                        <button onclick="clearCampusRoute()" class="btn-batch" style="color:var(--danger);border-color:rgba(220,38,38,0.25);">
+                            <i class="fa-solid fa-trash-can"></i> Clear
                         </button>
                     </div>
                     <div class="route-meta-bar" id="route-meta-bar">
@@ -770,19 +885,100 @@
                         <!-- Dynamic Turn-by-Turn Steps -->
                     </div>
                 </div>
+
                 <div class="map-wrapper">
                     <div class="map-sidebar">
-                        <h4 style="color:var(--text-main);margin-bottom:10px;font-family:var(--font-heading);">CAMPUS Key Blocks</h4>
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <h4 style="color:var(--text-main);font-family:var(--font-heading);font-size:0.95rem;">Campus Directory</h4>
+                            <span id="dir-count-badge" style="font-size:0.7rem;font-weight:700;color:var(--accent-cyan);background:var(--accent-blue);padding:2px 8px;border-radius:12px;">32 Locations</span>
+                        </div>
+                        <div class="map-search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="map-search-input" placeholder="Search blocks, labs, library, canteen, ATM..." oninput="handleMapSearch(this.value)">
+                            <i class="fa-solid fa-xmark search-clear" id="map-search-clear" onclick="clearMapSearch()"></i>
+                        </div>
+                        <div class="cat-pills-bar" id="category-filter-pills">
+                            <button class="cat-pill active" onclick="filterMapCategory('all', this)">All</button>
+                            <button class="cat-pill" onclick="filterMapCategory('academic', this)">Academic</button>
+                            <button class="cat-pill" onclick="filterMapCategory('admin', this)">Admin & PR</button>
+                            <button class="cat-pill" onclick="filterMapCategory('dining', this)">Dining</button>
+                            <button class="cat-pill" onclick="filterMapCategory('hostels', this)">Hostels</button>
+                            <button class="cat-pill" onclick="filterMapCategory('sports', this)">Sports</button>
+                            <button class="cat-pill" onclick="filterMapCategory('services', this)">Services</button>
+                        </div>
                         <div id="2d-location-list"></div>
                     </div>
+
                     <div id="map">
+                        <!-- Map Floating Tool Buttons -->
+                        <div class="map-tool-float-tr">
+                            <button class="map-tool-btn" onclick="fitCampusView()" title="Fit Whole Campus"><i class="fa-solid fa-crosshairs"></i></button>
+                            <button class="map-tool-btn" onclick="toggleMapFullscreen()" title="Toggle Fullscreen"><i class="fa-solid fa-expand"></i></button>
+                            <button class="map-tool-btn" onclick="toggleMapLegend()" title="Toggle Legend"><i class="fa-solid fa-list-check"></i></button>
+                        </div>
+
+                        <!-- Bottom Left Compass & Scale -->
+                        <div class="map-compass-bl">
+                            <i class="fa-solid fa-compass" style="color:var(--accent-cyan);font-size:1rem;"></i>
+                            <span>N 358°</span>
+                            <span class="map-scale-meter" id="map-zoom-label">Zoom 18x</span>
+                        </div>
+
+                        <!-- Map Legend Drawer -->
+                        <div class="map-legend-card" id="map-legend-card">
+                            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,0,0,0.06);padding-bottom:4px;">
+                                <strong style="font-size:0.75rem;color:var(--text-main);">Campus Map Key</strong>
+                                <i class="fa-solid fa-xmark" style="cursor:pointer;color:var(--text-muted);" onclick="toggleMapLegend()"></i>
+                            </div>
+                            <div class="legend-grid">
+                                <div class="legend-item"><div class="legend-color" style="background:#4A5D2E;"></div> Engineering & Tech</div>
+                                <div class="legend-item"><div class="legend-color" style="background:#827252;"></div> PR & Management</div>
+                                <div class="legend-item"><div class="legend-color" style="background:#468378;"></div> Pharmacy / Sci</div>
+                                <div class="legend-item"><div class="legend-color" style="background:#A65F46;"></div> Dining & Cafe</div>
+                                <div class="legend-item"><div class="legend-color" style="background:#7CB342;"></div> Sports Arena</div>
+                                <div class="legend-item"><div class="legend-color" style="background:#C8684A;"></div> Covered Gallery</div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Building Inspector Panel -->
                         <div id="2d-block-info-card" class="block-info-modal hidden">
-                            <img id="card-2d-img" class="block-img-preview" src="" alt="Block Image">
-                            <h3 id="card-2d-title">Block Details <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;" onclick="closeBlockModal2D()"></i></h3>
-                            <p id="card-2d-desc" style="font-size:0.75rem;color:var(--text-muted);margin-bottom:10px;">Click details</p>
-                            <div class="floor-detail"><strong>Ground Floor (p12):</strong><span id="card-2d-p12">CSE Labs &amp; Seminar Hall</span></div>
-                            <div class="floor-detail"><strong>1st Floor (p21):</strong><span id="card-2d-p21">IT Classrooms &amp; Faculty Cabins</span></div>
-                            <div class="floor-detail"><strong>2nd Floor (p31):</strong><span id="card-2d-p31">AI / ML Specialized Labs</span></div>
+                            <div class="block-header-wrap">
+                                <img id="card-2d-img" class="block-img-preview" src="" alt="Block Image">
+                                <span class="block-cat-badge" id="card-2d-cat">Academic Wing</span>
+                                <button class="block-close-btn" onclick="closeBlockModal2D()" aria-label="Close Inspector"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <h3 id="card-2d-title" style="font-size:1.05rem;color:var(--text-main);font-family:var(--font-heading);margin-bottom:4px;">Block Details</h3>
+                            <p id="card-2d-desc" style="font-size:0.75rem;color:var(--text-muted);line-height:1.4;margin-bottom:8px;">Click details</p>
+                            
+                            <div class="card-action-bar">
+                                <button class="btn-card-act" onclick="setOriginFromModal()"><i class="fa-solid fa-location-dot" style="color:var(--success);"></i> From Here</button>
+                                <button class="btn-card-act primary" onclick="setDestinationFromModal()"><i class="fa-solid fa-diamond-turn-right"></i> To Here</button>
+                                <button class="btn-card-act" onclick="jumpTo3DFromCurrentModal()"><i class="fa-solid fa-cube" style="color:var(--accent-cyan);"></i> 3D View</button>
+                            </div>
+
+                            <div class="floor-tabs-bar" id="card-floor-tabs">
+                                <button class="floor-tab-btn active" onclick="switchModalFloorTab('p12', this)">Ground</button>
+                                <button class="floor-tab-btn" onclick="switchModalFloorTab('p21', this)">1st Floor</button>
+                                <button class="floor-tab-btn" onclick="switchModalFloorTab('p31', this)">2nd Floor</button>
+                            </div>
+
+                            <div class="floor-detail" id="floor-detail-container">
+                                <strong id="floor-tab-label">Ground Floor (p12):</strong>
+                                <span id="card-2d-floor-content">CSE Labs &amp; Seminar Hall</span>
+                            </div>
+
+                            <div class="hidden" style="display:none;">
+                                <span id="card-2d-p12"></span>
+                                <span id="card-2d-p21"></span>
+                                <span id="card-2d-p31"></span>
+                            </div>
+
+                            <div class="block-amenities" id="card-amenities-tags">
+                                <span class="amenity-chip"><i class="fa-solid fa-snowflake"></i> Central AC</span>
+                                <span class="amenity-chip"><i class="fa-solid fa-wifi"></i> Wi-Fi 6</span>
+                                <span class="amenity-chip"><i class="fa-solid fa-wheelchair"></i> Ramps</span>
+                                <span class="amenity-chip"><i class="fa-solid fa-fire-extinguisher"></i> Safety</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1071,7 +1267,7 @@ function switchTab(tabId, element){
     }
     if(tabId==='navigation'){
         if(!map2D) init2DMap();
-        setTimeout(()=>{ if(map2D) map2D.invalidateSize(); }, 150);
+        setTimeout(()=>{ if(map2D) { map2D.invalidateSize(); if(!activeRoutePath) fitCampusView(); } }, 150);
     }
     if(tabId==='map-3d') setTimeout(()=>{ if(!scene) init3DMap(); else resize3DCanvas(); },150);
     if(tabId==='interruptions'){ refreshDashboardStats(); refreshInterruptionLists(); }
@@ -2086,129 +2282,992 @@ const campusLocations = {
     blockQ:   { key:"blockQ",  lat:26.448800, lng:80.192500, name:"Block Q (Workshop & Labs)",desc:"Central Mechanical Workshop, Fabrication & Language Enhancement Lab",         img:"https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80", p12:"p12 - Central Mechanical Workshop & Foundry Q12", p21:"p21 - Tutorial & Mentorship Rooms Q21", p31:"p31 - Advanced Language & Communication Lab Q31", x:9,   z:6,   w:6,  d:8,  rot:-Math.PI/4,  color:0x4A5D2E, height:3.5 }
 };
 
-// Populate Route Select Dropdowns
-function populateRouteDropdowns(){
-    const startSelect = $('route-start');
-    const endSelect   = $('route-end');
-    const list2D      = $('2d-location-list');
-    if(!startSelect||!endSelect) return;
-    startSelect.innerHTML=''; endSelect.innerHTML='';
-    if(list2D) list2D.innerHTML='';
-    Object.keys(campusLocations).forEach((key,index)=>{
-        const loc = campusLocations[key];
-        startSelect.innerHTML += `<option value="${key}">${loc.name}</option>`;
-        endSelect.innerHTML   += `<option value="${key}" ${index===5?'selected':''}>${loc.name}</option>`;
-        if(list2D){
-            list2D.innerHTML += `<div class="location-item" onclick="flyToLoc('${key}')">
-                <strong style="color:var(--text-main);font-weight:600;">${loc.name}</strong>
-                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">${loc.desc}</div>
-            </div>`;
-        }
-    });
-}
-
-// ===== LEAFLET 2D MAP & WAYFINDING =====
+// ===== LEAFLET 2D MAP & PRECISION WAYFINDING SYSTEM =====
 let map2D = null;
 let activeRoutePath = null;
 let activeRouteGlow = null;
 let activeRouteMarkers = [];
+let routeWalkerMarker = null;
+let walkSimulationTimer = null;
+let activeModalLocKey = null;
+let currentBasemapMode = 'blueprint';
+let activeMapCategory = 'all';
+
+// Map layer groups
+let tileBaseLayer = null;
+let campusBlueprintLayer = null;
+let campusPolygonsLayer = null;
+let campusLabelsLayer = null;
+let campusWalkwaysLayer = null;
+let campusRoadsLayer = null;
+let activePolyHighlight = null;
+
 const markers2D = {};
+const buildingPolys2D = {};
+
+const campusInfraLocations = {
+    mainGate:   { key:'mainGate',   lat:26.450350, lng:80.192086, name:'Main Campus Gate', cat:'services', desc:'Grand Entrance Gate, Security Checkpoint & Visitor Verification Turnstiles', img:'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80', p12:'p12 - Security Cabin & RFID Turnstiles', p21:'p21 - Visitor Pass Desk', p31:'p31 - Gate Control & CCTV Monitoring', w:16, d:2.5, rot:0, color:0xB22222 },
+    auditorium: { key:'auditorium', lat:26.449950, lng:80.192086, name:'Central Auditorium', cat:'admin', desc:'1350-Seat State-of-the-Art Dolby Atmos Convention & Cultural Auditorium', img:'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=500&auto=format&fit=crop&q=80', p12:'p12 - Main Hall Stalls & Green Rooms', p21:'p21 - Balcony Seating & Sound Deck', p31:'p31 - Projection Room & VIP Lounge', w:14, d:8, rot:0, color:0x6B5B4B },
+    boysHostel: { key:'boysHostel', lat:26.448750, lng:80.190850, name:"Boys' Hostel Complex", cat:'hostels', desc:'Modern Air-Cooled/AC Multi-Story Student Hostels with Mess & Study Lounges', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=80', p12:'p12 - Dining Mess & Warden Office', p21:'p21 - Student Rooms Wing A', p31:'p31 - Student Rooms Wing B & Common Hall', w:14, d:9, rot:0, color:0x7B6B55 },
+    girlsHostel:{ key:'girlsHostel',lat:26.448750, lng:80.193300, name:"Girls' Hostel Complex", cat:'hostels', desc:'Secure 24/7 Gated Multi-Story Residential Wing with Gymnasium & Wi-Fi', img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500&auto=format&fit=crop&q=80', p12:'p12 - Dining Mess & Security Office', p21:'p21 - Student Rooms Wing A', p31:'p31 - Student Rooms Wing B & Study Zone', w:14, d:9, rot:0, color:0x8B7B65 },
+    parking:    { key:'parking',    lat:26.450180, lng:80.191050, name:'Campus Parking Deck', cat:'services', desc:'Spacious Multi-Level Faculty & Student Two-Wheeler / Four-Wheeler Parking', img:'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=500&auto=format&fit=crop&q=80', p12:'p12 - Two-Wheeler Bay & EV Charging Point', p21:'p21 - Four-Wheeler Covered Deck', p31:'p31 - Reserved Faculty Parking', w:14, d:8, rot:0, color:0x888888 },
+    busStand:   { key:'busStand',   lat:26.450180, lng:80.193100, name:'College Bus Terminal', cat:'services', desc:'Transit Depot for College Fleet of 53 Air-Conditioned CNG Buses', img:'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&auto=format&fit=crop&q=80', p12:'p12 - Bus Bays 1 to 25 (Kanpur Routes)', p21:'p21 - Bus Bays 26 to 53 (Unnao / Lucknow)', p31:'p31 - Fleet Operations & Transport Office', w:12, d:7, rot:0, color:0x999999 },
+    sportsGround:{ key:'sportsGround',lat:26.447500, lng:80.192086, name:'Athletic Stadium & Ground', cat:'sports', desc:'400m Olympic Standard Running Track, Football Field & Cricket Turf Ground', img:'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&auto=format&fit=crop&q=80', p12:'p12 - Athletic Track & Main Turf Pitch', p21:'p21 - Spectator Stands & Pavilion', p31:'p31 - Sports Equipment Room & Referee Box', w:20, d:16, rot:0, color:0x7CB342 },
+    basketballCourt:{ key:'basketballCourt', lat:26.447650, lng:80.192700, name:'Basketball & Courts Arena', cat:'sports', desc:'Floodlit Synthetic Basketball & Volleyball Courts for Inter-College Tournaments', img:'https://images.unsplash.com/photo-1519766304817-4f37bda74a29?w=500&auto=format&fit=crop&q=80', p12:'p12 - Court A (Full Match Court)', p21:'p21 - Court B (Practice Court)', p31:'p31 - Referee Deck & Player Bench', w:8, d:6, rot:0, color:0xD4A76A },
+    solarPlant: { key:'solarPlant', lat:26.450000, lng:80.190850, name:'1530 kW Solar Power Farm', cat:'services', desc:'Green Energy Generation Array Powering 100% Daytime Campus Clean Energy', img:'https://images.unsplash.com/photo-1509391365360-2e959784a276?w=500&auto=format&fit=crop&q=80', p12:'p12 - Inverter Substation & Control Unit', p21:'p21 - Grid Synchronizer Unit', p31:'p31 - SCADA Solar Monitoring Room', w:10, d:7, rot:0, color:0x2244AA },
+    waterTower: { key:'waterTower', lat:26.449500, lng:80.193600, name:'Water Tower & Reservoir', cat:'services', desc:'Overhead Campus Clean Water Tower with Multi-Stage RO Filtration Plant', img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80', p12:'p12 - Industrial RO Plant & Pump House', p21:'p21 - Underground Water Reservoir', p31:'p31 - Elevated Tank (300,000 Liters)', w:5, d:5, rot:0, color:0x6699BB },
+    sbiAtm:     { key:'sbiAtm',     lat:26.449850, lng:80.192900, name:'SBI ATM & Banking Kiosk', cat:'services', desc:'24/7 State Bank of India Cash Deposit & Withdrawal Kiosk on Campus', img:'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=500&auto=format&fit=crop&q=80', p12:'p12 - ATM 1 & ATM 2 Cash Dispensers', p21:'p21 - Passbook Printing & CDM Machine', p31:'p31 - Bank Help Desk (10 AM - 4 PM)', w:4, d:3, rot:0, color:0x3366AA },
+    infirmary:  { key:'infirmary',  lat:26.449850, lng:80.191250, name:'Medical Dispensary & Health', cat:'services', desc:'24/7 Campus Medical Care Center with Resident Doctor & Emergency Ambulance', img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&auto=format&fit=crop&q=80', p12:'p12 - OPD Consultation & Emergency Bed', p21:'p21 - Pharmacy Dispensary & First Aid', p31:'p31 - Recovery Ward & Ambulance Bay', w:5, d:4, rot:0, color:0xCC3333 }
+};
+
+function getAllCampusLocations() {
+    return { ...campusLocations, ...campusInfraLocations };
+}
+
+function getLocationByKey(k) {
+    if(!k) return null;
+    return campusLocations[k] || campusInfraLocations[k] || null;
+}
+
+const categoryStyles = {
+    academic: { color: '#4A5D2E', label: 'Academic Wing', icon: 'fa-graduation-cap', badgeBg: '#4A5D2E' },
+    admin:    { color: '#7A5B45', label: 'Admin & PR',     icon: 'fa-landmark',       badgeBg: '#6B5B4B' },
+    dining:   { color: '#A65F46', label: 'Dining & Cafe',  icon: 'fa-utensils',       badgeBg: '#A65F46' },
+    hostels:  { color: '#7B6B55', label: 'Hostel Complex',icon: 'fa-bed',            badgeBg: '#7B6B55' },
+    sports:   { color: '#689F38', label: 'Sports Arena',   icon: 'fa-dumbbell',       badgeBg: '#689F38' },
+    amenity:  { color: '#8FAD5E', label: 'Campus Amenity', icon: 'fa-tree',           badgeBg: '#8FAD5E' },
+    services: { color: '#3366AA', label: 'Campus Services',icon: 'fa-shield-halved',  badgeBg: '#3366AA' }
+};
+
+function getCategoryConfig(cat) {
+    return categoryStyles[cat] || categoryStyles.academic;
+}
+
+const buildingShortCodes = {
+    tower:'TWR', admin:'ADM', lawn:'LAWN', rangmanch:'STAGE',
+    blockG:'G', blockE:'E', blockC:'C', blockA:'A', blockS:'S',
+    blockF:'F', blockD:'D', blockB:'B', blockJ:'J', blockK:'LIB',
+    blockM:'M', blockP:'P', blockR:'GYM', blockL:'L', blockN:'N', blockQ:'Q',
+    mainGate:'GATE', auditorium:'AUD', boysHostel:'BH', girlsHostel:'GH',
+    parking:'PRK', busStand:'BUS', sportsGround:'SPORTS', basketballCourt:'COURT',
+    solarPlant:'SOLAR', waterTower:'H2O', sbiAtm:'ATM', infirmary:'MED'
+};
+
+const locNodeMap = {
+    mainGate: 'gate',
+    parking: 'parking',
+    busStand: 'busStand',
+    solarPlant: 'solarPlant',
+    infirmary: 'infirmary',
+    sbiAtm: 'sbiAtm',
+    auditorium: 'auditorium',
+    tower: 'towerPlaza',
+    admin: 'adminPlaza',
+    lawn: 'lawnCenter',
+    rangmanch: 'rangmanchPlaza',
+    boysHostel: 'boysHostel',
+    girlsHostel: 'girlsHostel',
+    sportsGround: 'sportsJunction',
+    basketballCourt: 'basketballCourt',
+    waterTower: 'waterTower',
+    blockG: 'wgG',
+    blockE: 'wgE',
+    blockC: 'wgC',
+    blockA: 'wgA',
+    blockS: 'wgS',
+    blockF: 'wgF',
+    blockD: 'wgD',
+    blockB: 'wgB',
+    blockJ: 'egJ',
+    blockK: 'egK',
+    blockM: 'egM',
+    blockP: 'egP',
+    blockR: 'egR',
+    blockL: 'egL',
+    blockN: 'egN',
+    blockQ: 'egQ'
+};
+
+const campusNavGraphNodes = {
+  gate: { pos: [26.450350, 80.192086], name: 'Main Campus Gate' },
+  avenueNorth: { pos: [26.450180, 80.192086], name: 'Main Entrance Avenue' },
+  parking: { pos: [26.450180, 80.191100], name: 'Campus Parking Deck' },
+  busStand: { pos: [26.450180, 80.193100], name: 'Campus Bus Stand' },
+  solarPlant: { pos: [26.450000, 80.190850], name: 'Solar Energy Array' },
+  avenueMid: { pos: [26.449850, 80.192086], name: 'North Central Plaza' },
+  infirmary: { pos: [26.449850, 80.191250], name: 'Medical Health Center' },
+  sbiAtm: { pos: [26.449850, 80.192900], name: 'SBI ATM & Bank Kiosk' },
+  auditorium: { pos: [26.449950, 80.192086], name: 'Central Auditorium Foyer' },
+  towerPlaza: { pos: [26.449700, 80.192086], name: 'Campus Tower Promenade' },
+  adminPlaza: { pos: [26.449450, 80.192086], name: 'Town Hall Central Square' },
+  lawnNorth: { pos: [26.449250, 80.192086], name: 'Central Lawn North Walk' },
+  lawnCenter: { pos: [26.449000, 80.192086], name: 'Central Lawn Center Promenade' },
+  lawnSouth: { pos: [26.448600, 80.192086], name: 'Central Lawn South Walk' },
+  rangmanchPlaza: { pos: [26.448200, 80.192086], name: 'Rang Manch Amphitheatre' },
+  southPlaza: { pos: [26.448000, 80.192086], name: 'South Promenade' },
+  sportsJunction: { pos: [26.447500, 80.192086], name: 'Athletic Track & Sports Stadium' },
+  basketballCourt: { pos: [26.447650, 80.192700], name: 'Basketball & Volleyball Courts' },
+  wgG: { pos: [26.449650, 80.191450], name: 'West Gallery at Block G' },
+  wgE: { pos: [26.449400, 80.191450], name: 'West Gallery at Block E' },
+  wgC: { pos: [26.449200, 80.191450], name: 'West Gallery at Block C' },
+  wgA: { pos: [26.449000, 80.191450], name: 'West Gallery at Block A' },
+  wgS: { pos: [26.448600, 80.191450], name: 'West Gallery at Block S (Cafeteria)' },
+  boysHostel: { pos: [26.448750, 80.190850], name: "Boys' Hostel Quadrangle" },
+  wgF: { pos: [26.449300, 80.191650], name: 'Block F Inner Walkway' },
+  wgD: { pos: [26.449100, 80.191650], name: 'Block D Inner Walkway' },
+  wgB: { pos: [26.448800, 80.191650], name: 'Block B Inner Walkway' },
+  egJ: { pos: [26.449650, 80.192650], name: 'East Gallery at Block J' },
+  egK: { pos: [26.449400, 80.192650], name: 'East Gallery at Block K (Library)' },
+  egM: { pos: [26.449200, 80.192650], name: 'East Gallery at Block M' },
+  egP: { pos: [26.449000, 80.192650], name: 'East Gallery at Block P' },
+  egR: { pos: [26.448600, 80.192650], name: 'East Gallery at Block R (Gym)' },
+  girlsHostel: { pos: [26.448750, 80.193300], name: "Girls' Hostel Quadrangle" },
+  waterTower: { pos: [26.449500, 80.193600], name: 'Campus Water Tower' },
+  egL: { pos: [26.449300, 80.192450], name: 'Block L Inner Walkway' },
+  egN: { pos: [26.449100, 80.192450], name: 'Block N Inner Walkway' },
+  egQ: { pos: [26.448800, 80.192450], name: 'Block Q Inner Walkway' }
+};
+
+const campusNavEdges = [
+  ['gate', 'avenueNorth'],
+  ['avenueNorth', 'parking'],
+  ['avenueNorth', 'busStand'],
+  ['parking', 'solarPlant'],
+  ['avenueNorth', 'avenueMid'],
+  ['avenueMid', 'infirmary'],
+  ['avenueMid', 'sbiAtm'],
+  ['avenueMid', 'auditorium'],
+  ['auditorium', 'towerPlaza'],
+  ['avenueMid', 'towerPlaza'],
+  ['towerPlaza', 'adminPlaza'],
+  ['adminPlaza', 'lawnNorth'],
+  ['lawnNorth', 'lawnCenter'],
+  ['lawnCenter', 'lawnSouth'],
+  ['lawnSouth', 'rangmanchPlaza'],
+  ['rangmanchPlaza', 'southPlaza'],
+  ['southPlaza', 'sportsJunction'],
+  ['sportsJunction', 'basketballCourt'],
+  ['infirmary', 'wgG'],
+  ['wgG', 'wgE'],
+  ['wgE', 'wgC'],
+  ['wgC', 'wgA'],
+  ['wgA', 'wgS'],
+  ['wgS', 'boysHostel'],
+  ['boysHostel', 'southPlaza'],
+  ['sbiAtm', 'egJ'],
+  ['egJ', 'egK'],
+  ['egK', 'egM'],
+  ['egM', 'egP'],
+  ['egP', 'egR'],
+  ['egK', 'waterTower'],
+  ['egR', 'girlsHostel'],
+  ['girlsHostel', 'southPlaza'],
+  ['girlsHostel', 'basketballCourt'],
+  ['wgG', 'towerPlaza'],
+  ['towerPlaza', 'egJ'],
+  ['wgE', 'adminPlaza'],
+  ['adminPlaza', 'egK'],
+  ['wgC', 'lawnCenter'],
+  ['lawnCenter', 'egM'],
+  ['wgA', 'lawnSouth'],
+  ['lawnSouth', 'egP'],
+  ['wgS', 'rangmanchPlaza'],
+  ['rangmanchPlaza', 'egR'],
+  ['wgF', 'wgE'], ['wgF', 'adminPlaza'],
+  ['wgD', 'wgC'], ['wgD', 'lawnCenter'],
+  ['wgB', 'wgA'], ['wgB', 'lawnSouth'],
+  ['egL', 'egK'], ['egL', 'adminPlaza'],
+  ['egN', 'egM'], ['egN', 'lawnCenter'],
+  ['egQ', 'egP'], ['egQ', 'lawnSouth']
+];
+
+const campusNavAdj = {};
+Object.keys(campusNavGraphNodes).forEach(k => { campusNavAdj[k] = []; });
+campusNavEdges.forEach(([u, v]) => {
+  const p1 = campusNavGraphNodes[u].pos;
+  const p2 = campusNavGraphNodes[v].pos;
+  const dLat = (p2[0] - p1[0]) * 111000;
+  const dLng = (p2[1] - p1[1]) * 100000;
+  const d = Math.sqrt(dLat * dLat + dLng * dLng);
+  campusNavAdj[u].push({ to: v, d });
+  campusNavAdj[v].push({ to: u, d });
+});
+
+function dijkstraNav(startKey, targetKey) {
+  const dist = {}, prev = {};
+  const q = new Set(Object.keys(campusNavGraphNodes));
+  Object.keys(campusNavGraphNodes).forEach(k => { dist[k] = Infinity; });
+  dist[startKey] = 0;
+
+  while (q.size > 0) {
+    let u = null;
+    q.forEach(node => {
+      if (u === null || dist[node] < dist[u]) u = node;
+    });
+    if (u === targetKey || dist[u] === Infinity) break;
+    q.delete(u);
+
+    campusNavAdj[u].forEach(({ to, d }) => {
+      if (q.has(to)) {
+        const alt = dist[u] + d;
+        if (alt < dist[to]) {
+          dist[to] = alt;
+          prev[to] = u;
+        }
+      }
+    });
+  }
+
+  const path = [];
+  let curr = targetKey;
+  while (curr) {
+    path.unshift(curr);
+    curr = prev[curr];
+  }
+  return { path, distance: Math.round(dist[targetKey]) };
+}
+
+function distMeters(p1, p2) {
+  const dLat = (p2[0] - p1[0]) * 111000;
+  const dLng = (p2[1] - p1[1]) * 100000;
+  return Math.sqrt(dLat * dLat + dLng * dLng);
+}
+
+// Populate Route Select Dropdowns and Directory List
+function populateRouteDropdowns(){
+    const startSelect = $('route-start');
+    const endSelect   = $('route-end');
+    const list2D      = $('2d-location-list');
+    if(!startSelect || !endSelect) return;
+
+    startSelect.innerHTML = '';
+    endSelect.innerHTML   = '';
+    if(list2D) list2D.innerHTML = '';
+
+    const allLocs = getAllCampusLocations();
+    const categories = {
+        academic: { title: 'Academic Wings & Departments', items: [] },
+        admin:    { title: 'Administrative & Executive',   items: [] },
+        dining:   { title: 'Cafeteria & Dining',           items: [] },
+        hostels:  { title: 'Student Hostels & Living',     items: [] },
+        sports:   { title: 'Sports & Athletics',           items: [] },
+        services: { title: 'Campus Services & Gate',       items: [] },
+        amenity:  { title: 'Campus Amenities & Lawns',     items: [] }
+    };
+
+    Object.keys(allLocs).forEach(key => {
+        const loc = allLocs[key];
+        const cat = loc.cat || 'academic';
+        if(categories[cat]) categories[cat].items.push(loc);
+        else categories.academic.items.push(loc);
+    });
+
+    Object.keys(categories).forEach(catKey => {
+        const grp = categories[catKey];
+        if(grp.items.length === 0) return;
+        let optGroupStart = `<optgroup label="${grp.title}">`;
+        let optGroupEnd   = `<optgroup label="${grp.title}">`;
+
+        grp.items.forEach(loc => {
+            optGroupStart += `<option value="${loc.key}">${loc.name}</option>`;
+            optGroupEnd   += `<option value="${loc.key}" ${loc.key === 'tower' ? 'selected' : ''}>${loc.name}</option>`;
+        });
+
+        optGroupStart += '</optgroup>';
+        optGroupEnd   += '</optgroup>';
+        startSelect.innerHTML += optGroupStart;
+        endSelect.innerHTML   += optGroupEnd;
+    });
+
+    // Default start Block A, destination Campus Tower
+    if(startSelect.querySelector('option[value="blockA"]')) startSelect.value = 'blockA';
+    if(endSelect.querySelector('option[value="tower"]')) endSelect.value = 'tower';
+
+    renderLocationDirectory(allLocs);
+}
+
+// Render the Location Directory in Sidebar
+function renderLocationDirectory(locsObj, filterText, filterCat){
+    const list2D = $('2d-location-list');
+    if(!list2D) return;
+    list2D.innerHTML = '';
+
+    const keys = Object.keys(locsObj);
+    let count = 0;
+
+    keys.forEach(key => {
+        const loc = locsObj[key];
+        const cat = loc.cat || 'academic';
+        const cfg = getCategoryConfig(cat);
+        const code = buildingShortCodes[key] || key.toUpperCase();
+
+        if(filterCat && filterCat !== 'all' && cat !== filterCat) return;
+
+        if(filterText) {
+            const q = filterText.toLowerCase();
+            const haystack = `${loc.name} ${loc.desc} ${loc.p12||''} ${loc.p21||''} ${loc.p31||''} ${code}`.toLowerCase();
+            if(!haystack.includes(q)) return;
+        }
+
+        count++;
+        const item = document.createElement('div');
+        item.className = 'location-item';
+        item.id = `dir-item-${key}`;
+        item.onclick = () => flyToLoc(key);
+        item.innerHTML = `
+            <div class="loc-badge" style="background:${cfg.badgeBg};">
+                <i class="fa-solid ${cfg.icon}"></i>
+            </div>
+            <div class="loc-details">
+                <strong>${loc.name}</strong>
+                <div class="loc-sub">${loc.desc}</div>
+                <div class="loc-chips">
+                    <span class="loc-tag">${cfg.label}</span>
+                    <span class="loc-tag">${code}</span>
+                </div>
+            </div>
+        `;
+        list2D.appendChild(item);
+    });
+
+    const badge = $('dir-count-badge');
+    if(badge) badge.innerText = `${count} Locations`;
+}
+
+function handleMapSearch(val){
+    const q = val.trim();
+    const clearBtn = $('map-search-clear');
+    if(clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+    renderLocationDirectory(getAllCampusLocations(), q, activeMapCategory);
+
+    // Highlight matching building polygons on the map
+    if(campusPolygonsLayer) {
+        const allLocs = getAllCampusLocations();
+        Object.keys(buildingPolys2D).forEach(k => {
+            const poly = buildingPolys2D[k];
+            const loc = allLocs[k];
+            if(!loc) return;
+            if(!q) {
+                poly.setStyle({ fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.85, opacity: 1 });
+            } else {
+                const code = buildingShortCodes[k] || '';
+                const haystack = `${loc.name} ${loc.desc} ${loc.p12||''} ${code}`.toLowerCase();
+                const matched = haystack.includes(q.toLowerCase());
+                poly.setStyle({
+                    fillOpacity: matched ? 0.95 : 0.15,
+                    opacity: matched ? 1.0 : 0.25,
+                    weight: matched ? 3 : 1
+                });
+            }
+        });
+    }
+}
+
+function clearMapSearch(){
+    const input = $('map-search-input');
+    if(input) { input.value = ''; handleMapSearch(''); }
+}
+
+function filterMapCategory(cat, btnEl){
+    activeMapCategory = cat;
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    if(btnEl) btnEl.classList.add('active');
+
+    const searchVal = $('map-search-input') ? $('map-search-input').value : '';
+    renderLocationDirectory(getAllCampusLocations(), searchVal, cat);
+
+    // Adjust polygon emphasis by category
+    if(campusPolygonsLayer) {
+        const allLocs = getAllCampusLocations();
+        Object.keys(buildingPolys2D).forEach(k => {
+            const poly = buildingPolys2D[k];
+            const loc = allLocs[k];
+            if(!loc) return;
+            const match = cat === 'all' || (loc.cat || 'academic') === cat;
+            poly.setStyle({
+                fillOpacity: match ? (currentBasemapMode === 'satellite' ? 0.5 : 0.85) : 0.2,
+                opacity: match ? 1 : 0.3
+            });
+        });
+    }
+}
+
+// Compute 2.5D polygon corners from location metrics
+function computePolygonCorners(loc){
+    const dLatPerUnit = 0.000032;
+    const dLngPerUnit = 0.000040;
+    const hw = (loc.w || 6) / 2;
+    const hd = (loc.d || 6) / 2;
+    const rot = loc.rot || 0;
+    const corners = [
+        [-hw, -hd],
+        [hw, -hd],
+        [hw, hd],
+        [-hw, hd]
+    ];
+    return corners.map(([cx, cz]) => {
+        const rx = cx * Math.cos(rot) - cz * Math.sin(rot);
+        const rz = cx * Math.sin(rot) + cz * Math.cos(rot);
+        return [
+            +(loc.lat - rz * dLatPerUnit).toFixed(6),
+            +(loc.lng + rx * dLngPerUnit).toFixed(6)
+        ];
+    });
+}
 
 function init2DMap(){
     if(map2D) return;
     const mapEl = $('map');
     if(!mapEl) return;
-    
-    map2D = L.map('map',{zoomControl:true,attributionControl:false}).setView([26.449100,80.192086],18);
-    
-    // Add campus base layer styling
-    Object.keys(campusLocations).forEach(key=>{
-        const loc = campusLocations[key];
-        const customIcon = L.divIcon({
-            className:'custom-cyber-pin',
-            html:`<div>${loc.name.split(' (')[0]}</div>`,
-            iconSize:[110,26],
-            iconAnchor:[55,13]
-        });
-        const marker = L.marker([loc.lat,loc.lng],{icon:customIcon}).addTo(map2D);
-        marker.on('click',()=>showBlockModal2D(loc));
-        markers2D[key]=marker;
+
+    // Initialize Leaflet Map centered on PSIT Kanpur campus
+    map2D = L.map('map', {
+        zoomControl: false,
+        attributionControl: false,
+        minZoom: 16,
+        maxZoom: 20
+    }).setView([26.449100, 80.192086], 18);
+
+    L.control.zoom({ position: 'topleft' }).addTo(map2D);
+
+    campusBlueprintLayer = L.layerGroup().addTo(map2D);
+    campusRoadsLayer     = L.layerGroup().addTo(map2D);
+    campusWalkwaysLayer  = L.layerGroup().addTo(map2D);
+    campusPolygonsLayer  = L.layerGroup().addTo(map2D);
+    campusLabelsLayer    = L.layerGroup().addTo(map2D);
+
+    renderBlueprintBase();
+    renderCampusPolygons();
+
+    map2D.on('zoomend', () => {
+        const z = map2D.getZoom();
+        const lbl = $('map-zoom-label');
+        if(lbl) lbl.innerText = `Zoom ${z}x`;
+    });
+
+    setTimeout(() => {
+        if(map2D) {
+            map2D.invalidateSize();
+            fitCampusView();
+        }
+    }, 200);
+}
+
+function renderBlueprintBase(){
+    if(!campusBlueprintLayer) return;
+    campusBlueprintLayer.clearLayers();
+    campusRoadsLayer.clearLayers();
+    campusWalkwaysLayer.clearLayers();
+
+    // 1. Campus Boundary & Green Grounds
+    const campusBounds = [
+        [26.450700, 80.190100],
+        [26.450700, 80.194000],
+        [26.447000, 80.194000],
+        [26.447000, 80.190100]
+    ];
+    L.polygon(campusBounds, {
+        color: '#BDD2A6',
+        weight: 2,
+        dashArray: '6, 6',
+        fillColor: '#F2F6ED',
+        fillOpacity: 0.98,
+        interactive: false
+    }).addTo(campusBlueprintLayer);
+
+    // 2. Campus Roads (Ring Road & Main Avenue)
+    const ringRoadPath = [
+        [26.450300, 80.190700],
+        [26.450300, 80.193400],
+        [26.447400, 80.193400],
+        [26.447400, 80.190700],
+        [26.450300, 80.190700]
+    ];
+    // Road asphalt base
+    L.polyline(ringRoadPath, {
+        color: '#7F8996',
+        weight: 15,
+        opacity: 0.95,
+        lineCap: 'round',
+        lineJoin: 'round',
+        interactive: false
+    }).addTo(campusRoadsLayer);
+
+    // Road lane markings
+    L.polyline(ringRoadPath, {
+        color: '#FFFFFF',
+        weight: 1.5,
+        dashArray: '6, 8',
+        opacity: 0.9,
+        interactive: false
+    }).addTo(campusRoadsLayer);
+
+    // Main Entrance Boulevard (Gate to North Central Plaza)
+    const entranceBoulevard = [
+        [26.450350, 80.192086],
+        [26.449850, 80.192086]
+    ];
+    L.polyline(entranceBoulevard, {
+        color: '#75808D',
+        weight: 14,
+        opacity: 0.95,
+        interactive: false
+    }).addTo(campusRoadsLayer);
+    L.polyline(entranceBoulevard, {
+        color: '#EAB308',
+        weight: 1.5,
+        dashArray: '6, 6',
+        opacity: 0.9,
+        interactive: false
+    }).addTo(campusRoadsLayer);
+
+    // 3. PSIT Signature Red-Brick Covered Gallery Walkways
+    // West covered gallery corridor (Blocks G-E-C-A-S)
+    const westGallery = [
+        [26.449700, 80.191450],
+        [26.448550, 80.191450]
+    ];
+    L.polyline(westGallery, {
+        color: '#C8684A',
+        weight: 8,
+        opacity: 0.92,
+        lineCap: 'square',
+        interactive: false
+    }).addTo(campusWalkwaysLayer);
+    L.polyline(westGallery, {
+        color: '#FFE5DC',
+        weight: 1.5,
+        dashArray: '4, 4',
+        opacity: 0.9,
+        interactive: false
+    }).addTo(campusWalkwaysLayer);
+
+    // East covered gallery corridor (Blocks J-K-M-P-R)
+    const eastGallery = [
+        [26.449700, 80.192650],
+        [26.448550, 80.192650]
+    ];
+    L.polyline(eastGallery, {
+        color: '#C8684A',
+        weight: 8,
+        opacity: 0.92,
+        lineCap: 'square',
+        interactive: false
+    }).addTo(campusWalkwaysLayer);
+    L.polyline(eastGallery, {
+        color: '#FFE5DC',
+        weight: 1.5,
+        dashArray: '4, 4',
+        opacity: 0.9,
+        interactive: false
+    }).addTo(campusWalkwaysLayer);
+
+    // Covered Crosswalks connecting corridors to Central Town Hall Plaza
+    const crosswalks = [
+        [[26.449650, 80.191450], [26.449700, 80.192086], [26.449650, 80.192650]],
+        [[26.449400, 80.191450], [26.449450, 80.192086], [26.449400, 80.192650]],
+        [[26.449000, 80.191450], [26.449000, 80.192086], [26.449000, 80.192650]],
+        [[26.448600, 80.191450], [26.448200, 80.192086], [26.448600, 80.192650]]
+    ];
+    crosswalks.forEach(cw => {
+        L.polyline(cw, {
+            color: '#D47E64',
+            weight: 5,
+            opacity: 0.85,
+            interactive: false
+        }).addTo(campusWalkwaysLayer);
+    });
+
+    // 4. Central Green Lawn Landscape
+    const lawnPolygon = [
+        [26.449300, 80.191850],
+        [26.449300, 80.192320],
+        [26.448700, 80.192320],
+        [26.448700, 80.191850]
+    ];
+    L.polygon(lawnPolygon, {
+        color: '#7EA651',
+        weight: 2,
+        fillColor: '#BFE09B',
+        fillOpacity: 0.95,
+        interactive: false
+    }).addTo(campusBlueprintLayer);
+
+    // Central Lawn Fountain Marker
+    const fountainIcon = L.divIcon({
+        className: 'campus-fountain-pin',
+        html: '<div style="font-size:1rem;color:#2B6CB0;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));">⛲</div>',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+    });
+    L.marker([26.449000, 80.192086], { icon: fountainIcon, interactive: false }).addTo(campusBlueprintLayer);
+
+    // 5. Sports Stadium Track (Athletic Field)
+    L.circle([26.447500, 80.192086], {
+        radius: 36,
+        color: '#D2694E',
+        weight: 6,
+        fillColor: '#88C56B',
+        fillOpacity: 0.9,
+        interactive: false
+    }).addTo(campusBlueprintLayer);
+
+    // Basketball Synthetic Court
+    const bballCourtPoly = [
+        [26.447730, 80.192550],
+        [26.447730, 80.192850],
+        [26.447570, 80.192850],
+        [26.447570, 80.192550]
+    ];
+    L.polygon(bballCourtPoly, {
+        color: '#FFFFFF',
+        weight: 1.5,
+        fillColor: '#3B7C9E',
+        fillOpacity: 0.95,
+        interactive: false
+    }).addTo(campusBlueprintLayer);
+
+    // 6. Trees scattered in courtyards (matching 3D model)
+    const treePoints = [
+        [26.449800, 80.191750], [26.449800, 80.192400],
+        [26.449550, 80.191750], [26.449550, 80.192400],
+        [26.449150, 80.191750], [26.449150, 80.192400],
+        [26.448400, 80.191750], [26.448400, 80.192400],
+        [26.450250, 80.191650], [26.450250, 80.192550]
+    ];
+    treePoints.forEach(pt => {
+        L.circleMarker(pt, {
+            radius: 5,
+            color: '#3B7C2A',
+            weight: 1,
+            fillColor: '#58A842',
+            fillOpacity: 0.9,
+            interactive: false
+        }).addTo(campusBlueprintLayer);
     });
 }
 
+function renderCampusPolygons(){
+    if(!campusPolygonsLayer) return;
+    campusPolygonsLayer.clearLayers();
+    campusLabelsLayer.clearLayers();
+
+    const allLocs = getAllCampusLocations();
+
+    Object.keys(allLocs).forEach(key => {
+        const loc = allLocs[key];
+        const cat = loc.cat || 'academic';
+        const cfg = getCategoryConfig(cat);
+        const code = buildingShortCodes[key] || key.toUpperCase();
+        const corners = computePolygonCorners(loc);
+
+        // Building Polygon
+        const poly = L.polygon(corners, {
+            color: '#243315',
+            weight: 1.8,
+            fillColor: cfg.badgeBg,
+            fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.88,
+            className: 'campus-poly-interactive'
+        }).addTo(campusPolygonsLayer);
+
+        // Tooltip
+        poly.bindTooltip(`
+            <strong>${loc.name}</strong>
+            <div style="font-size:0.7rem;color:#E4EAD8;margin-top:2px;">${cfg.label} • Click for details</div>
+        `, {
+            className: 'campus-tooltip',
+            sticky: true,
+            direction: 'top'
+        });
+
+        // Events
+        poly.on('mouseover', () => {
+            poly.setStyle({ weight: 3, color: '#EAB308', fillOpacity: 0.98 });
+            const dirItem = $(`dir-item-${key}`);
+            if(dirItem) dirItem.classList.add('selected');
+        });
+
+        poly.on('mouseout', () => {
+            if(activePolyHighlight !== poly) {
+                poly.setStyle({
+                    weight: 1.8,
+                    color: '#243315',
+                    fillOpacity: currentBasemapMode === 'satellite' ? 0.45 : 0.88
+                });
+            }
+            const dirItem = $(`dir-item-${key}`);
+            if(dirItem && activeModalLocKey !== key) dirItem.classList.remove('selected');
+        });
+
+        poly.on('click', () => {
+            showBlockModal2D(loc);
+            highlightBuildingPoly(key);
+        });
+
+        buildingPolys2D[key] = poly;
+
+        // Centered Badge Marker
+        const customIcon = L.divIcon({
+            className: 'custom-building-pin-wrap',
+            html: `<div class="campus-building-label" style="border-color:${cfg.color};" onclick="flyToLoc('${key}')">${code}</div>`,
+            iconSize: [44, 20],
+            iconAnchor: [22, 10]
+        });
+        const labelMarker = L.marker([loc.lat, loc.lng], { icon: customIcon }).addTo(campusLabelsLayer);
+        markers2D[key] = labelMarker;
+    });
+}
+
+function highlightBuildingPoly(key){
+    if(activePolyHighlight) {
+        activePolyHighlight.setStyle({ weight: 1.8, color: '#243315' });
+        activePolyHighlight = null;
+    }
+    const poly = buildingPolys2D[key];
+    if(poly) {
+        poly.setStyle({ weight: 4, color: '#16A34A', fillOpacity: 0.98 });
+        activePolyHighlight = poly;
+    }
+}
+
+function setMapBasemap(mode){
+    currentBasemapMode = mode;
+    document.querySelectorAll('.map-pill').forEach(p => p.classList.remove('active'));
+    const activePill = $(`pill-${mode}`);
+    if(activePill) activePill.classList.add('active');
+
+    if(tileBaseLayer && map2D) {
+        map2D.removeLayer(tileBaseLayer);
+        tileBaseLayer = null;
+    }
+
+    const mapEl = $('map');
+
+    if(mode === 'streets') {
+        if(mapEl) mapEl.style.backgroundColor = '#FFFFFF';
+        tileBaseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 20
+        }).addTo(map2D);
+        if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
+    } else if(mode === 'satellite') {
+        if(mapEl) mapEl.style.backgroundColor = '#1A1A1A';
+        tileBaseLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19
+        }).addTo(map2D);
+        if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
+    } else if(mode === 'night') {
+        if(mapEl) mapEl.style.backgroundColor = '#0F172A';
+        tileBaseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 20
+        }).addTo(map2D);
+        if(tileBaseLayer.bringToBack) tileBaseLayer.bringToBack();
+    } else {
+        // Blueprint mode (pure vector CAD)
+        if(mapEl) mapEl.style.backgroundColor = '#F5F7F2';
+    }
+
+    // Refresh polygon opacities
+    if(campusPolygonsLayer) {
+        Object.keys(buildingPolys2D).forEach(k => {
+            buildingPolys2D[k].setStyle({
+                fillOpacity: mode === 'satellite' ? 0.45 : 0.88,
+                color: mode === 'satellite' ? '#EAB308' : '#243315'
+            });
+        });
+    }
+}
+
 function flyToLoc(key){
-    if(!campusLocations[key]) return;
-    const loc = campusLocations[key];
+    const loc = getLocationByKey(key);
+    if(!loc) return;
     if(!map2D) init2DMap();
     switchTab('navigation');
-    setTimeout(()=>{
+    setTimeout(() => {
         if(map2D){
             map2D.invalidateSize();
-            map2D.flyTo([loc.lat,loc.lng],19,{duration:1.0});
+            map2D.flyTo([loc.lat, loc.lng], 19, { duration: 1.0 });
         }
         showBlockModal2D(loc);
-    },200);
+        highlightBuildingPoly(key);
+    }, 200);
 }
 
 function showBlockModal2D(loc){
-    $('card-2d-img').src=loc.img;
-    $('card-2d-title').innerHTML=`${loc.name} <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:0.9rem;color:var(--text-muted);" onclick="closeBlockModal2D()"></i>`;
-    $('card-2d-desc').innerText=loc.desc;
-    $('card-2d-p12').innerText=loc.p12;
-    $('card-2d-p21').innerText=loc.p21;
-    $('card-2d-p31').innerText=loc.p31;
-    $('2d-block-info-card').classList.remove('hidden');
+    if(!loc) return;
+    activeModalLocKey = loc.key;
+
+    if($('card-2d-img')) $('card-2d-img').src = loc.img || 'https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?w=500&auto=format&fit=crop&q=80';
+    if($('card-2d-title')) $('card-2d-title').innerHTML = `${loc.name} <span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">(${buildingShortCodes[loc.key] || loc.key})</span>`;
+    if($('card-2d-desc')) $('card-2d-desc').innerText = loc.desc;
+
+    const catCfg = getCategoryConfig(loc.cat || 'academic');
+    if($('card-2d-cat')) $('card-2d-cat').innerText = catCfg.label;
+
+    // Legacy sync
+    if($('card-2d-p12')) $('card-2d-p12').innerText = loc.p12 || 'Ground Floor Facilities';
+    if($('card-2d-p21')) $('card-2d-p21').innerText = loc.p21 || '1st Floor Classrooms';
+    if($('card-2d-p31')) $('card-2d-p31').innerText = loc.p31 || '2nd Floor Laboratories';
+
+    // Show initial ground floor tab
+    switchModalFloorTab('p12');
+
+    const modal = $('2d-block-info-card');
+    if(modal) modal.classList.remove('hidden');
+
+    // Highlight corresponding sidebar item
+    document.querySelectorAll('.location-item').forEach(el => el.classList.remove('selected'));
+    const dirItem = $(`dir-item-${loc.key}`);
+    if(dirItem) {
+        dirItem.classList.add('selected');
+        dirItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 }
-function closeBlockModal2D(){ $('2d-block-info-card').classList.add('hidden'); }
 
-// Compute clean orthogonal campus pedestrian walkway path
-function computeCampusWalkwayPath(startLoc, endLoc){
-    const waypoints = [];
-    waypoints.push([startLoc.lat, startLoc.lng]);
+function switchModalFloorTab(floorCode, btnEl){
+    const loc = getLocationByKey(activeModalLocKey);
+    if(!loc) return;
 
-    // Check if they are on same side or crossing
-    const isSameLng = Math.abs(startLoc.lng - endLoc.lng) < 0.0003;
-    const midLawnLat = 26.449000;
-    const northCrossLat = 26.449450;
-    const southCrossLat = 26.448600;
+    document.querySelectorAll('.floor-tab-btn').forEach(b => b.classList.remove('active'));
+    if(btnEl) btnEl.classList.add('active');
 
-    // Pick best crossroad
-    let crossLat = midLawnLat;
-    const avgLat = (startLoc.lat + endLoc.lat) / 2;
-    if(avgLat > 26.449350) crossLat = northCrossLat;
-    else if(avgLat < 26.448800) crossLat = southCrossLat;
+    const labelEl = $('floor-tab-label');
+    const contentEl = $('card-2d-floor-content');
 
-    if(!isSameLng){
-        waypoints.push([crossLat, startLoc.lng]);
-        waypoints.push([crossLat, 80.192086]); // Central Spine
-        waypoints.push([crossLat, endLoc.lng]);
+    let floorTitle = 'Ground Floor:';
+    let floorDesc = loc.p12 || 'Ground Floor Reception & Labs';
+
+    if(floorCode === 'p21') {
+        floorTitle = '1st Floor:';
+        floorDesc = loc.p21 || '1st Floor Classrooms & Faculty Cabins';
+    } else if(floorCode === 'p31') {
+        floorTitle = '2nd Floor / Terrace:';
+        floorDesc = loc.p31 || '2nd Floor Specialized Labs';
     }
 
-    waypoints.push([endLoc.lat, endLoc.lng]);
-    return waypoints;
+    if(labelEl) labelEl.innerText = floorTitle;
+    if(contentEl) contentEl.innerText = floorDesc;
 }
 
-// Generate Turn-by-Turn step directions
-function generateTurnSteps(startLoc, endLoc, distMeters, walkMins){
-    const steps = [];
-    steps.push({ icon:'fa-person-walking', text:`Depart from <strong>${startLoc.name}</strong> (${startLoc.p12.split(' - ')[1]||'Ground Floor'}).` });
-    
-    if(Math.abs(startLoc.lng - endLoc.lng) >= 0.0003){
-        const targetSide = endLoc.lng > startLoc.lng ? 'East Academic Wing' : 'West Engineering Wing';
-        steps.push({ icon:'fa-arrow-right', text:`Walk along the connecting corridor toward Central Green Lawn Promenade.` });
-        steps.push({ icon:'fa-diamond-turn-right', text:`Cross through Central Campus Plaza toward <strong>${targetSide}</strong>.` });
+function closeBlockModal2D(){
+    const modal = $('2d-block-info-card');
+    if(modal) modal.classList.add('hidden');
+    if(activePolyHighlight) {
+        activePolyHighlight.setStyle({ weight: 1.8, color: '#243315' });
+        activePolyHighlight = null;
+    }
+    document.querySelectorAll('.location-item').forEach(el => el.classList.remove('selected'));
+    activeModalLocKey = null;
+}
+
+// Quick action buttons inside modal
+function setOriginFromModal(){
+    if(!activeModalLocKey) return;
+    const startSelect = $('route-start');
+    if(startSelect) {
+        startSelect.value = activeModalLocKey;
+        showToast('info', 'Origin Set', `${getLocationByKey(activeModalLocKey).name} set as starting point.`);
+    }
+}
+
+function setDestinationFromModal(){
+    if(!activeModalLocKey) return;
+    const endSelect = $('route-end');
+    if(endSelect) {
+        endSelect.value = activeModalLocKey;
+        drawCampusRoute();
+    }
+}
+
+function jumpTo3DFromCurrentModal(){
+    if(!activeModalLocKey) return;
+    const key = activeModalLocKey;
+    if(campusLocations[key]) {
+        switchTab('map-3d');
+        setTimeout(() => {
+            if(typeof showBlockInfo3D === 'function') {
+                showBlockInfo3D(campusLocations[key]);
+            }
+        }, 200);
     } else {
-        const dir = endLoc.lat > startLoc.lat ? 'North toward Campus Tower' : 'South toward Cafeteria & Sports Complex';
-        steps.push({ icon:'fa-arrow-up', text:`Walk along the main pedestrian corridor heading ${dir}.` });
+        showToast('info', '3D View', '3D visual perspective is loaded for primary academic blocks.');
+    }
+}
+
+function swapRouteEndpoints(){
+    const startSelect = $('route-start');
+    const endSelect   = $('route-end');
+    if(!startSelect || !endSelect) return;
+    const tmp = startSelect.value;
+    startSelect.value = endSelect.value;
+    endSelect.value = tmp;
+
+    if(activeRoutePath) {
+        drawCampusRoute();
+    }
+}
+
+// Generate Turn-by-Turn guidance steps
+function generateTurnSteps(startLoc, endLoc, pathNodes, totalDistMeters, walkTimeMins){
+    const steps = [];
+    const calories = Math.max(1, Math.round(totalDistMeters * 0.045));
+
+    steps.push({
+        icon: 'fa-person-walking',
+        text: `Depart from <strong>${startLoc.name}</strong> (${startLoc.p12 ? startLoc.p12.split(' - ')[1] || 'Ground Level Foyer' : 'Entrance'}).`,
+        dist: 0
+    });
+
+    for(let i=0; i<pathNodes.length-1; i++) {
+        const u = pathNodes[i];
+        const v = pathNodes[i+1];
+        const uNode = campusNavGraphNodes[u];
+        const vNode = campusNavGraphNodes[v];
+        if(!uNode || !vNode) continue;
+        const legDist = Math.round(distMeters(uNode.pos, vNode.pos));
+
+        let icon = 'fa-arrow-up';
+        let action = 'Proceed along';
+
+        if(u.startsWith('wg') && v.startsWith('wg')) {
+            icon = uNode.pos[0] < vNode.pos[0] ? 'fa-arrow-up' : 'fa-arrow-down';
+            action = `Walk along the weather-proof <strong>West Covered Gallery</strong> past ${vNode.name}`;
+        } else if(u.startsWith('eg') && v.startsWith('eg')) {
+            icon = uNode.pos[0] < vNode.pos[0] ? 'fa-arrow-up' : 'fa-arrow-down';
+            action = `Walk along the weather-proof <strong>East Covered Gallery</strong> past ${vNode.name}`;
+        } else if((u.startsWith('wg') && v.includes('Plaza')) || (u.includes('Plaza') && v.startsWith('eg'))) {
+            icon = 'fa-turn-right';
+            action = `Turn Right across the covered crossway toward <strong>${vNode.name}</strong>`;
+        } else if((u.startsWith('eg') && v.includes('Plaza')) || (u.includes('Plaza') && v.startsWith('wg'))) {
+            icon = 'fa-turn-left';
+            action = `Turn Left across the covered crossway toward <strong>${vNode.name}</strong>`;
+        } else if(v.includes('Lawn') || v.includes('Plaza')) {
+            icon = 'fa-compass';
+            action = `Cross through the Central Campus Promenade near <strong>${vNode.name}</strong>`;
+        } else {
+            action = `Continue along paved pathway toward <strong>${vNode.name}</strong>`;
+        }
+
+        steps.push({
+            icon: icon,
+            text: `${action} (~ ${legDist}m).`,
+            dist: legDist
+        });
     }
 
-    steps.push({ icon:'fa-flag-checkered', text:`Arrive at destination: <strong>${endLoc.name}</strong>. (${endLoc.p12.split(' - ')[1]||'Main Entrance'}).` });
+    steps.push({
+        icon: 'fa-flag-checkered',
+        text: `Arrive at destination: <strong>${endLoc.name}</strong> (${endLoc.p12 ? endLoc.p12.split(' - ')[1] || 'Main Entrance' : 'Destination Foyer'}).`,
+        dist: 0
+    });
+
     return steps;
 }
 
+// Draw Route Path on 2D Map
 function drawCampusRoute(startKeyOverride, endKeyOverride){
-    const startKey = startKeyOverride || $('route-start').value;
-    const endKey   = endKeyOverride   || $('route-end').value;
+    const startKey = startKeyOverride || ($('route-start') ? $('route-start').value : null);
+    const endKey   = endKeyOverride   || ($('route-end')   ? $('route-end').value   : null);
 
     if(!startKey || !endKey || startKey === endKey){
         $('route-info').innerHTML = `<span style="color:var(--danger); font-weight:600;"><i class="fa-solid fa-triangle-exclamation"></i> Please select two different blocks for wayfinding!</span>`;
@@ -2216,46 +3275,63 @@ function drawCampusRoute(startKeyOverride, endKeyOverride){
         return;
     }
 
-    const startLoc = campusLocations[startKey];
-    const endLoc   = campusLocations[endKey];
+    const startLoc = getLocationByKey(startKey);
+    const endLoc   = getLocationByKey(endKey);
     if(!startLoc || !endLoc) return;
 
     if(!map2D) init2DMap();
     clearCampusRoute();
 
-    // Update dropdowns
     if($('route-start')) $('route-start').value = startKey;
-    if($('route-end')) $('route-end').value = endKey;
+    if($('route-end'))   $('route-end').value   = endKey;
 
-    const waypoints = computeCampusWalkwayPath(startLoc, endLoc);
+    const startNode = locNodeMap[startKey] || 'gate';
+    const endNode   = locNodeMap[endKey]   || 'towerPlaza';
+
+    const navResult = dijkstraNav(startNode, endNode);
+    const pathNodes = navResult.path;
+
+    // Build geographic waypoints
+    const waypoints = [];
+    waypoints.push([startLoc.lat, startLoc.lng]);
+    pathNodes.forEach(nKey => {
+        const node = campusNavGraphNodes[nKey];
+        if(node) waypoints.push([node.pos[0], node.pos[1]]);
+    });
+    waypoints.push([endLoc.lat, endLoc.lng]);
+
+    // Calculate exact meters and walk time
     let totalDist = 0;
     for(let i=0; i<waypoints.length-1; i++){
-        totalDist += getDistanceInMeters(waypoints[i][0], waypoints[i][1], waypoints[i+1][0], waypoints[i+1][1]);
+        totalDist += distMeters(waypoints[i], waypoints[i+1]);
     }
-    const distInMeters = Math.max(25, Math.round(totalDist));
-    const walkTimeMins = Math.max(1, Math.ceil(distInMeters / 65));
+    const distInMeters = Math.max(20, Math.round(totalDist));
+    const walkTimeMins = Math.max(1, Math.round((distInMeters / 75) * 10) / 10);
+    const caloriesBurned = Math.max(1, Math.round(distInMeters * 0.045));
 
     // Glow line (background)
     activeRouteGlow = L.polyline(waypoints, {
         color: '#4A5D2E',
-        weight: 10,
+        weight: 12,
         opacity: 0.35,
-        lineCap: 'round'
+        lineCap: 'round',
+        lineJoin: 'round'
     }).addTo(map2D);
 
-    // Active route path
+    // Active route path with flowing animated dashes
     activeRoutePath = L.polyline(waypoints, {
-        color: '#2B4219',
+        color: '#22C55E',
         weight: 5,
         opacity: 0.95,
-        dashArray: '8, 10',
-        lineCap: 'round'
+        dashArray: '10, 14',
+        lineCap: 'round',
+        className: 'animated-route-flow'
     }).addTo(map2D);
 
-    // Start Pin Marker
+    // Origin Pin Marker
     const startPin = L.divIcon({
         className: 'route-start-pin',
-        html: `<div>🟢 Start: ${startLoc.name.split(' (')[0]}</div>`,
+        html: `<div><i class="fa-solid fa-person-walking"></i> Start: ${startLoc.name.split(' (')[0]}</div>`,
         iconSize: [130, 28],
         iconAnchor: [65, 14]
     });
@@ -2265,47 +3341,150 @@ function drawCampusRoute(startKeyOverride, endKeyOverride){
     // Destination Pin Marker
     const destPin = L.divIcon({
         className: 'route-dest-pin',
-        html: `<div>🏁 Dest: ${endLoc.name.split(' (')[0]}</div>`,
+        html: `<div><i class="fa-solid fa-flag-checkered"></i> Dest: ${endLoc.name.split(' (')[0]}</div>`,
         iconSize: [130, 28],
         iconAnchor: [65, 14]
     });
     const destMarker = L.marker([endLoc.lat, endLoc.lng], { icon: destPin }).addTo(map2D);
     activeRouteMarkers.push(destMarker);
 
-    // Turn-by-Turn Steps
-    const steps = generateTurnSteps(startLoc, endLoc, distInMeters, walkTimeMins);
+    // Steps Generation
+    const steps = generateTurnSteps(startLoc, endLoc, pathNodes, distInMeters, walkTimeMins);
     const stepsPanel = $('route-steps-panel');
     if(stepsPanel){
-        stepsPanel.innerHTML = steps.map((s, idx)=>`
-            <div class="route-step-item">
-                <div class="route-step-num">${idx+1}</div>
+        stepsPanel.innerHTML = steps.map((s, idx) => `
+            <div class="route-step-item" id="route-step-${idx}">
+                <div class="route-step-icon-wrap"><i class="fa-solid ${s.icon}"></i></div>
                 <div>${s.text}</div>
+                ${s.dist ? `<div class="route-step-dist">~ ${s.dist}m</div>` : ''}
             </div>
         `).join('');
         stepsPanel.classList.remove('hidden');
     }
 
+    // Meta bar chip telemetry
     $('route-info').innerHTML = `
-        <span class="route-meta-chip"><i class="fa-solid fa-location-dot" style="color:#16A34A;"></i> <strong>${startLoc.name.split(' (')[0]}</strong> ➔ <strong>${endLoc.name.split(' (')[0]}</strong></span>
-        <span class="route-meta-chip"><i class="fa-solid fa-person-walking" style="color:var(--accent-cyan);"></i> ~${distInMeters} meters</span>
-        <span class="route-meta-chip"><i class="fa-solid fa-stopwatch" style="color:var(--warning);"></i> ${walkTimeMins} min walk</span>
+        <div class="route-meta-chips">
+            <span class="route-meta-chip highlight"><i class="fa-solid fa-route"></i> <strong>${startLoc.name.split(' (')[0]}</strong> ➔ <strong>${endLoc.name.split(' (')[0]}</strong></span>
+            <span class="route-meta-chip"><i class="fa-solid fa-person-walking" style="color:var(--accent-cyan);"></i> ~ ${distInMeters} meters</span>
+            <span class="route-meta-chip"><i class="fa-solid fa-stopwatch" style="color:var(--warning);"></i> ~ ${walkTimeMins} min walk</span>
+            <span class="route-meta-chip"><i class="fa-solid fa-fire" style="color:var(--danger);"></i> ${caloriesBurned} kcal</span>
+            <span class="route-meta-chip covered"><i class="fa-solid fa-shield-halved"></i> Covered Gallery Path</span>
+        </div>
     `;
 
-    setTimeout(()=>{
+    // Enable walk simulation button
+    const simBtn = $('btn-simulate-walk');
+    if(simBtn) simBtn.classList.remove('hidden');
+
+    setTimeout(() => {
         if(map2D && activeRoutePath){
             map2D.invalidateSize();
-            map2D.fitBounds(activeRoutePath.getBounds(), { padding: [50, 50], maxZoom: 19 });
+            map2D.fitBounds(activeRoutePath.getBounds(), { padding: [60, 60], maxZoom: 19 });
         }
     }, 150);
 }
 
 function clearCampusRoute(){
+    stopWalkSimulation();
     if(activeRouteGlow && map2D){ map2D.removeLayer(activeRouteGlow); activeRouteGlow = null; }
     if(activeRoutePath && map2D){ map2D.removeLayer(activeRoutePath); activeRoutePath = null; }
     activeRouteMarkers.forEach(m => { if(map2D) map2D.removeLayer(m); });
     activeRouteMarkers = [];
     if($('route-steps-panel')) $('route-steps-panel').classList.add('hidden');
+    if($('btn-simulate-walk')) $('btn-simulate-walk').classList.add('hidden');
     $('route-info').innerText = "Select start and destination blocks to generate an optimized pedestrian pathway.";
+}
+
+// Interactive Walk Simulation Mode
+function toggleWalkSimulation(){
+    if(walkSimulationTimer) {
+        stopWalkSimulation();
+    } else {
+        startWalkSimulation();
+    }
+}
+
+function startWalkSimulation(){
+    if(!activeRoutePath) return;
+    const waypoints = activeRoutePath.getLatLngs();
+    if(waypoints.length < 2) return;
+
+    const simBtn = $('btn-simulate-walk');
+    if(simBtn) {
+        simBtn.classList.add('active');
+        simBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause Simulation';
+    }
+
+    if(routeWalkerMarker && map2D) map2D.removeLayer(routeWalkerMarker);
+
+    const walkerIcon = L.divIcon({
+        className: 'route-walker-pin',
+        html: '<i class="fa-solid fa-person-walking"></i>',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+    });
+
+    let currentWaypointIdx = 0;
+    routeWalkerMarker = L.marker(waypoints[0], { icon: walkerIcon }).addTo(map2D);
+
+    walkSimulationTimer = setInterval(() => {
+        currentWaypointIdx++;
+        if(currentWaypointIdx >= waypoints.length) {
+            stopWalkSimulation();
+            showToast('success', 'Destination Reached', 'Walkway navigation simulation completed!');
+            return;
+        }
+
+        const nextPoint = waypoints[currentWaypointIdx];
+        routeWalkerMarker.setLatLng(nextPoint);
+        if(map2D) map2D.panTo(nextPoint, { animate: true, duration: 0.6 });
+
+        // Highlight step in panel
+        document.querySelectorAll('.route-step-item').forEach((stepEl, idx) => {
+            if(idx === currentWaypointIdx) stepEl.classList.add('active-step');
+            else stepEl.classList.remove('active-step');
+        });
+    }, 1200);
+}
+
+function stopWalkSimulation(){
+    if(walkSimulationTimer) {
+        clearInterval(walkSimulationTimer);
+        walkSimulationTimer = null;
+    }
+    const simBtn = $('btn-simulate-walk');
+    if(simBtn) {
+        simBtn.classList.remove('active');
+        simBtn.innerHTML = '<i class="fa-solid fa-person-walking"></i> Walk Simulation';
+    }
+    if(routeWalkerMarker && map2D) {
+        map2D.removeLayer(routeWalkerMarker);
+        routeWalkerMarker = null;
+    }
+    document.querySelectorAll('.route-step-item').forEach(s => s.classList.remove('active-step'));
+}
+
+function fitCampusView(){
+    if(!map2D) return;
+    map2D.invalidateSize();
+    map2D.setView([26.449100, 80.192086], 18, { animate: true });
+}
+
+function toggleMapFullscreen(){
+    const mapWrapper = document.querySelector('.map-wrapper');
+    if(!mapWrapper) return;
+    if(document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        mapWrapper.requestFullscreen().catch(() => {});
+    }
+    setTimeout(() => { if(map2D) map2D.invalidateSize(); }, 200);
+}
+
+function toggleMapLegend(){
+    const legendCard = $('map-legend-card');
+    if(legendCard) legendCard.classList.toggle('hidden');
 }
 
 function getDistanceInMeters(lat1, lon1, lat2, lon2){
@@ -2320,10 +3499,10 @@ function getDistanceInMeters(lat1, lon1, lat2, lon2){
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
-// Function triggered by AI Chat route buttons
+// Function triggered by AI Chat route buttons (preserved compatibility)
 function drawRouteFromChat(startKey, endKey){
     switchTab('navigation');
-    setTimeout(()=>{
+    setTimeout(() => {
         drawCampusRoute(startKey, endKey);
     }, 200);
 }
