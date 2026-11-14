@@ -157,10 +157,11 @@ The portal features a built-in authentication system with role-based access:
 
 ## 🛠️ Technology Stack
 
-- **Frontend Core:** HTML5, Modern CSS3 (Variables, Flexbox, Grid, Backdrop Filters), Vanilla JavaScript (ES6+)
+- **Design Architecture:** VisionOS Spatial Liquid Glass (Multi-depth acrylic blurs, luminescent specular edges, concentric border radiuses, tactile press states, and zero generic AI templates)
+- **Frontend Core:** HTML5, Modern CSS3 (Backdrop Filters, Specular Highlights, Glassmorphism, CSS Custom Properties), Vanilla JavaScript (ES6+)
 - **GIS Cartography:** [Leaflet.js 1.9.4](https://leafletjs.com/) with Esri World Imagery & Carto Basemaps
 - **3D Graphics Engine:** [Three.js r128](https://threejs.org/) + OrbitControls
-- **Icons & Typography:** [FontAwesome 6.4](https://fontawesome.com/), Google Fonts (*Playfair Display*, *Inter*)
+- **Icons & Typography:** [FontAwesome 6.4](https://fontawesome.com/), Google Fonts (*Outfit*, *Plus Jakarta Sans*, *Inter*)
 
 ---
 
