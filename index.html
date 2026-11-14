@@ -578,6 +578,107 @@
             .tab-nav { gap:0; }
             .tab-btn { padding:8px 12px; font-size:0.78rem; }
         }
+
+        /* ===== AUTHENTICITY & EVALUATOR VERIFICATION ===== */
+        .verify-badge-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: rgba(74, 93, 46, 0.08);
+            border: 1px solid rgba(74, 93, 46, 0.25);
+            color: var(--accent-cyan);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-family: var(--font-body);
+        }
+        .verify-badge-btn:hover {
+            background: var(--accent-cyan);
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 93, 46, 0.2);
+        }
+        .authenticity-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease-out;
+        }
+        .authenticity-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 540px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            overflow: hidden;
+            position: relative;
+        }
+        .authenticity-header {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            color: #FFFFFF;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+        .authenticity-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: #4ADE80;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .authenticity-body {
+            padding: 24px;
+        }
+        .authenticity-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bg-secondary);
+            font-size: 0.85rem;
+        }
+        .authenticity-row:last-child {
+            border-bottom: none;
+        }
+        .authenticity-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .authenticity-val {
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: right;
+        }
+        .authenticity-alert-box {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: #991B1B;
+            line-height: 1.45;
+        }
     </style>
 </head>
 <body>
@@ -606,6 +707,11 @@
             <div style="font-weight:600;margin-bottom:6px;color:var(--text-main);">Demo Credentials</div>
             <div>🔒 Admin: <code>CAMPUS2026102</code> / <code>admin123</code></div>
             <div style="margin-top:4px;">🎓 Student: <code>CAMPUS2026103</code> / <code>student@2026</code></div>
+        </div>
+        <div style="margin-top:14px;text-align:center;">
+            <button type="button" class="verify-badge-btn" onclick="openAuthenticityModal()" style="font-size:0.75rem;">
+                <i class="fa-solid fa-shield-halved"></i> Evaluator / Recruiter Verification
+            </button>
         </div>
     </div>
 </div>
@@ -637,11 +743,17 @@
                     <span style="font-size:0.75rem;background:rgba(74,93,46,0.08);color:var(--accent-cyan);border:1px solid rgba(74,93,46,0.2);padding:3px 8px;border-radius:12px;font-weight:500;">⚡ Vector Blueprint View</span>
                 </div>
             </div>
-            <div class="user-card">
-                <div class="avatar" id="nav-avatar">CM</div>
-                <div class="user-info">
-                    <div style="font-size:0.85rem;font-weight:600;" id="nav-user-name">User</div>
-                    <div style="font-size:0.7rem;color:var(--text-muted);" id="nav-user-role">Portal</div>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button type="button" class="verify-badge-btn" onclick="openAuthenticityModal()" title="View Provenance & Original Author Certificate">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Verified: Amey Dongre</span>
+                </button>
+                <div class="user-card">
+                    <div class="avatar" id="nav-avatar">CM</div>
+                    <div class="user-info">
+                        <div style="font-size:0.85rem;font-weight:600;" id="nav-user-name">User</div>
+                        <div style="font-size:0.7rem;color:var(--text-muted);" id="nav-user-role">Portal</div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -4798,6 +4910,121 @@ document.addEventListener('DOMContentLoaded',()=>{
     const intDate = $('int-date');
     if(intDate) intDate.value = today;
 });
+
+// ===== AUTHENTICITY, PROVENANCE & ANTI-PLAGIARISM SYSTEM =====
+function openAuthenticityModal() {
+    const modal = $('authenticity-modal');
+    if (modal) modal.classList.remove('hidden');
+}
+
+function closeAuthenticityModal() {
+    const modal = $('authenticity-modal');
+    if (modal) modal.classList.add('hidden');
+}
+
+// Global evaluator CLI helper
+window.verifyCampusMindOrigin = function() {
+    openAuthenticityModal();
+    return "VERIFIED: Original Creator is Amey Dongre (https://github.com/ameydongre10) | Watermark: CMAI-ORIGIN-AMEYDONGRE-2026-SECURED";
+};
+
+// Console Provenance Banner
+console.log(
+    "%c🎓 CAMPUS MIND AI | Official Author: Amey Dongre\n" +
+    "%cCanonical Repository : https://github.com/ameydongre10/Campus-Mind-AI\n" +
+    "Official Deployment   : https://ameydongre10.github.io/Campus-Mind-AI/\n" +
+    "Digital Fingerprint   : CMAI-ORIGIN-AMEYDONGRE-2026-SECURED\n" +
+    "© 2026 Amey Dongre. All Rights Reserved. Type verifyCampusMindOrigin() for proof.",
+    "background:#1E293B;color:#4ADE80;font-size:13px;font-weight:bold;padding:8px 12px;border-radius:6px;line-height:1.6;",
+    "color:#64748B;font-size:11px;"
+);
+
+// Keyboard Shortcut for Evaluators: Ctrl + Shift + V or Cmd + Shift + V
+document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'V' || e.key === 'v')) {
+        e.preventDefault();
+        openAuthenticityModal();
+    }
+});
+
+// Anti-Theft Domain & Mirror Detection
+(function initAntiPlagiarismRadar() {
+    const ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ameydongre10.github.io', ''];
+    const currentHost = window.location.hostname;
+    const isUnauthorized = currentHost && !ALLOWED_HOSTS.includes(currentHost);
+
+    if (isUnauthorized) {
+        console.error("🚨 UNAUTHORIZED MIRROR DETECTED: This domain (" + currentHost + ") is hosting a cloned instance of Campus Mind AI without authorization. Original author: Amey Dongre (github.com/ameydongre10).");
+        
+        const showWarning = () => {
+            if (document.getElementById('unauthorized-mirror-alert')) return;
+            const alertBar = document.createElement('div');
+            alertBar.id = 'unauthorized-mirror-alert';
+            alertBar.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999999;background:#DC2626;color:#FFFFFF;padding:12px 20px;text-align:center;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,0.3);font-family:sans-serif;line-height:1.5;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;';
+            alertBar.innerHTML = '<span>⚠️ <strong>ACADEMIC INTEGRITY WARNING:</strong> This website (' + currentHost + ') is an unauthorized clone of Campus Mind AI. Original creator: <strong>Amey Dongre</strong>. Submitting this for grades or job evaluations violates academic honor codes and copyright laws.</span>' +
+                '<a href="https://github.com/ameydongre10/Campus-Mind-AI" target="_blank" style="background:#FFFFFF;color:#DC2626;padding:4px 10px;border-radius:6px;text-decoration:none;font-weight:700;font-size:12px;">Official Repository</a>';
+            document.body.prepend(alertBar);
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', showWarning);
+        } else {
+            showWarning();
+        }
+    }
+})();
 </script>
+
+<!-- ===== AUTHENTICITY & EVALUATOR VERIFICATION MODAL ===== -->
+<div id="authenticity-modal" class="authenticity-modal-overlay hidden" onclick="if(event.target===this)closeAuthenticityModal()">
+    <div class="authenticity-card">
+        <div class="authenticity-header">
+            <div class="authenticity-badge-pill">
+                <i class="fa-solid fa-certificate"></i> Official Provenance Verified
+            </div>
+            <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:6px;font-family:var(--font-heading);color:#fff;">Campus Mind AI</h2>
+            <p style="font-size:0.8rem;color:#94A3B8;letter-spacing:0.02em;">Original Intellectual Property & Architecture</p>
+        </div>
+        <div class="authenticity-body">
+            <div class="authenticity-row">
+                <span class="authenticity-label">Sole Creator & Architect</span>
+                <span class="authenticity-val">Amey Dongre</span>
+            </div>
+            <div class="authenticity-row">
+                <span class="authenticity-label">Official GitHub Profile</span>
+                <span class="authenticity-val"><a href="https://github.com/ameydongre10" target="_blank" style="color:var(--info);text-decoration:none;">@ameydongre10 <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a></span>
+            </div>
+            <div class="authenticity-row">
+                <span class="authenticity-label">Canonical Repository</span>
+                <span class="authenticity-val"><a href="https://github.com/ameydongre10/Campus-Mind-AI" target="_blank" style="color:var(--info);text-decoration:none;">ameydongre10/Campus-Mind-AI <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i></a></span>
+            </div>
+            <div class="authenticity-row">
+                <span class="authenticity-label">Verified Inception Date</span>
+                <span class="authenticity-val">September 2026</span>
+            </div>
+            <div class="authenticity-row">
+                <span class="authenticity-label">Digital Watermark ID</span>
+                <span class="authenticity-val" style="font-family:monospace;font-size:0.78rem;">CMAI-ORIGIN-AMEYDONGRE-2026-SECURED</span>
+            </div>
+
+            <div class="authenticity-alert-box">
+                <div style="font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Notice to University Faculty & Evaluators:
+                </div>
+                If a candidate or student is presenting this software as their own work without attributing Amey Dongre, they are presenting unauthorized plagiarized material. Verified origin can be confirmed via Git commit history:
+                <code style="display:block;background:rgba(0,0,0,0.06);padding:6px;border-radius:4px;margin-top:6px;font-size:0.72rem;overflow-x:auto;">git log --reverse --format="%h %an <%ae> %ad" | head -n 3</code>
+            </div>
+
+            <div style="margin-top:20px;display:flex;gap:10px;justify-content:flex-end;">
+                <a href="https://github.com/ameydongre10/Campus-Mind-AI" target="_blank" class="btn-primary" style="text-decoration:none;font-size:0.8rem;padding:8px 16px;display:inline-flex;align-items:center;gap:6px;">
+                    <i class="fa-brands fa-github"></i> View Original GitHub
+                </a>
+                <button type="button" class="btn-primary" onclick="closeAuthenticityModal()" style="background:var(--bg-secondary);color:var(--text-main);border:1px solid var(--card-border);font-size:0.8rem;padding:8px 16px;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

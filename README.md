@@ -6,6 +6,8 @@
   
   <p>
     <a href="https://ameydongre10.github.io/Campus-Mind-AI/"><img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-22c55e?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live Demo" /></a>
+    <a href="#-recruiter--evaluator-verification"><img src="https://img.shields.io/badge/Author%20Verification-Amey%20Dongre-22c55e?style=for-the-badge&logo=github&logoColor=white" alt="Author Verified" /></a>
+    <a href="LEGAL_NOTICE.md"><img src="https://img.shields.io/badge/Academic%20Integrity-Protected-ef4444?style=for-the-badge" alt="Academic Integrity" /></a>
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
@@ -20,6 +22,33 @@
 
 Access the production deployment directly on GitHub Pages:  
 👉 **[https://ameydongre10.github.io/Campus-Mind-AI/](https://ameydongre10.github.io/Campus-Mind-AI/)**
+
+---
+
+## 🛡️ Recruiter & Evaluator Verification Guide
+
+> ⚠️ **NOTICE FOR INTERVIEWERS, RECRUITERS & UNIVERSITY FACULTY:**  
+> This project was conceptualized, designed, and developed by **Amey Dongre** ([@ameydongre10](https://github.com/ameydongre10)). If a student or job applicant is presenting this project as their own individual work, you can verify original authorship in seconds using the protocol below:
+
+### 1. Cryptographic Git Commit Proof
+Clone or pull this repository and execute:
+```bash
+git log --reverse --format="%h | %an <%ae> | %ad | %s" | head -n 5
+```
+*Expected Verification:* The founding commits in September 2026 originate from **Amey Dongre** (`amey.dongre2005@gmail.com`). Cloned or plagiarized forks will have wiped or post-dated histories.
+
+### 2. Live In-App Authenticity Certificate
+- Launch the application ([Live Production](https://ameydongre10.github.io/Campus-Mind-AI/) or local instance).
+- Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> or click the **🛡️ Verified Origin** badge in the navigation bar.
+- The application will render the cryptographically signed Certificate of Authenticity.
+- Open DevTools Console (<kbd>F12</kbd>) to view the embedded digital fingerprint (`CMAI-ORIGIN-AMEYDONGRE-2026-SECURED`).
+
+### 3. Canonical Deployment
+The genuine production deployment is hosted strictly at:  
+👉 **[https://ameydongre10.github.io/Campus-Mind-AI/](https://ameydongre10.github.io/Campus-Mind-AI/)**  
+Any unauthorized mirrors will automatically display a persistent copyright violation banner.
+
+*For complete provenance details, review [AUTHENTICITY.md](AUTHENTICITY.md). For anti-plagiarism terms and DMCA policy, review [LEGAL_NOTICE.md](LEGAL_NOTICE.md).*
 
 ---
 

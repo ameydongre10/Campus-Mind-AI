@@ -1,6 +1,6 @@
-MIT License
+MIT License (with Academic Integrity & Anti-Plagiarism Rider)
 
-Copyright (c) 2026 amey dongre
+Copyright (c) 2026 Amey Dongre (https://github.com/ameydongre10)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -11,6 +11,18 @@ furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
+ACADEMIC INTEGRITY & ANTI-PLAGIARISM RIDER:
+1. Under no circumstances may this software, codebase, or architectural design
+   be presented, submitted, or represented as the original work of any person
+   other than Amey Dongre for academic examinations, college vivas, degree
+   evaluations, hackathons, or professional technical interviews.
+2. Any public fork, mirror, or distribution must prominently display the original
+   author name (Amey Dongre) and link to the canonical repository:
+   https://github.com/ameydongre10/Campus-Mind-AI
+3. Violation of these terms terminates all permissions granted herein and constitutes
+   willful copyright infringement and academic fraud subject to immediate DMCA takedown
+   and reporting to institutional ethics boards.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,

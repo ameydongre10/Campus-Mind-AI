@@ -1,0 +1,53 @@
+name: Plagiarism & Fork Radar
+
+on:
+  schedule:
+    - cron: '0 4 * * 1' # Runs every Monday at 04:00 UTC
+  workflow_dispatch: # Can be triggered manually anytime
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  scan-unauthorized-copies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Scan GitHub for Plagiarized Code
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "======================================================"
+          echo "🔍 Scanning GitHub for unauthorized copies..."
+          echo "======================================================"
+
+          WATERMARK="CMAI-ORIGIN-AMEYDONGRE-2026-SECURED"
+          ENCODED_QUERY=$(python3 -c "import urllib.parse; print(urllib.parse.quote('\"$WATERMARK\" NOT user:ameydongre10'))")
+
+          RESPONSE=$(curl -s -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/search/code?q=${ENCODED_QUERY}")
+
+          TOTAL_COUNT=$(echo "$RESPONSE" | jq -r '.total_count // 0')
+          echo "Found $TOTAL_COUNT external repositories matching fingerprint."
+
+          if [ "$TOTAL_COUNT" -gt "0" ]; then
+            echo "⚠️ ALERT: Potential copied repository detected!"
+            echo "$RESPONSE" | jq -r '.items[] | "Repository: \(.repository.full_name) | File: \(.html_url)"' > matches.txt
+            cat matches.txt
+
+            # Create an issue on this repo alerting the author
+            gh issue create --title "🚨 Plagiarism Alert: $TOTAL_COUNT unauthorized copy found" \
+              --body "The automated Plagiarism Radar detected potential unauthorized copies of Campus Mind AI containing your unique watermark fingerprint:
+
+\`\`\`
+$(cat matches.txt)
+\`\`\`
+
+Review the infringing repository and initiate a takedown using [DMCA_TAKEDOWN_TEMPLATE.md](DMCA_TAKEDOWN_TEMPLATE.md) if appropriate."
+          else
+            echo "✅ No unauthorized duplicates detected. Codebase integrity is clean."
+          fi
